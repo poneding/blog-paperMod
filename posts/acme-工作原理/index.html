@@ -8,16 +8,16 @@
 <meta name=keywords content="ACME,SSL">
 <meta name=description content="转载自：https://baijiahao.baidu.com/s?id=1718543569967913534 不知道小伙伴们注意到没有，现">
 <meta name=author content="丁鹏">
-<link rel=canonical href=https://poneding.com/posts/acme-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/>
+<link rel=canonical href=https://blog.poneding.com/posts/acme-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/>
 <meta name=baidu-site-verification content="code-yW1u8Rg4sz">
 <meta name=google-site-verification content="qnXhMaPNdhaZ4A36ptMVUn-0o111dAsJqugH_0ZCYvM">
 <link crossorigin=anonymous href=/assets/css/stylesheet.e885a03929d345922e032bc3e661c94c00cedb52c10d75afe2642bd4071375a8.css integrity="sha256-6IWgOSnTRZIuAyvD5mHJTADO21LBDXWv4mQr1AcTdag=" rel="preload stylesheet" as=style>
 <script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script>
-<link rel=icon href=https://poneding.com/images/blog.png>
-<link rel=icon type=image/png sizes=16x16 href=https://poneding.com/images/blog.png>
-<link rel=icon type=image/png sizes=32x32 href=https://poneding.com/images/blog.png>
-<link rel=apple-touch-icon href=https://poneding.com/images/blog.png>
-<link rel=mask-icon href=https://poneding.com/images/blog.png>
+<link rel=icon href=https://blog.poneding.com/images/blog.png>
+<link rel=icon type=image/png sizes=16x16 href=https://blog.poneding.com/images/blog.png>
+<link rel=icon type=image/png sizes=32x32 href=https://blog.poneding.com/images/blog.png>
+<link rel=apple-touch-icon href=https://blog.poneding.com/images/blog.png>
+<link rel=mask-icon href=https://blog.poneding.com/images/blog.png>
 <meta name=theme-color content="#2e2e33">
 <meta name=msapplication-TileColor content="#2e2e33">
 <noscript>
@@ -27,23 +27,23 @@
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="ACME 工作原理">
 <meta property="og:description" content="转载自：https://baijiahao.baidu.com/s?id=1718543569967913534 不知道小伙伴们注意到没有，现">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://poneding.com/posts/acme-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/"><meta property="og:image" content="https://poneding.com/cover.png"><meta property="article:section" content="posts">
+<meta property="og:url" content="https://blog.poneding.com/posts/acme-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/"><meta property="og:image" content="https://blog.poneding.com/cover.png"><meta property="article:section" content="posts">
 <meta property="article:published_time" content="2022-11-21T10:03:43+00:00">
 <meta property="article:modified_time" content="2022-11-21T10:07:19+00:00"><meta property="og:site_name" content="博客">
 <meta name=twitter:card content="summary_large_image">
-<meta name=twitter:image content="https://poneding.com/cover.png">
+<meta name=twitter:image content="https://blog.poneding.com/cover.png">
 <meta name=twitter:title content="ACME 工作原理">
 <meta name=twitter:description content="转载自：https://baijiahao.baidu.com/s?id=1718543569967913534 不知道小伙伴们注意到没有，现">
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"文章","item":"https://poneding.com/posts/"},{"@type":"ListItem","position":2,"name":"ACME 工作原理","item":"https://poneding.com/posts/acme-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"ACME 工作原理","name":"ACME 工作原理","description":"转载自：https://baijiahao.baidu.com/s?id=1718543569967913534 不知道小伙伴们注意到没有，现","keywords":["ACME","SSL"],"articleBody":" 转载自：https://baijiahao.baidu.com/s?id=1718543569967913534\n 不知道小伙伴们注意到没有，现在我们访问大多数网站的时候，他们的网站前面都会显示一个HTTPS的字样，这就代表该网站是使用的SSL证书加密的。而SSL证书是需要权威的专门机构颁发的，那么这个颁发过程又是怎样的呢？怎样颁发才能更加高效便捷、省心省力呢？今天，我们就来详细聊聊ACME协议。正是它，大大简化了我们的SSL证书管理。\n在本篇文章中，首先我们会介绍一下HTTPS的加密传输过程，以便于为理解后面的知识扫清障碍；其次会通过了解传统人工的SSL证书管理方式来理解为什么我们需要使用ACME协议；最后详细解读一下ACME协议是如何工作的。\nHTTPS的加密传输过程 当我们通过浏览器访问某一网站时，通常分为两种形式，一种是HTTP明文传输，一种是HTTPS加密传输。也就是说，用HTTP的时候我们与网站之间发送和接收的数据都是原模原样地在互联网上流通的；而用HTTPS的时候无论是我们向网站发送的数据还是网站向我们发送的数据，都是经过特殊的手段加密的，其中涉及非对称加密和对称加密。\n通俗地讲，在对称加密中，加密和解密都是用同一把钥匙；而在非对称加密中有公钥和私钥两把钥匙，并且用公钥加密的数据是不能用公钥自身解密的，只能用私钥进行解密，理解这两点很重要。当然，我们这里所说的钥匙都是以数据或文件的形式存在的。\n在一台已经配好HTTPS访问的网站服务器上会有两个至关重要的文件，一个是私钥文件，一个是SSL证书。而在这个SSL证书中就包含了由私钥文件生成的公钥。接下来，我们就来看一下这个整体过程。\n当用户通过HTTPS访问网站时，网站会向用户的浏览器发送一个SSL证书。在用户浏览器收到SSL证书后，会通过系统内置的权威颁发机构名单来核实证书的可靠、可信度。这份名单是操作系统内置的，真实性、可靠性毋庸置疑。安全！\n一旦确认可信，用户浏览器就会生成一串只有自己知道的明文A，并用SSL证书中包含的公钥通过非对称加密将其加密成密文B，并将密文B发送给网站服务器。注意，由于这里采取的是非对称加密，所以密文B在传输中即使被截获也无法解密，只能用网站服务器手里的私钥解密。安全！\n在网站服务器收到密文B后，就会用自己手上私钥文件将其解密还原成明文A。至此，用户浏览器和网站服务器手上都拿到了明文A，而且只有他们两者知道。安全！\n接下来，网站服务器和用户浏览器就会用这个统一的明文A作为密钥，对所有传输数据做对称加密和解密。安全！\n以上只是HTTPS加密传输的整体过程，其中还有很多细节，不是我们今天讨论的重点，有兴趣的小伙伴可以做进一步了解。\n传统人工的SSL证书管理方式 在了解了HTTPS加密传输以后，我们发现：这个过程的关键环节就是第一步，也就是证书的可靠性。因为如果证书都不可靠的话，以后还有什么安全可言呢。所以，网站管理者的首要工作就是向权威颁发机构申请一个SSL证书，并且在网站服务器上做好相应配置。我们来看看网站管理者需要做的工作。\n发起一个SSL证书颁发申请。在这一步，我们需要向证书颁发机构提交我们的域名，以表明我们想为哪个域名申请SSL证书。\n证明自己是这个域名的拥有者。在这一步，一旦我们向权威颁发机构证明了自己确实是这个域名的拥有者，他们就会为我们颁发一个SSL证书。\n获取证书并在网站服务器做好相应配置。首先，我们需要权威机构颁发SSL证书获取下来，然后在网站服务器上做好相应配置。其次，由于我们的SSL证书通常只在某一个时间段内有效，所以网站管理员要时刻记住在证书到期之前从新重复之前的整个证书获取过程，这是很耗时也很容易忘记的。\nACME协议是如何工作的 正是由于以上人工管理SSL证书的的诸多不变，催生了ACME协议的诞生，它使我们能够在没有任何人为干预的情况下，从证书颁发机构即时获取证书。ACME协议是由著名的Let’s Encrypt开发的，它是一个免费的证书颁发机构。ACME协议有两个关键部分，一个是ACME客户端，一个是ACME服务端。ACME服务端是一个证书颁发机构，能够自动颁发签名证书。比如，Let’s Encrypt就是一个ACME服务端。ACME客户端通常在web服务器上运行，它向ACME服务端证明web服务器确实控制了它想要获取证书的域名。一旦证明了这一点，ACME客户端就可以请求、续签和吊销证书。\n创建一个账户。ACME客户端使用ACME协议创建一个账户。首先，ACME客户端要生成一个密钥对，然后向ACME服务端发送一个帐户创建请求。这个帐户创建请求将包含生成的公钥，并将使用生成的私钥对其进行签名。因此，这个私钥实际上将用于对所有ACME客户端请求进行签名。也就是说，这是ACME服务端识别ACME客户端的方式。当然，这个帐户创建请求也可以包含联系人信息。例如，如果此帐户存在任何问题，可以使用电子邮件地址通知管理员。请注意，帐户的创建步骤只需执行一次。因此，一旦ACME客户端在ACME服务端创建了一个帐户，就可以开始执行证书管理操作了。\n验证所有权。首先，ACME客户端向服务端发送一个请求，该请求表明ACME客户端希望为其获取证书的域名。接下来，ACME服务端将向客户端提供一些验证来响应此请求，以证明web服务器确实控制着某个域名。ACME服务端可能会要求ACME客户端在特定位置提供具有特定内容的HTTP资源，或者要求它提供具有特定内容的DNS记录。ACME客户端只需要响应其中一个验证，就可以证明域名的所有权。如果确实如此，那么ACME服务端就知道web服务器确实是该域名的拥有者。\n颁发证书。一旦ACME客户端成功地证明了域名的所有权，它就会生成一个密钥对，也就是私钥和公钥，而公钥则会用于生成一个证书签名请求，并将证书签名请求发送到ACME服务端。同样，整个请求都是使用ACME客户端的帐户私钥签名的。因此，ACME服务端随后将验证签名。而且，如果一切正常，它将继续发出签名证书，然后ACME客户端可以下载该证书。\n最后，请记住签名证书仅在一定时间段内有效。当然，当需要续订证书时，我们刚才看到的请求证书的过程也可以用于续订证书。而且，整个证书管理过程实际上可以完全自动化！因此，ACME客户端可用于请求和续订证书，而整个过程都是自动的，不需要任何人为干预，这显然比传统的证书管理简单得多！\n","wordCount":"2629","inLanguage":"zh","datePublished":"2022-11-21T10:03:43.237Z","dateModified":"2022-11-21T10:07:19.066Z","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://poneding.com/posts/acme-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://poneding.com/images/blog.png"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"文章","item":"https://blog.poneding.com/posts/"},{"@type":"ListItem","position":2,"name":"ACME 工作原理","item":"https://blog.poneding.com/posts/acme-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"ACME 工作原理","name":"ACME 工作原理","description":"转载自：https://baijiahao.baidu.com/s?id=1718543569967913534 不知道小伙伴们注意到没有，现","keywords":["ACME","SSL"],"articleBody":" 转载自：https://baijiahao.baidu.com/s?id=1718543569967913534\n 不知道小伙伴们注意到没有，现在我们访问大多数网站的时候，他们的网站前面都会显示一个HTTPS的字样，这就代表该网站是使用的SSL证书加密的。而SSL证书是需要权威的专门机构颁发的，那么这个颁发过程又是怎样的呢？怎样颁发才能更加高效便捷、省心省力呢？今天，我们就来详细聊聊ACME协议。正是它，大大简化了我们的SSL证书管理。\n在本篇文章中，首先我们会介绍一下HTTPS的加密传输过程，以便于为理解后面的知识扫清障碍；其次会通过了解传统人工的SSL证书管理方式来理解为什么我们需要使用ACME协议；最后详细解读一下ACME协议是如何工作的。\nHTTPS的加密传输过程 当我们通过浏览器访问某一网站时，通常分为两种形式，一种是HTTP明文传输，一种是HTTPS加密传输。也就是说，用HTTP的时候我们与网站之间发送和接收的数据都是原模原样地在互联网上流通的；而用HTTPS的时候无论是我们向网站发送的数据还是网站向我们发送的数据，都是经过特殊的手段加密的，其中涉及非对称加密和对称加密。\n通俗地讲，在对称加密中，加密和解密都是用同一把钥匙；而在非对称加密中有公钥和私钥两把钥匙，并且用公钥加密的数据是不能用公钥自身解密的，只能用私钥进行解密，理解这两点很重要。当然，我们这里所说的钥匙都是以数据或文件的形式存在的。\n在一台已经配好HTTPS访问的网站服务器上会有两个至关重要的文件，一个是私钥文件，一个是SSL证书。而在这个SSL证书中就包含了由私钥文件生成的公钥。接下来，我们就来看一下这个整体过程。\n当用户通过HTTPS访问网站时，网站会向用户的浏览器发送一个SSL证书。在用户浏览器收到SSL证书后，会通过系统内置的权威颁发机构名单来核实证书的可靠、可信度。这份名单是操作系统内置的，真实性、可靠性毋庸置疑。安全！\n一旦确认可信，用户浏览器就会生成一串只有自己知道的明文A，并用SSL证书中包含的公钥通过非对称加密将其加密成密文B，并将密文B发送给网站服务器。注意，由于这里采取的是非对称加密，所以密文B在传输中即使被截获也无法解密，只能用网站服务器手里的私钥解密。安全！\n在网站服务器收到密文B后，就会用自己手上私钥文件将其解密还原成明文A。至此，用户浏览器和网站服务器手上都拿到了明文A，而且只有他们两者知道。安全！\n接下来，网站服务器和用户浏览器就会用这个统一的明文A作为密钥，对所有传输数据做对称加密和解密。安全！\n以上只是HTTPS加密传输的整体过程，其中还有很多细节，不是我们今天讨论的重点，有兴趣的小伙伴可以做进一步了解。\n传统人工的SSL证书管理方式 在了解了HTTPS加密传输以后，我们发现：这个过程的关键环节就是第一步，也就是证书的可靠性。因为如果证书都不可靠的话，以后还有什么安全可言呢。所以，网站管理者的首要工作就是向权威颁发机构申请一个SSL证书，并且在网站服务器上做好相应配置。我们来看看网站管理者需要做的工作。\n发起一个SSL证书颁发申请。在这一步，我们需要向证书颁发机构提交我们的域名，以表明我们想为哪个域名申请SSL证书。\n证明自己是这个域名的拥有者。在这一步，一旦我们向权威颁发机构证明了自己确实是这个域名的拥有者，他们就会为我们颁发一个SSL证书。\n获取证书并在网站服务器做好相应配置。首先，我们需要权威机构颁发SSL证书获取下来，然后在网站服务器上做好相应配置。其次，由于我们的SSL证书通常只在某一个时间段内有效，所以网站管理员要时刻记住在证书到期之前从新重复之前的整个证书获取过程，这是很耗时也很容易忘记的。\nACME协议是如何工作的 正是由于以上人工管理SSL证书的的诸多不变，催生了ACME协议的诞生，它使我们能够在没有任何人为干预的情况下，从证书颁发机构即时获取证书。ACME协议是由著名的Let’s Encrypt开发的，它是一个免费的证书颁发机构。ACME协议有两个关键部分，一个是ACME客户端，一个是ACME服务端。ACME服务端是一个证书颁发机构，能够自动颁发签名证书。比如，Let’s Encrypt就是一个ACME服务端。ACME客户端通常在web服务器上运行，它向ACME服务端证明web服务器确实控制了它想要获取证书的域名。一旦证明了这一点，ACME客户端就可以请求、续签和吊销证书。\n创建一个账户。ACME客户端使用ACME协议创建一个账户。首先，ACME客户端要生成一个密钥对，然后向ACME服务端发送一个帐户创建请求。这个帐户创建请求将包含生成的公钥，并将使用生成的私钥对其进行签名。因此，这个私钥实际上将用于对所有ACME客户端请求进行签名。也就是说，这是ACME服务端识别ACME客户端的方式。当然，这个帐户创建请求也可以包含联系人信息。例如，如果此帐户存在任何问题，可以使用电子邮件地址通知管理员。请注意，帐户的创建步骤只需执行一次。因此，一旦ACME客户端在ACME服务端创建了一个帐户，就可以开始执行证书管理操作了。\n验证所有权。首先，ACME客户端向服务端发送一个请求，该请求表明ACME客户端希望为其获取证书的域名。接下来，ACME服务端将向客户端提供一些验证来响应此请求，以证明web服务器确实控制着某个域名。ACME服务端可能会要求ACME客户端在特定位置提供具有特定内容的HTTP资源，或者要求它提供具有特定内容的DNS记录。ACME客户端只需要响应其中一个验证，就可以证明域名的所有权。如果确实如此，那么ACME服务端就知道web服务器确实是该域名的拥有者。\n颁发证书。一旦ACME客户端成功地证明了域名的所有权，它就会生成一个密钥对，也就是私钥和公钥，而公钥则会用于生成一个证书签名请求，并将证书签名请求发送到ACME服务端。同样，整个请求都是使用ACME客户端的帐户私钥签名的。因此，ACME服务端随后将验证签名。而且，如果一切正常，它将继续发出签名证书，然后ACME客户端可以下载该证书。\n最后，请记住签名证书仅在一定时间段内有效。当然，当需要续订证书时，我们刚才看到的请求证书的过程也可以用于续订证书。而且，整个证书管理过程实际上可以完全自动化！因此，ACME客户端可用于请求和续订证书，而整个过程都是自动的，不需要任何人为干预，这显然比传统的证书管理简单得多！\n","wordCount":"2629","inLanguage":"zh","datePublished":"2022-11-21T10:03:43.237Z","dateModified":"2022-11-21T10:07:19.066Z","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.poneding.com/posts/acme-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://blog.poneding.com/images/blog.png"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://poneding.com/ accesskey=h title="博客 (Alt + H)">
-<img src=https://poneding.com/images/blog.png alt aria-label=logo height=25>博客</a>
+<a href=https://blog.poneding.com/ accesskey=h title="博客 (Alt + H)">
+<img src=https://blog.poneding.com/images/blog.png alt aria-label=logo height=25>博客</a>
 <div class=logo-switches>
 <button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
@@ -51,25 +51,25 @@
 </div>
 <ul id=menu>
 <li>
-<a href=https://poneding.com/posts/ title=文章>
+<a href=https://blog.poneding.com/posts/ title=文章>
 <span class=active>
 <i class="fi fi-book"></i>&nbsp;文章</span>
 </a>
 </li>
 <li>
-<a href=https://poneding.com/series/ title=系列>
+<a href=https://blog.poneding.com/series/ title=系列>
 <span>
 <i class="fi fi-series"></i>&nbsp;系列</span>
 </a>
 </li>
 <li>
-<a href=https://poneding.com/tags/ title=标签>
+<a href=https://blog.poneding.com/tags/ title=标签>
 <span>
 <i class="fi fi-tags"></i>&nbsp;标签</span>
 </a>
 </li>
 <li>
-<a href=https://poneding.com/archives/ title=归档>
+<a href=https://blog.poneding.com/archives/ title=归档>
 <span>
 <i class="fi fi-folder"></i>&nbsp;归档</span>
 </a>
@@ -102,7 +102,7 @@
 <div class=post-left-article>
 <header class=post-header>
 <div class=breadcrumbs><p>
-<span><a href=/><i class="fi fi-home"></i>&nbsp;主页</a></span><span><i class="fi fi-angle-right"></i><a href=https://poneding.com/posts/>文章</a></span><i class="fi fi-angle-right"></i><span>ACME 工作原理</span>
+<span><a href=/><i class="fi fi-home"></i>&nbsp;主页</a></span><span><i class="fi fi-angle-right"></i><a href=https://blog.poneding.com/posts/>文章</a></span><i class="fi fi-angle-right"></i><span>ACME 工作原理</span>
 </p>
 </div>
 <h1 id=post-title class=post-title>
@@ -157,14 +157,14 @@ ACME 工作原理
 </div>
 <footer class=post-footer>
 <ul class=post-tags>
-<li><a href=https://poneding.com/tags/acme/><i class="fi fi-tag"></i>&nbsp;ACME</a></li>
-<li><a href=https://poneding.com/tags/ssl/><i class="fi fi-tag"></i>&nbsp;SSL</a></li>
+<li><a href=https://blog.poneding.com/tags/acme/><i class="fi fi-tag"></i>&nbsp;ACME</a></li>
+<li><a href=https://blog.poneding.com/tags/ssl/><i class="fi fi-tag"></i>&nbsp;SSL</a></li>
 </ul>
 <nav class=paginav>
-<a class=prev href=https://poneding.com/series/programming-kubernetes/client-gen-usage/>
+<a class=prev href=https://blog.poneding.com/series/programming-kubernetes/client-gen-usage/>
 <strong class=title><i class="fi fi-backward"></i>&nbsp;上一页</strong>
 <br>使用 client-gen 生成 clientset 代码</a>
-<a class=next href=https://poneding.com/series/programming-go/golang-%E8%B5%84%E6%BA%90/>
+<a class=next href=https://blog.poneding.com/series/programming-go/golang-%E8%B5%84%E6%BA%90/>
 <strong class=title>下一页&nbsp;<i class="fi fi-forward"></i></strong>
 <br>Golang 资源</a>
 </nav>
@@ -197,7 +197,7 @@ ACME 工作原理
 <p>
 <span>
 <i class="fi fi-copyright"></i>2023
-<a href=https://poneding.com/>博客 · 丁鹏</a>
+<a href=https://blog.poneding.com/>博客 · 丁鹏</a>
 </span>
 &nbsp;|&nbsp;
 <span>

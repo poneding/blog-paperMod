@@ -2,118 +2,118 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://poneding.com/series/programming-go/golang-%E7%A8%8B%E5%BA%8F-solid-%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/</loc>
+    <loc>https://blog.poneding.com/series/programming-go/golang-%E7%A8%8B%E5%BA%8F-solid-%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/</loc>
     <lastmod>2022-11-17T06:48:56+00:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/series/programming-go/gopkg-errors/</loc>
+    <loc>https://blog.poneding.com/series/programming-go/gopkg-errors/</loc>
     <lastmod>2022-11-03T03:32:31+00:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/</loc>
+    <loc>https://blog.poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/</loc>
     <lastmod>2022-11-21T10:09:54+00:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/posts/k8s-node-resource-config/</loc>
+    <loc>https://blog.poneding.com/posts/k8s-node-resource-config/</loc>
     <lastmod>2022-10-17T20:21:58+08:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/posts/kubelet-recycle-policy/</loc>
+    <loc>https://blog.poneding.com/posts/kubelet-recycle-policy/</loc>
     <lastmod>2022-10-17T19:21:58+08:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/series/programming-kubernetes/crd/</loc>
+    <loc>https://blog.poneding.com/series/programming-kubernetes/crd/</loc>
     <lastmod>2022-10-11T23:50:34+08:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/series/programming-go/golang-%E5%88%87%E7%89%87%E6%89%A9%E5%AE%B9/</loc>
+    <loc>https://blog.poneding.com/series/programming-go/golang-%E5%88%87%E7%89%87%E6%89%A9%E5%AE%B9/</loc>
     <lastmod>2022-11-17T06:51:11+00:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/posts/docker-compose/</loc>
+    <loc>https://blog.poneding.com/posts/docker-compose/</loc>
     <lastmod>2022-10-10T19:21:58+08:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/series/programming-go/golang-%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/</loc>
+    <loc>https://blog.poneding.com/series/programming-go/golang-%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/</loc>
     <lastmod>2022-11-17T06:49:16+00:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/series/programming-go/golang-%E5%AE%9E%E7%8E%B0%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/</loc>
+    <loc>https://blog.poneding.com/series/programming-go/golang-%E5%AE%9E%E7%8E%B0%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/</loc>
     <lastmod>2022-11-17T06:50:37+00:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/series/programming-kubernetes/rest-config/</loc>
+    <loc>https://blog.poneding.com/series/programming-kubernetes/rest-config/</loc>
     <lastmod>2022-10-01T23:28:02+08:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/series/programming-go/go1.18-%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%A8%A1%E5%BC%8F/</loc>
+    <loc>https://blog.poneding.com/series/programming-go/go1.18-%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2022-11-17T06:49:04+00:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/series/programming-kubernetes/</loc>
+    <loc>https://blog.poneding.com/series/programming-kubernetes/</loc>
     <lastmod>2022-11-03T03:34:26+00:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/series/programming-go/</loc>
+    <loc>https://blog.poneding.com/series/programming-go/</loc>
     <lastmod>2022-09-28T18:23:19+08:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/posts/use-giscus/</loc>
+    <loc>https://blog.poneding.com/posts/use-giscus/</loc>
     <lastmod>2022-09-28T09:02:43+08:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/series/programming-kubernetes/kube-client/</loc>
+    <loc>https://blog.poneding.com/series/programming-kubernetes/kube-client/</loc>
     <lastmod>2022-10-01T23:39:15+08:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/series/programming-kubernetes/api-design/</loc>
+    <loc>https://blog.poneding.com/series/programming-kubernetes/api-design/</loc>
     <lastmod>2022-10-02T01:28:03+08:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/series/programming-kubernetes/operator/</loc>
+    <loc>https://blog.poneding.com/series/programming-kubernetes/operator/</loc>
     <lastmod>2022-10-02T01:12:34+08:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/series/programming-kubernetes/client-gen-usage/</loc>
+    <loc>https://blog.poneding.com/series/programming-kubernetes/client-gen-usage/</loc>
     <lastmod>2022-10-08T17:37:07+08:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/tags/acme/</loc>
+    <loc>https://blog.poneding.com/tags/acme/</loc>
     <lastmod>2022-11-21T10:07:19+00:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/posts/acme-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</loc>
+    <loc>https://blog.poneding.com/posts/acme-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/</loc>
     <lastmod>2022-11-21T10:07:19+00:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/tags/ssl/</loc>
+    <loc>https://blog.poneding.com/tags/ssl/</loc>
     <lastmod>2022-11-21T10:07:19+00:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/</loc>
+    <loc>https://blog.poneding.com/</loc>
     <lastmod>2022-11-21T10:09:54+00:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/posts/</loc>
+    <loc>https://blog.poneding.com/posts/</loc>
     <lastmod>2022-11-21T10:07:19+00:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/tags/</loc>
+    <loc>https://blog.poneding.com/tags/</loc>
     <lastmod>2022-11-21T10:09:54+00:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/tags/golang/</loc>
+    <loc>https://blog.poneding.com/tags/golang/</loc>
     <lastmod>2022-11-21T10:09:54+00:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/series/programming-go/golang-%E8%B5%84%E6%BA%90/</loc>
+    <loc>https://blog.poneding.com/series/programming-go/golang-%E8%B5%84%E6%BA%90/</loc>
     <lastmod>2022-11-17T05:57:45+00:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/series/</loc>
+    <loc>https://blog.poneding.com/series/</loc>
     <lastmod>2022-11-21T10:09:54+00:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/tags/solid/</loc>
+    <loc>https://blog.poneding.com/tags/solid/</loc>
     <lastmod>2022-11-17T06:48:56+00:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/tags/gopkg/</loc>
+    <loc>https://blog.poneding.com/tags/gopkg/</loc>
     <lastmod>2022-11-03T03:32:31+00:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/tags/kubernetes/</loc>
+    <loc>https://blog.poneding.com/tags/kubernetes/</loc>
     <lastmod>2022-10-17T20:21:58+08:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/tags/crd/</loc>
+    <loc>https://blog.poneding.com/tags/crd/</loc>
     <lastmod>2022-10-11T23:50:34+08:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/tags/docker/</loc>
+    <loc>https://blog.poneding.com/tags/docker/</loc>
     <lastmod>2022-10-10T19:21:58+08:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/tags/docker-compose/</loc>
+    <loc>https://blog.poneding.com/tags/docker-compose/</loc>
     <lastmod>2022-10-10T19:21:58+08:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/tags/tls/</loc>
+    <loc>https://blog.poneding.com/tags/tls/</loc>
     <lastmod>2022-11-17T06:50:37+00:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/tags/giscus/</loc>
+    <loc>https://blog.poneding.com/tags/giscus/</loc>
     <lastmod>2022-09-28T09:02:43+08:00</lastmod>
   </url><url>
-    <loc>https://poneding.com/archives/</loc>
+    <loc>https://blog.poneding.com/archives/</loc>
   </url><url>
-    <loc>https://poneding.com/search/</loc>
+    <loc>https://blog.poneding.com/search/</loc>
   </url><url>
-    <loc>https://poneding.com/categories/</loc>
+    <loc>https://blog.poneding.com/categories/</loc>
   </url>
 </urlset>

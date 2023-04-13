@@ -8,16 +8,16 @@
 <meta name=keywords content="Kubernetes,client-gen">
 <meta name=description content="本页是这篇Kubernetes 文档中一些内容摘要。 大致分为 3 个步骤： 为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签： // +">
 <meta name=author content="丁鹏">
-<link rel=canonical href=https://poneding.com/series/programming-kubernetes/client-gen-usage/>
+<link rel=canonical href=https://blog.poneding.com/series/programming-kubernetes/client-gen-usage/>
 <meta name=baidu-site-verification content="code-yW1u8Rg4sz">
 <meta name=google-site-verification content="qnXhMaPNdhaZ4A36ptMVUn-0o111dAsJqugH_0ZCYvM">
 <link crossorigin=anonymous href=/assets/css/stylesheet.e885a03929d345922e032bc3e661c94c00cedb52c10d75afe2642bd4071375a8.css integrity="sha256-6IWgOSnTRZIuAyvD5mHJTADO21LBDXWv4mQr1AcTdag=" rel="preload stylesheet" as=style>
 <script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script>
-<link rel=icon href=https://poneding.com/images/blog.png>
-<link rel=icon type=image/png sizes=16x16 href=https://poneding.com/images/blog.png>
-<link rel=icon type=image/png sizes=32x32 href=https://poneding.com/images/blog.png>
-<link rel=apple-touch-icon href=https://poneding.com/images/blog.png>
-<link rel=mask-icon href=https://poneding.com/images/blog.png>
+<link rel=icon href=https://blog.poneding.com/images/blog.png>
+<link rel=icon type=image/png sizes=16x16 href=https://blog.poneding.com/images/blog.png>
+<link rel=icon type=image/png sizes=32x32 href=https://blog.poneding.com/images/blog.png>
+<link rel=apple-touch-icon href=https://blog.poneding.com/images/blog.png>
+<link rel=mask-icon href=https://blog.poneding.com/images/blog.png>
 <meta name=theme-color content="#2e2e33">
 <meta name=msapplication-TileColor content="#2e2e33">
 <noscript>
@@ -27,23 +27,23 @@
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="使用 client-gen 生成 clientset 代码">
 <meta property="og:description" content="本页是这篇Kubernetes 文档中一些内容摘要。 大致分为 3 个步骤： 为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签： // +">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://poneding.com/series/programming-kubernetes/client-gen-usage/"><meta property="og:image" content="https://poneding.com/cover.png"><meta property="article:section" content="series">
+<meta property="og:url" content="https://blog.poneding.com/series/programming-kubernetes/client-gen-usage/"><meta property="og:image" content="https://blog.poneding.com/cover.png"><meta property="article:section" content="series">
 <meta property="article:published_time" content="2022-10-08T17:37:07+08:00">
 <meta property="article:modified_time" content="2022-10-08T17:37:07+08:00"><meta property="og:site_name" content="博客">
 <meta name=twitter:card content="summary_large_image">
-<meta name=twitter:image content="https://poneding.com/cover.png">
+<meta name=twitter:image content="https://blog.poneding.com/cover.png">
 <meta name=twitter:title content="使用 client-gen 生成 clientset 代码">
 <meta name=twitter:description content="本页是这篇Kubernetes 文档中一些内容摘要。 大致分为 3 个步骤： 为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签： // +">
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://poneding.com/series/"},{"@type":"ListItem","position":2,"name":"Kubernetes 编程","item":"https://poneding.com/series/programming-kubernetes/"},{"@type":"ListItem","position":3,"name":"使用 client-gen 生成 clientset 代码","item":"https://poneding.com/series/programming-kubernetes/client-gen-usage/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"使用 client-gen 生成 clientset 代码","name":"使用 client-gen 生成 clientset 代码","description":"本页是这篇Kubernetes 文档中一些内容摘要。 大致分为 3 个步骤： 为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签： // +","keywords":["Kubernetes","client-gen"],"articleBody":"本页是这篇Kubernetes 文档中一些内容摘要。\n大致分为 3 个步骤：\n 为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签：   // +genclient：生成客户端函数（包括 Create, Update, Delete, DeleteCollection, Get, List, Update, Patch, Watch，如果 API 类型结构中包括 .Status 字段，还会额外生成 UpdateStatus 函数）； // +genclient:nonNamespaced：指定 API 类型是集群级别而不是命名空间级别的，生成的客户端函数都没有命名空间； // +genclient:onlyVerbs=create,get：只生成 Create, Get 客户端函数； // +genclient:skipVerbs=watch：生成除了 Watch 之外的所有其他客户端函数； // +genclient:noStatus：即使 API 类型结构包含 .Status 字段，也不生成 UpdateStatus 客户端函数； 有些情况下，可能你想要额外生成非标准的客户端函数，例如子资源函数，那么你需要使用下列这些 tag 标签： // +genclient:method=Scale,verb=update,subresource=scale,input=k8s.io/api/extensions/v1beta1.Scale,result=k8s.io/api/extensions/v1beta1.Scale：该例中使用标签，将会自动生成 Scale(string, *v1beta.Scale) *v1beta.Scale 客户端函数，里面配置了子资源函数的输入和输出参数。 另外，以下的 tag 标签也影响着客户端代码的生成： // +groupName=policy.authorization.k8s.io：使用该 group 名称生成到客户端代码中（默认使用 package 名）； // +groupGoName=AuthorizationPolicy：驼峰 Golang 标识符避免带有非唯一前缀例如 policy.authorization.k8s.io 和 policy.k8s.io 的组名冲突。这将可能导致两个 Policy() 函数生成到 clientset 代码中。  如果你是参与开发 k8s.io/kubernetes 项目，你只需要执行 ./hack/update-group.sh 脚本即可生成或更新代码； 如果你开发自己的项目，你需要使用 client-gen 命令以及其命令参数：  client-gen --input=\"pkg/apis/${group1}/${version1},pkg/apis/${group2}/${version2}\" --clientset-name=\"my_clientset\"  使用 client-gen -h 查看更多命令使用姿势。\n 除了 client-gen 自动生成的客户端代码外，你可以手动添加额外的代码，参考这里。  ","wordCount":"831","inLanguage":"zh","datePublished":"2022-10-08T17:37:07+08:00","dateModified":"2022-10-08T17:37:07+08:00","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://poneding.com/series/programming-kubernetes/client-gen-usage/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://poneding.com/images/blog.png"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://blog.poneding.com/series/"},{"@type":"ListItem","position":2,"name":"Kubernetes 编程","item":"https://blog.poneding.com/series/programming-kubernetes/"},{"@type":"ListItem","position":3,"name":"使用 client-gen 生成 clientset 代码","item":"https://blog.poneding.com/series/programming-kubernetes/client-gen-usage/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"使用 client-gen 生成 clientset 代码","name":"使用 client-gen 生成 clientset 代码","description":"本页是这篇Kubernetes 文档中一些内容摘要。 大致分为 3 个步骤： 为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签： // +","keywords":["Kubernetes","client-gen"],"articleBody":"本页是这篇Kubernetes 文档中一些内容摘要。\n大致分为 3 个步骤：\n 为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签：   // +genclient：生成客户端函数（包括 Create, Update, Delete, DeleteCollection, Get, List, Update, Patch, Watch，如果 API 类型结构中包括 .Status 字段，还会额外生成 UpdateStatus 函数）； // +genclient:nonNamespaced：指定 API 类型是集群级别而不是命名空间级别的，生成的客户端函数都没有命名空间； // +genclient:onlyVerbs=create,get：只生成 Create, Get 客户端函数； // +genclient:skipVerbs=watch：生成除了 Watch 之外的所有其他客户端函数； // +genclient:noStatus：即使 API 类型结构包含 .Status 字段，也不生成 UpdateStatus 客户端函数； 有些情况下，可能你想要额外生成非标准的客户端函数，例如子资源函数，那么你需要使用下列这些 tag 标签： // +genclient:method=Scale,verb=update,subresource=scale,input=k8s.io/api/extensions/v1beta1.Scale,result=k8s.io/api/extensions/v1beta1.Scale：该例中使用标签，将会自动生成 Scale(string, *v1beta.Scale) *v1beta.Scale 客户端函数，里面配置了子资源函数的输入和输出参数。 另外，以下的 tag 标签也影响着客户端代码的生成： // +groupName=policy.authorization.k8s.io：使用该 group 名称生成到客户端代码中（默认使用 package 名）； // +groupGoName=AuthorizationPolicy：驼峰 Golang 标识符避免带有非唯一前缀例如 policy.authorization.k8s.io 和 policy.k8s.io 的组名冲突。这将可能导致两个 Policy() 函数生成到 clientset 代码中。  如果你是参与开发 k8s.io/kubernetes 项目，你只需要执行 ./hack/update-group.sh 脚本即可生成或更新代码； 如果你开发自己的项目，你需要使用 client-gen 命令以及其命令参数：  client-gen --input=\"pkg/apis/${group1}/${version1},pkg/apis/${group2}/${version2}\" --clientset-name=\"my_clientset\"  使用 client-gen -h 查看更多命令使用姿势。\n 除了 client-gen 自动生成的客户端代码外，你可以手动添加额外的代码，参考这里。  ","wordCount":"831","inLanguage":"zh","datePublished":"2022-10-08T17:37:07+08:00","dateModified":"2022-10-08T17:37:07+08:00","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.poneding.com/series/programming-kubernetes/client-gen-usage/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://blog.poneding.com/images/blog.png"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://poneding.com/ accesskey=h title="博客 (Alt + H)">
-<img src=https://poneding.com/images/blog.png alt aria-label=logo height=25>博客</a>
+<a href=https://blog.poneding.com/ accesskey=h title="博客 (Alt + H)">
+<img src=https://blog.poneding.com/images/blog.png alt aria-label=logo height=25>博客</a>
 <div class=logo-switches>
 <button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
@@ -51,25 +51,25 @@
 </div>
 <ul id=menu>
 <li>
-<a href=https://poneding.com/posts/ title=文章>
+<a href=https://blog.poneding.com/posts/ title=文章>
 <span>
 <i class="fi fi-book"></i>&nbsp;文章</span>
 </a>
 </li>
 <li>
-<a href=https://poneding.com/series/ title=系列>
+<a href=https://blog.poneding.com/series/ title=系列>
 <span class=active>
 <i class="fi fi-series"></i>&nbsp;系列</span>
 </a>
 </li>
 <li>
-<a href=https://poneding.com/tags/ title=标签>
+<a href=https://blog.poneding.com/tags/ title=标签>
 <span>
 <i class="fi fi-tags"></i>&nbsp;标签</span>
 </a>
 </li>
 <li>
-<a href=https://poneding.com/archives/ title=归档>
+<a href=https://blog.poneding.com/archives/ title=归档>
 <span>
 <i class="fi fi-folder"></i>&nbsp;归档</span>
 </a>
@@ -102,7 +102,7 @@
 <div class=post-left-article>
 <header class=post-header>
 <div class=breadcrumbs><p>
-<span><a href=/><i class="fi fi-home"></i>&nbsp;主页</a></span><span><i class="fi fi-angle-right"></i><a href=https://poneding.com/series/>系列</a></span><span><i class="fi fi-angle-right"></i><a href=https://poneding.com/series/programming-kubernetes/>Kubernetes 编程</a></span><i class="fi fi-angle-right"></i><span>使用 client-gen 生成 clientset 代码</span>
+<span><a href=/><i class="fi fi-home"></i>&nbsp;主页</a></span><span><i class="fi fi-angle-right"></i><a href=https://blog.poneding.com/series/>系列</a></span><span><i class="fi fi-angle-right"></i><a href=https://blog.poneding.com/series/programming-kubernetes/>Kubernetes 编程</a></span><i class="fi fi-angle-right"></i><span>使用 client-gen 生成 clientset 代码</span>
 </p>
 </div>
 <h1 id=post-title class=post-title>
@@ -161,13 +161,13 @@
 </div>
 <footer class=post-footer>
 <ul class=post-tags>
-<li><a href=https://poneding.com/tags/kubernetes/><i class="fi fi-tag"></i>&nbsp;Kubernetes</a></li>
+<li><a href=https://blog.poneding.com/tags/kubernetes/><i class="fi fi-tag"></i>&nbsp;Kubernetes</a></li>
 </ul>
 <nav class=paginav>
-<a class=prev href=https://poneding.com/series/programming-kubernetes/operator/>
+<a class=prev href=https://blog.poneding.com/series/programming-kubernetes/operator/>
 <strong class=title><i class="fi fi-backward"></i>&nbsp;上一页</strong>
 <br>Kuberentes Operator</a>
-<a class=next href=https://poneding.com/posts/acme-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/>
+<a class=next href=https://blog.poneding.com/posts/acme-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/>
 <strong class=title>下一页&nbsp;<i class="fi fi-forward"></i></strong>
 <br>ACME 工作原理</a>
 </nav>
@@ -186,7 +186,7 @@
 <p>
 <span>
 <i class="fi fi-copyright"></i>2023
-<a href=https://poneding.com/>博客 · 丁鹏</a>
+<a href=https://blog.poneding.com/>博客 · 丁鹏</a>
 </span>
 &nbsp;|&nbsp;
 <span>

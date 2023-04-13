@@ -8,16 +8,16 @@
 <meta name=keywords content="Golang,slice,切片">
 <meta name=description content="怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？ 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底">
 <meta name=author content="丁鹏">
-<link rel=canonical href=https://poneding.com/series/programming-go/golang-%E5%88%87%E7%89%87%E6%89%A9%E5%AE%B9/>
+<link rel=canonical href=https://blog.poneding.com/series/programming-go/golang-%E5%88%87%E7%89%87%E6%89%A9%E5%AE%B9/>
 <meta name=baidu-site-verification content="code-yW1u8Rg4sz">
 <meta name=google-site-verification content="qnXhMaPNdhaZ4A36ptMVUn-0o111dAsJqugH_0ZCYvM">
 <link crossorigin=anonymous href=/assets/css/stylesheet.e885a03929d345922e032bc3e661c94c00cedb52c10d75afe2642bd4071375a8.css integrity="sha256-6IWgOSnTRZIuAyvD5mHJTADO21LBDXWv4mQr1AcTdag=" rel="preload stylesheet" as=style>
 <script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script>
-<link rel=icon href=https://poneding.com/images/blog.png>
-<link rel=icon type=image/png sizes=16x16 href=https://poneding.com/images/blog.png>
-<link rel=icon type=image/png sizes=32x32 href=https://poneding.com/images/blog.png>
-<link rel=apple-touch-icon href=https://poneding.com/images/blog.png>
-<link rel=mask-icon href=https://poneding.com/images/blog.png>
+<link rel=icon href=https://blog.poneding.com/images/blog.png>
+<link rel=icon type=image/png sizes=16x16 href=https://blog.poneding.com/images/blog.png>
+<link rel=icon type=image/png sizes=32x32 href=https://blog.poneding.com/images/blog.png>
+<link rel=apple-touch-icon href=https://blog.poneding.com/images/blog.png>
+<link rel=mask-icon href=https://blog.poneding.com/images/blog.png>
 <meta name=theme-color content="#2e2e33">
 <meta name=msapplication-TileColor content="#2e2e33">
 <noscript>
@@ -27,23 +27,23 @@
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="Golang 切片扩容">
 <meta property="og:description" content="怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？ 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://poneding.com/series/programming-go/golang-%E5%88%87%E7%89%87%E6%89%A9%E5%AE%B9/"><meta property="og:image" content="https://poneding.com/cover.png"><meta property="article:section" content="series">
+<meta property="og:url" content="https://blog.poneding.com/series/programming-go/golang-%E5%88%87%E7%89%87%E6%89%A9%E5%AE%B9/"><meta property="og:image" content="https://blog.poneding.com/cover.png"><meta property="article:section" content="series">
 <meta property="article:published_time" content="2022-10-11T14:19:02+08:00">
 <meta property="article:modified_time" content="2022-11-17T06:51:11+00:00"><meta property="og:site_name" content="博客">
 <meta name=twitter:card content="summary_large_image">
-<meta name=twitter:image content="https://poneding.com/cover.png">
+<meta name=twitter:image content="https://blog.poneding.com/cover.png">
 <meta name=twitter:title content="Golang 切片扩容">
 <meta name=twitter:description content="怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？ 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底">
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://poneding.com/series/"},{"@type":"ListItem","position":2,"name":"Golang 编程","item":"https://poneding.com/series/programming-go/"},{"@type":"ListItem","position":3,"name":"Golang 切片扩容","item":"https://poneding.com/series/programming-go/golang-%E5%88%87%E7%89%87%E6%89%A9%E5%AE%B9/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Golang 切片扩容","name":"Golang 切片扩容","description":"怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？ 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底","keywords":["Golang","slice","切片"],"articleBody":"怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？\n 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底层的数组发生了变化，不再是原来的数组结构。   ","wordCount":"91","inLanguage":"zh","datePublished":"2022-10-11T14:19:02+08:00","dateModified":"2022-11-17T06:51:11.194Z","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://poneding.com/series/programming-go/golang-%E5%88%87%E7%89%87%E6%89%A9%E5%AE%B9/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://poneding.com/images/blog.png"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://blog.poneding.com/series/"},{"@type":"ListItem","position":2,"name":"Golang 编程","item":"https://blog.poneding.com/series/programming-go/"},{"@type":"ListItem","position":3,"name":"Golang 切片扩容","item":"https://blog.poneding.com/series/programming-go/golang-%E5%88%87%E7%89%87%E6%89%A9%E5%AE%B9/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Golang 切片扩容","name":"Golang 切片扩容","description":"怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？ 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底","keywords":["Golang","slice","切片"],"articleBody":"怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？\n 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底层的数组发生了变化，不再是原来的数组结构。   ","wordCount":"91","inLanguage":"zh","datePublished":"2022-10-11T14:19:02+08:00","dateModified":"2022-11-17T06:51:11.194Z","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.poneding.com/series/programming-go/golang-%E5%88%87%E7%89%87%E6%89%A9%E5%AE%B9/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://blog.poneding.com/images/blog.png"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://poneding.com/ accesskey=h title="博客 (Alt + H)">
-<img src=https://poneding.com/images/blog.png alt aria-label=logo height=25>博客</a>
+<a href=https://blog.poneding.com/ accesskey=h title="博客 (Alt + H)">
+<img src=https://blog.poneding.com/images/blog.png alt aria-label=logo height=25>博客</a>
 <div class=logo-switches>
 <button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
@@ -51,25 +51,25 @@
 </div>
 <ul id=menu>
 <li>
-<a href=https://poneding.com/posts/ title=文章>
+<a href=https://blog.poneding.com/posts/ title=文章>
 <span>
 <i class="fi fi-book"></i>&nbsp;文章</span>
 </a>
 </li>
 <li>
-<a href=https://poneding.com/series/ title=系列>
+<a href=https://blog.poneding.com/series/ title=系列>
 <span class=active>
 <i class="fi fi-series"></i>&nbsp;系列</span>
 </a>
 </li>
 <li>
-<a href=https://poneding.com/tags/ title=标签>
+<a href=https://blog.poneding.com/tags/ title=标签>
 <span>
 <i class="fi fi-tags"></i>&nbsp;标签</span>
 </a>
 </li>
 <li>
-<a href=https://poneding.com/archives/ title=归档>
+<a href=https://blog.poneding.com/archives/ title=归档>
 <span>
 <i class="fi fi-folder"></i>&nbsp;归档</span>
 </a>
@@ -102,7 +102,7 @@
 <div class=post-left-article>
 <header class=post-header>
 <div class=breadcrumbs><p>
-<span><a href=/><i class="fi fi-home"></i>&nbsp;主页</a></span><span><i class="fi fi-angle-right"></i><a href=https://poneding.com/series/>系列</a></span><span><i class="fi fi-angle-right"></i><a href=https://poneding.com/series/programming-go/>Golang 编程</a></span><i class="fi fi-angle-right"></i><span>Golang 切片扩容</span>
+<span><a href=/><i class="fi fi-home"></i>&nbsp;主页</a></span><span><i class="fi fi-angle-right"></i><a href=https://blog.poneding.com/series/>系列</a></span><span><i class="fi fi-angle-right"></i><a href=https://blog.poneding.com/series/programming-go/>Golang 编程</a></span><i class="fi fi-angle-right"></i><span>Golang 切片扩容</span>
 </p>
 </div>
 <h1 id=post-title class=post-title>
@@ -139,13 +139,13 @@ Golang 切片扩容
 </div>
 <footer class=post-footer>
 <ul class=post-tags>
-<li><a href=https://poneding.com/tags/golang/><i class="fi fi-tag"></i>&nbsp;Golang</a></li>
+<li><a href=https://blog.poneding.com/tags/golang/><i class="fi fi-tag"></i>&nbsp;Golang</a></li>
 </ul>
 <nav class=paginav>
-<a class=prev href=https://poneding.com/series/programming-kubernetes/crd/>
+<a class=prev href=https://blog.poneding.com/series/programming-kubernetes/crd/>
 <strong class=title><i class="fi fi-backward"></i>&nbsp;上一页</strong>
 <br>CRD 简介</a>
-<a class=next href=https://poneding.com/posts/docker-compose/>
+<a class=next href=https://blog.poneding.com/posts/docker-compose/>
 <strong class=title>下一页&nbsp;<i class="fi fi-forward"></i></strong>
 <br>Docker Compose 实践</a>
 </nav>
@@ -164,7 +164,7 @@ Golang 切片扩容
 <p>
 <span>
 <i class="fi fi-copyright"></i>2023
-<a href=https://poneding.com/>博客 · 丁鹏</a>
+<a href=https://blog.poneding.com/>博客 · 丁鹏</a>
 </span>
 &nbsp;|&nbsp;
 <span>

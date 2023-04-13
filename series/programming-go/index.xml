@@ -2,84 +2,84 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Golang 编程 on 博客 · 丁鹏</title>
-    <link>https://poneding.com/series/programming-go/</link>
+    <link>https://blog.poneding.com/series/programming-go/</link>
     <description>Recent content in Golang 编程 on 博客 · 丁鹏</description>
     <image>
-      <url>https://poneding.com/cover.png</url>
-      <link>https://poneding.com/cover.png</link>
+      <url>https://blog.poneding.com/cover.png</url>
+      <link>https://blog.poneding.com/cover.png</link>
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Wed, 28 Sep 2022 18:23:19 +0800</lastBuildDate><atom:link href="https://poneding.com/series/programming-go/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 28 Sep 2022 18:23:19 +0800</lastBuildDate><atom:link href="https://blog.poneding.com/series/programming-go/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Golang 程序 SOLID 设计原则</title>
-      <link>https://poneding.com/series/programming-go/golang-%E7%A8%8B%E5%BA%8F-solid-%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/</link>
+      <link>https://blog.poneding.com/series/programming-go/golang-%E7%A8%8B%E5%BA%8F-solid-%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/</link>
       <pubDate>Tue, 25 Oct 2022 18:13:58 +0800</pubDate>
       
-      <guid>https://poneding.com/series/programming-go/golang-%E7%A8%8B%E5%BA%8F-solid-%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/</guid>
+      <guid>https://blog.poneding.com/series/programming-go/golang-%E7%A8%8B%E5%BA%8F-solid-%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/</guid>
       <description>可重用软件设计的五个原则，SOLID 原则： 单一职责原则（Single Responsibility Principle） 开放 / 封闭原则（Open / Closed Principle） 里</description>
     </item>
     
     <item>
       <title>Go 包 - errors</title>
-      <link>https://poneding.com/series/programming-go/gopkg-errors/</link>
+      <link>https://blog.poneding.com/series/programming-go/gopkg-errors/</link>
       <pubDate>Wed, 19 Oct 2022 14:44:06 +0800</pubDate>
       
-      <guid>https://poneding.com/series/programming-go/gopkg-errors/</guid>
+      <guid>https://blog.poneding.com/series/programming-go/gopkg-errors/</guid>
       <description>errors 包为你的 Go 程序提供一种对程序员调试、查看日志更友好的错误处理方式。 Go 程序中传统的错误处理方法： if err != nil { return err } 递归的向上传递错误，这种方式</description>
     </item>
     
     <item>
       <title>数组递归构造具有父子层级关系的对象</title>
-      <link>https://poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/</link>
+      <link>https://blog.poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/</link>
       <pubDate>Tue, 18 Oct 2022 18:00:26 +0800</pubDate>
       
-      <guid>https://poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/</guid>
+      <guid>https://blog.poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/</guid>
       <description>场景介绍 从数据库获取到了菜单列表数据，这些菜单数据通过字段 ParentID 表示父子层级关系，现在需要将菜单列表数据转成树状的实例对象。 数据库取出的初始数据</description>
     </item>
     
     <item>
       <title>Golang 切片扩容</title>
-      <link>https://poneding.com/series/programming-go/golang-%E5%88%87%E7%89%87%E6%89%A9%E5%AE%B9/</link>
+      <link>https://blog.poneding.com/series/programming-go/golang-%E5%88%87%E7%89%87%E6%89%A9%E5%AE%B9/</link>
       <pubDate>Tue, 11 Oct 2022 14:19:02 +0800</pubDate>
       
-      <guid>https://poneding.com/series/programming-go/golang-%E5%88%87%E7%89%87%E6%89%A9%E5%AE%B9/</guid>
+      <guid>https://blog.poneding.com/series/programming-go/golang-%E5%88%87%E7%89%87%E6%89%A9%E5%AE%B9/</guid>
       <description>怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？ 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底</description>
     </item>
     
     <item>
       <title>Golang 生成证书</title>
-      <link>https://poneding.com/series/programming-go/golang-%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/</link>
+      <link>https://blog.poneding.com/series/programming-go/golang-%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/</link>
       <pubDate>Sat, 08 Oct 2022 17:13:58 +0800</pubDate>
       
-      <guid>https://poneding.com/series/programming-go/golang-%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/</guid>
+      <guid>https://blog.poneding.com/series/programming-go/golang-%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/</guid>
       <description>代码实现 package certutil import ( &amp;#34;bytes&amp;#34; &amp;#34;crypto/rand&amp;#34; &amp;#34;crypto/rsa&amp;#34; &amp;#34;crypto/x509&amp;#34; &amp;#34;crypto/x509/pkix&amp;#34; &amp;#34;encoding/pem&amp;#34; &amp;#34;math/big&amp;#34; &amp;#34;net&amp;#34; &amp;#34;time&amp;#34; ) // CA ca type CA struct { caInfo *x509.Certificate caPrivKey *rsa.PrivateKey caPem, caKeyPem []byte } // GetCAPem get ca pem bytes func (c *CA) GetCAPem() ([]byte, error) { if c.caPem == nil { // create the CA caBytes, err := x509.CreateCertificate(rand.Reader, c.caInfo, c.caInfo, &amp;amp;c.caPrivKey.PublicKey, c.caPrivKey) if err != nil { return nil,</description>
     </item>
     
     <item>
       <title>Golang 实现双向认证</title>
-      <link>https://poneding.com/series/programming-go/golang-%E5%AE%9E%E7%8E%B0%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/</link>
+      <link>https://blog.poneding.com/series/programming-go/golang-%E5%AE%9E%E7%8E%B0%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/</link>
       <pubDate>Sun, 02 Oct 2022 01:49:13 +0800</pubDate>
       
-      <guid>https://poneding.com/series/programming-go/golang-%E5%AE%9E%E7%8E%B0%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/</guid>
+      <guid>https://blog.poneding.com/series/programming-go/golang-%E5%AE%9E%E7%8E%B0%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/</guid>
       <description>TLS 传输层安全协议（TLS），在互联网上，通常是由服务器单向的向客户端提供证书，以证明其身份。 mTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加</description>
     </item>
     
     <item>
       <title>Go1.18 - 工作区模式</title>
-      <link>https://poneding.com/series/programming-go/go1.18-%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%A8%A1%E5%BC%8F/</link>
+      <link>https://blog.poneding.com/series/programming-go/go1.18-%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%A8%A1%E5%BC%8F/</link>
       <pubDate>Wed, 28 Sep 2022 18:25:05 +0800</pubDate>
       
-      <guid>https://poneding.com/series/programming-go/go1.18-%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%A8%A1%E5%BC%8F/</guid>
+      <guid>https://blog.poneding.com/series/programming-go/go1.18-%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%A8%A1%E5%BC%8F/</guid>
       <description>安装的 Go1.18 或更新版本，它为你提供了工作区模式（Workspace mode），帮助你更好做 go 模块之间依赖的管理。 例如，你开发一个新项目，分了两个</description>
     </item>
     
     <item>
       <title>Golang 资源</title>
-      <link>https://poneding.com/series/programming-go/golang-%E8%B5%84%E6%BA%90/</link>
+      <link>https://blog.poneding.com/series/programming-go/golang-%E8%B5%84%E6%BA%90/</link>
       <pubDate>Wed, 16 Nov 2022 10:05:39 +0000</pubDate>
       
-      <guid>https://poneding.com/series/programming-go/golang-%E8%B5%84%E6%BA%90/</guid>
+      <guid>https://blog.poneding.com/series/programming-go/golang-%E8%B5%84%E6%BA%90/</guid>
       <description>Golang 资源</description>
     </item>
     

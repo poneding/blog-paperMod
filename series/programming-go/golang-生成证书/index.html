@@ -8,16 +8,16 @@
 <meta name=keywords content="Golang,证书">
 <meta name=description content="代码实现 package certutil import ( &#34;bytes&#34; &#34;crypto/rand&#34; &#34;crypto/rsa&#34; &#34;crypto/x509&#34; &#34;crypto/x509/pkix&#34; &#34;encoding/pem&#34; &#34;math/big&#34; &#34;net&#34; &#34;time&#34; ) // CA ca type CA struct { caInfo *x509.Certificate caPrivKey *rsa.PrivateKey caPem, caKeyPem []byte } // GetCAPem get ca pem bytes func (c *CA) GetCAPem() ([]byte, error) { if c.caPem == nil { // create the CA caBytes, err := x509.CreateCertificate(rand.Reader, c.caInfo, c.caInfo, &c.caPrivKey.PublicKey, c.caPrivKey) if err != nil { return nil,">
 <meta name=author content="丁鹏">
-<link rel=canonical href=https://poneding.com/series/programming-go/golang-%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/>
+<link rel=canonical href=https://blog.poneding.com/series/programming-go/golang-%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/>
 <meta name=baidu-site-verification content="code-yW1u8Rg4sz">
 <meta name=google-site-verification content="qnXhMaPNdhaZ4A36ptMVUn-0o111dAsJqugH_0ZCYvM">
 <link crossorigin=anonymous href=/assets/css/stylesheet.e885a03929d345922e032bc3e661c94c00cedb52c10d75afe2642bd4071375a8.css integrity="sha256-6IWgOSnTRZIuAyvD5mHJTADO21LBDXWv4mQr1AcTdag=" rel="preload stylesheet" as=style>
 <script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script>
-<link rel=icon href=https://poneding.com/images/blog.png>
-<link rel=icon type=image/png sizes=16x16 href=https://poneding.com/images/blog.png>
-<link rel=icon type=image/png sizes=32x32 href=https://poneding.com/images/blog.png>
-<link rel=apple-touch-icon href=https://poneding.com/images/blog.png>
-<link rel=mask-icon href=https://poneding.com/images/blog.png>
+<link rel=icon href=https://blog.poneding.com/images/blog.png>
+<link rel=icon type=image/png sizes=16x16 href=https://blog.poneding.com/images/blog.png>
+<link rel=icon type=image/png sizes=32x32 href=https://blog.poneding.com/images/blog.png>
+<link rel=apple-touch-icon href=https://blog.poneding.com/images/blog.png>
+<link rel=mask-icon href=https://blog.poneding.com/images/blog.png>
 <meta name=theme-color content="#2e2e33">
 <meta name=msapplication-TileColor content="#2e2e33">
 <noscript>
@@ -27,23 +27,23 @@
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="Golang 生成证书">
 <meta property="og:description" content="代码实现 package certutil import ( &#34;bytes&#34; &#34;crypto/rand&#34; &#34;crypto/rsa&#34; &#34;crypto/x509&#34; &#34;crypto/x509/pkix&#34; &#34;encoding/pem&#34; &#34;math/big&#34; &#34;net&#34; &#34;time&#34; ) // CA ca type CA struct { caInfo *x509.Certificate caPrivKey *rsa.PrivateKey caPem, caKeyPem []byte } // GetCAPem get ca pem bytes func (c *CA) GetCAPem() ([]byte, error) { if c.caPem == nil { // create the CA caBytes, err := x509.CreateCertificate(rand.Reader, c.caInfo, c.caInfo, &c.caPrivKey.PublicKey, c.caPrivKey) if err != nil { return nil,">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://poneding.com/series/programming-go/golang-%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/"><meta property="og:image" content="https://poneding.com/cover.png"><meta property="article:section" content="series">
+<meta property="og:url" content="https://blog.poneding.com/series/programming-go/golang-%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/"><meta property="og:image" content="https://blog.poneding.com/cover.png"><meta property="article:section" content="series">
 <meta property="article:published_time" content="2022-10-08T17:13:58+08:00">
 <meta property="article:modified_time" content="2022-11-17T06:49:16+00:00"><meta property="og:site_name" content="博客">
 <meta name=twitter:card content="summary_large_image">
-<meta name=twitter:image content="https://poneding.com/cover.png">
+<meta name=twitter:image content="https://blog.poneding.com/cover.png">
 <meta name=twitter:title content="Golang 生成证书">
 <meta name=twitter:description content="代码实现 package certutil import ( &#34;bytes&#34; &#34;crypto/rand&#34; &#34;crypto/rsa&#34; &#34;crypto/x509&#34; &#34;crypto/x509/pkix&#34; &#34;encoding/pem&#34; &#34;math/big&#34; &#34;net&#34; &#34;time&#34; ) // CA ca type CA struct { caInfo *x509.Certificate caPrivKey *rsa.PrivateKey caPem, caKeyPem []byte } // GetCAPem get ca pem bytes func (c *CA) GetCAPem() ([]byte, error) { if c.caPem == nil { // create the CA caBytes, err := x509.CreateCertificate(rand.Reader, c.caInfo, c.caInfo, &c.caPrivKey.PublicKey, c.caPrivKey) if err != nil { return nil,">
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://poneding.com/series/"},{"@type":"ListItem","position":2,"name":"Golang 编程","item":"https://poneding.com/series/programming-go/"},{"@type":"ListItem","position":3,"name":"Golang 生成证书","item":"https://poneding.com/series/programming-go/golang-%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Golang 生成证书","name":"Golang 生成证书","description":"代码实现 package certutil import ( \u0026#34;bytes\u0026#34; \u0026#34;crypto/rand\u0026#34; \u0026#34;crypto/rsa\u0026#34; \u0026#34;crypto/x509\u0026#34; \u0026#34;crypto/x509/pkix\u0026#34; \u0026#34;encoding/pem\u0026#34; \u0026#34;math/big\u0026#34; \u0026#34;net\u0026#34; \u0026#34;time\u0026#34; ) // CA ca type CA struct { caInfo *x509.Certificate caPrivKey *rsa.PrivateKey caPem, caKeyPem []byte } // GetCAPem get ca pem bytes func (c *CA) GetCAPem() ([]byte, error) { if c.caPem == nil { // create the CA caBytes, err := x509.CreateCertificate(rand.Reader, c.caInfo, c.caInfo, \u0026amp;c.caPrivKey.PublicKey, c.caPrivKey) if err != nil { return nil,","keywords":["Golang","证书"],"articleBody":"代码实现 package certutil import ( \"bytes\" \"crypto/rand\" \"crypto/rsa\" \"crypto/x509\" \"crypto/x509/pkix\" \"encoding/pem\" \"math/big\" \"net\" \"time\" ) // CA ca type CA struct { caInfo *x509.Certificate caPrivKey *rsa.PrivateKey caPem, caKeyPem []byte } // GetCAPem get ca pem bytes func (c *CA) GetCAPem() ([]byte, error) { if c.caPem == nil { // create the CA \tcaBytes, err := x509.CreateCertificate(rand.Reader, c.caInfo, c.caInfo, \u0026c.caPrivKey.PublicKey, c.caPrivKey) if err != nil { return nil, err } // pem encode \tcaPEM := new(bytes.Buffer) _ = pem.Encode(caPEM, \u0026pem.Block{ Type: \"CERTIFICATE\", Bytes: caBytes, }) c.caPem = caPEM.Bytes() } return c.caPem, nil } // GetCAKeyPem get ca key pem func (c *CA) GetCAKeyPem() ([]byte, error) { if c.caKeyPem == nil { caPrivKeyPEM := new(bytes.Buffer) _ = pem.Encode(caPrivKeyPEM, \u0026pem.Block{ Type: \"RSA PRIVATE KEY\", Bytes: x509.MarshalPKCS1PrivateKey(c.caPrivKey), }) c.caKeyPem = caPrivKeyPEM.Bytes() } return c.caKeyPem, nil } // CreateCert make Certificate func (c *CA) CreateCert(ips []string, domains ...string) (certPem, certKey []byte, err error) { var ipAddresses []net.IP for _, ip := range ips { if i := net.ParseIP(ip); i != nil { ipAddresses = append(ipAddresses, i) } } // set up our server certificate \tcert := \u0026x509.Certificate{ SerialNumber: big.NewInt(2019), Subject: pkix.Name{ Organization: []string{\"poneding.com\"}, Country: []string{\"CN\"}, Province: []string{\"Beijing\"}, Locality: []string{\"Beijing\"}, StreetAddress: []string{\"Beijing\"}, PostalCode: []string{\"000000\"}, }, DNSNames: domains, IPAddresses: ipAddresses, NotBefore: time.Now(), NotAfter: time.Now().AddDate(99, 0, 0), SubjectKeyId: []byte{1, 2, 3, 4, 6}, ExtKeyUsage: []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth, x509.ExtKeyUsageServerAuth}, KeyUsage: x509.KeyUsageDigitalSignature, } certPrivKey, err := rsa.GenerateKey(rand.Reader, 4096) if err != nil { return nil, nil, err } certBytes, err := x509.CreateCertificate(rand.Reader, cert, c.caInfo, \u0026certPrivKey.PublicKey, c.caPrivKey) if err != nil { return nil, nil, err } certPEM := new(bytes.Buffer) _ = pem.Encode(certPEM, \u0026pem.Block{ Type: \"CERTIFICATE\", Bytes: certBytes, }) certPrivKeyPEM := new(bytes.Buffer) _ = pem.Encode(certPrivKeyPEM, \u0026pem.Block{ Type: \"RSA PRIVATE KEY\", Bytes: x509.MarshalPKCS1PrivateKey(certPrivKey), }) return certPEM.Bytes(), certPrivKeyPEM.Bytes(), nil } // CreateCA create ca info func CreateCA() (*CA, error) { // set up our CA certificate \tca := \u0026x509.Certificate{ SerialNumber: big.NewInt(2019), Subject: pkix.Name{ Organization: []string{\"poneding.com\"}, Country: []string{\"CN\"}, Province: []string{\"Beijing\"}, Locality: []string{\"Beijing\"}, StreetAddress: []string{\"Beijing\"}, PostalCode: []string{\"000000\"}, }, NotBefore: time.Now(), NotAfter: time.Now().AddDate(99, 0, 0), IsCA: true, ExtKeyUsage: []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth, x509.ExtKeyUsageServerAuth}, KeyUsage: x509.KeyUsageDigitalSignature | x509.KeyUsageCertSign, BasicConstraintsValid: true, } // create our private and public key \tcaPrivKey, err := rsa.GenerateKey(rand.Reader, 4096) if err != nil { return nil, err } return \u0026CA{ caInfo: ca, caPrivKey: caPrivKey, }, nil } // ParseCA parse caPem func ParseCA(caPem, caKeyPem []byte) (*CA, error) { p := \u0026pem.Block{} p, caPem = pem.Decode(caPem) ca, err := x509.ParseCertificate(p.Bytes) if err != nil { return nil, err } p2 := \u0026pem.Block{} p2, caKeyPem = pem.Decode(caKeyPem) caKey, err := x509.ParsePKCS1PrivateKey(p2.Bytes) if err != nil { return nil, err } return \u0026CA{ caInfo: ca, caPrivKey: caKey, caPem: caPem, caKeyPem: caKeyPem, }, nil } // DomainSign create cert func DomainSign(ips []string, domains ...string) ([]byte, []byte, []byte, error) { ca, err := CreateCA() if err != nil { return nil, nil, nil, err } caPem, err := ca.GetCAPem() if err != nil { return nil, nil, nil, err } certPem, certKey, err := ca.CreateCert(ips, domains...) if err != nil { return nil, nil, nil, err } return caPem, certPem, certKey, nil } ","wordCount":"503","inLanguage":"zh","datePublished":"2022-10-08T17:13:58+08:00","dateModified":"2022-11-17T06:49:16.345Z","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://poneding.com/series/programming-go/golang-%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://poneding.com/images/blog.png"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://blog.poneding.com/series/"},{"@type":"ListItem","position":2,"name":"Golang 编程","item":"https://blog.poneding.com/series/programming-go/"},{"@type":"ListItem","position":3,"name":"Golang 生成证书","item":"https://blog.poneding.com/series/programming-go/golang-%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Golang 生成证书","name":"Golang 生成证书","description":"代码实现 package certutil import ( \u0026#34;bytes\u0026#34; \u0026#34;crypto/rand\u0026#34; \u0026#34;crypto/rsa\u0026#34; \u0026#34;crypto/x509\u0026#34; \u0026#34;crypto/x509/pkix\u0026#34; \u0026#34;encoding/pem\u0026#34; \u0026#34;math/big\u0026#34; \u0026#34;net\u0026#34; \u0026#34;time\u0026#34; ) // CA ca type CA struct { caInfo *x509.Certificate caPrivKey *rsa.PrivateKey caPem, caKeyPem []byte } // GetCAPem get ca pem bytes func (c *CA) GetCAPem() ([]byte, error) { if c.caPem == nil { // create the CA caBytes, err := x509.CreateCertificate(rand.Reader, c.caInfo, c.caInfo, \u0026amp;c.caPrivKey.PublicKey, c.caPrivKey) if err != nil { return nil,","keywords":["Golang","证书"],"articleBody":"代码实现 package certutil import ( \"bytes\" \"crypto/rand\" \"crypto/rsa\" \"crypto/x509\" \"crypto/x509/pkix\" \"encoding/pem\" \"math/big\" \"net\" \"time\" ) // CA ca type CA struct { caInfo *x509.Certificate caPrivKey *rsa.PrivateKey caPem, caKeyPem []byte } // GetCAPem get ca pem bytes func (c *CA) GetCAPem() ([]byte, error) { if c.caPem == nil { // create the CA \tcaBytes, err := x509.CreateCertificate(rand.Reader, c.caInfo, c.caInfo, \u0026c.caPrivKey.PublicKey, c.caPrivKey) if err != nil { return nil, err } // pem encode \tcaPEM := new(bytes.Buffer) _ = pem.Encode(caPEM, \u0026pem.Block{ Type: \"CERTIFICATE\", Bytes: caBytes, }) c.caPem = caPEM.Bytes() } return c.caPem, nil } // GetCAKeyPem get ca key pem func (c *CA) GetCAKeyPem() ([]byte, error) { if c.caKeyPem == nil { caPrivKeyPEM := new(bytes.Buffer) _ = pem.Encode(caPrivKeyPEM, \u0026pem.Block{ Type: \"RSA PRIVATE KEY\", Bytes: x509.MarshalPKCS1PrivateKey(c.caPrivKey), }) c.caKeyPem = caPrivKeyPEM.Bytes() } return c.caKeyPem, nil } // CreateCert make Certificate func (c *CA) CreateCert(ips []string, domains ...string) (certPem, certKey []byte, err error) { var ipAddresses []net.IP for _, ip := range ips { if i := net.ParseIP(ip); i != nil { ipAddresses = append(ipAddresses, i) } } // set up our server certificate \tcert := \u0026x509.Certificate{ SerialNumber: big.NewInt(2019), Subject: pkix.Name{ Organization: []string{\"poneding.com\"}, Country: []string{\"CN\"}, Province: []string{\"Beijing\"}, Locality: []string{\"Beijing\"}, StreetAddress: []string{\"Beijing\"}, PostalCode: []string{\"000000\"}, }, DNSNames: domains, IPAddresses: ipAddresses, NotBefore: time.Now(), NotAfter: time.Now().AddDate(99, 0, 0), SubjectKeyId: []byte{1, 2, 3, 4, 6}, ExtKeyUsage: []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth, x509.ExtKeyUsageServerAuth}, KeyUsage: x509.KeyUsageDigitalSignature, } certPrivKey, err := rsa.GenerateKey(rand.Reader, 4096) if err != nil { return nil, nil, err } certBytes, err := x509.CreateCertificate(rand.Reader, cert, c.caInfo, \u0026certPrivKey.PublicKey, c.caPrivKey) if err != nil { return nil, nil, err } certPEM := new(bytes.Buffer) _ = pem.Encode(certPEM, \u0026pem.Block{ Type: \"CERTIFICATE\", Bytes: certBytes, }) certPrivKeyPEM := new(bytes.Buffer) _ = pem.Encode(certPrivKeyPEM, \u0026pem.Block{ Type: \"RSA PRIVATE KEY\", Bytes: x509.MarshalPKCS1PrivateKey(certPrivKey), }) return certPEM.Bytes(), certPrivKeyPEM.Bytes(), nil } // CreateCA create ca info func CreateCA() (*CA, error) { // set up our CA certificate \tca := \u0026x509.Certificate{ SerialNumber: big.NewInt(2019), Subject: pkix.Name{ Organization: []string{\"poneding.com\"}, Country: []string{\"CN\"}, Province: []string{\"Beijing\"}, Locality: []string{\"Beijing\"}, StreetAddress: []string{\"Beijing\"}, PostalCode: []string{\"000000\"}, }, NotBefore: time.Now(), NotAfter: time.Now().AddDate(99, 0, 0), IsCA: true, ExtKeyUsage: []x509.ExtKeyUsage{x509.ExtKeyUsageClientAuth, x509.ExtKeyUsageServerAuth}, KeyUsage: x509.KeyUsageDigitalSignature | x509.KeyUsageCertSign, BasicConstraintsValid: true, } // create our private and public key \tcaPrivKey, err := rsa.GenerateKey(rand.Reader, 4096) if err != nil { return nil, err } return \u0026CA{ caInfo: ca, caPrivKey: caPrivKey, }, nil } // ParseCA parse caPem func ParseCA(caPem, caKeyPem []byte) (*CA, error) { p := \u0026pem.Block{} p, caPem = pem.Decode(caPem) ca, err := x509.ParseCertificate(p.Bytes) if err != nil { return nil, err } p2 := \u0026pem.Block{} p2, caKeyPem = pem.Decode(caKeyPem) caKey, err := x509.ParsePKCS1PrivateKey(p2.Bytes) if err != nil { return nil, err } return \u0026CA{ caInfo: ca, caPrivKey: caKey, caPem: caPem, caKeyPem: caKeyPem, }, nil } // DomainSign create cert func DomainSign(ips []string, domains ...string) ([]byte, []byte, []byte, error) { ca, err := CreateCA() if err != nil { return nil, nil, nil, err } caPem, err := ca.GetCAPem() if err != nil { return nil, nil, nil, err } certPem, certKey, err := ca.CreateCert(ips, domains...) if err != nil { return nil, nil, nil, err } return caPem, certPem, certKey, nil } ","wordCount":"503","inLanguage":"zh","datePublished":"2022-10-08T17:13:58+08:00","dateModified":"2022-11-17T06:49:16.345Z","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.poneding.com/series/programming-go/golang-%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://blog.poneding.com/images/blog.png"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://poneding.com/ accesskey=h title="博客 (Alt + H)">
-<img src=https://poneding.com/images/blog.png alt aria-label=logo height=25>博客</a>
+<a href=https://blog.poneding.com/ accesskey=h title="博客 (Alt + H)">
+<img src=https://blog.poneding.com/images/blog.png alt aria-label=logo height=25>博客</a>
 <div class=logo-switches>
 <button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
@@ -51,25 +51,25 @@
 </div>
 <ul id=menu>
 <li>
-<a href=https://poneding.com/posts/ title=文章>
+<a href=https://blog.poneding.com/posts/ title=文章>
 <span>
 <i class="fi fi-book"></i>&nbsp;文章</span>
 </a>
 </li>
 <li>
-<a href=https://poneding.com/series/ title=系列>
+<a href=https://blog.poneding.com/series/ title=系列>
 <span class=active>
 <i class="fi fi-series"></i>&nbsp;系列</span>
 </a>
 </li>
 <li>
-<a href=https://poneding.com/tags/ title=标签>
+<a href=https://blog.poneding.com/tags/ title=标签>
 <span>
 <i class="fi fi-tags"></i>&nbsp;标签</span>
 </a>
 </li>
 <li>
-<a href=https://poneding.com/archives/ title=归档>
+<a href=https://blog.poneding.com/archives/ title=归档>
 <span>
 <i class="fi fi-folder"></i>&nbsp;归档</span>
 </a>
@@ -102,7 +102,7 @@
 <div class=post-left-article>
 <header class=post-header>
 <div class=breadcrumbs><p>
-<span><a href=/><i class="fi fi-home"></i>&nbsp;主页</a></span><span><i class="fi fi-angle-right"></i><a href=https://poneding.com/series/>系列</a></span><span><i class="fi fi-angle-right"></i><a href=https://poneding.com/series/programming-go/>Golang 编程</a></span><i class="fi fi-angle-right"></i><span>Golang 生成证书</span>
+<span><a href=/><i class="fi fi-home"></i>&nbsp;主页</a></span><span><i class="fi fi-angle-right"></i><a href=https://blog.poneding.com/series/>系列</a></span><span><i class="fi fi-angle-right"></i><a href=https://blog.poneding.com/series/programming-go/>Golang 编程</a></span><i class="fi fi-angle-right"></i><span>Golang 生成证书</span>
 </p>
 </div>
 <h1 id=post-title class=post-title>
@@ -309,13 +309,13 @@ Golang 生成证书
 </div>
 <footer class=post-footer>
 <ul class=post-tags>
-<li><a href=https://poneding.com/tags/golang/><i class="fi fi-tag"></i>&nbsp;Golang</a></li>
+<li><a href=https://blog.poneding.com/tags/golang/><i class="fi fi-tag"></i>&nbsp;Golang</a></li>
 </ul>
 <nav class=paginav>
-<a class=prev href=https://poneding.com/posts/docker-compose/>
+<a class=prev href=https://blog.poneding.com/posts/docker-compose/>
 <strong class=title><i class="fi fi-backward"></i>&nbsp;上一页</strong>
 <br>Docker Compose 实践</a>
-<a class=next href=https://poneding.com/series/programming-go/golang-%E5%AE%9E%E7%8E%B0%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/>
+<a class=next href=https://blog.poneding.com/series/programming-go/golang-%E5%AE%9E%E7%8E%B0%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/>
 <strong class=title>下一页&nbsp;<i class="fi fi-forward"></i></strong>
 <br>Golang 实现双向认证</a>
 </nav>
@@ -344,7 +344,7 @@ Golang 生成证书
 <p>
 <span>
 <i class="fi fi-copyright"></i>2023
-<a href=https://poneding.com/>博客 · 丁鹏</a>
+<a href=https://blog.poneding.com/>博客 · 丁鹏</a>
 </span>
 &nbsp;|&nbsp;
 <span>

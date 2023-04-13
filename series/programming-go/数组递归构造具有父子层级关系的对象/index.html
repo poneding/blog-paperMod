@@ -8,16 +8,16 @@
 <meta name=keywords content="数组,递归,父子,树,层级关系">
 <meta name=description content="场景介绍 从数据库获取到了菜单列表数据，这些菜单数据通过字段 ParentID 表示父子层级关系，现在需要将菜单列表数据转成树状的实例对象。 数据库取出的初始数据">
 <meta name=author content="丁鹏">
-<link rel=canonical href=https://poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/>
+<link rel=canonical href=https://blog.poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/>
 <meta name=baidu-site-verification content="code-yW1u8Rg4sz">
 <meta name=google-site-verification content="qnXhMaPNdhaZ4A36ptMVUn-0o111dAsJqugH_0ZCYvM">
 <link crossorigin=anonymous href=/assets/css/stylesheet.e885a03929d345922e032bc3e661c94c00cedb52c10d75afe2642bd4071375a8.css integrity="sha256-6IWgOSnTRZIuAyvD5mHJTADO21LBDXWv4mQr1AcTdag=" rel="preload stylesheet" as=style>
 <script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script>
-<link rel=icon href=https://poneding.com/images/blog.png>
-<link rel=icon type=image/png sizes=16x16 href=https://poneding.com/images/blog.png>
-<link rel=icon type=image/png sizes=32x32 href=https://poneding.com/images/blog.png>
-<link rel=apple-touch-icon href=https://poneding.com/images/blog.png>
-<link rel=mask-icon href=https://poneding.com/images/blog.png>
+<link rel=icon href=https://blog.poneding.com/images/blog.png>
+<link rel=icon type=image/png sizes=16x16 href=https://blog.poneding.com/images/blog.png>
+<link rel=icon type=image/png sizes=32x32 href=https://blog.poneding.com/images/blog.png>
+<link rel=apple-touch-icon href=https://blog.poneding.com/images/blog.png>
+<link rel=mask-icon href=https://blog.poneding.com/images/blog.png>
 <meta name=theme-color content="#2e2e33">
 <meta name=msapplication-TileColor content="#2e2e33">
 <noscript>
@@ -27,23 +27,23 @@
 <script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="数组递归构造具有父子层级关系的对象">
 <meta property="og:description" content="场景介绍 从数据库获取到了菜单列表数据，这些菜单数据通过字段 ParentID 表示父子层级关系，现在需要将菜单列表数据转成树状的实例对象。 数据库取出的初始数据">
 <meta property="og:type" content="article">
-<meta property="og:url" content="https://poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/"><meta property="og:image" content="https://poneding.com/cover.png"><meta property="article:section" content="series">
+<meta property="og:url" content="https://blog.poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/"><meta property="og:image" content="https://blog.poneding.com/cover.png"><meta property="article:section" content="series">
 <meta property="article:published_time" content="2022-10-18T18:00:26+08:00">
 <meta property="article:modified_time" content="2022-11-21T10:09:54+00:00"><meta property="og:site_name" content="博客">
 <meta name=twitter:card content="summary_large_image">
-<meta name=twitter:image content="https://poneding.com/cover.png">
+<meta name=twitter:image content="https://blog.poneding.com/cover.png">
 <meta name=twitter:title content="数组递归构造具有父子层级关系的对象">
 <meta name=twitter:description content="场景介绍 从数据库获取到了菜单列表数据，这些菜单数据通过字段 ParentID 表示父子层级关系，现在需要将菜单列表数据转成树状的实例对象。 数据库取出的初始数据">
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://poneding.com/series/"},{"@type":"ListItem","position":2,"name":"Golang 编程","item":"https://poneding.com/series/programming-go/"},{"@type":"ListItem","position":3,"name":"数组递归构造具有父子层级关系的对象","item":"https://poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"数组递归构造具有父子层级关系的对象","name":"数组递归构造具有父子层级关系的对象","description":"场景介绍 从数据库获取到了菜单列表数据，这些菜单数据通过字段 ParentID 表示父子层级关系，现在需要将菜单列表数据转成树状的实例对象。 数据库取出的初始数据","keywords":["数组","递归","父子","树","层级关系"],"articleBody":"场景介绍 从数据库获取到了菜单列表数据，这些菜单数据通过字段 ParentID 表示父子层级关系，现在需要将菜单列表数据转成树状的实例对象。\n数据库取出的初始数据：\nraw := []Menu{ {Name: \"一级菜单 1\", ID: 1, PID: 0}, {Name: \"一级菜单 2\", ID: 2, PID: 0}, {Name: \"一级菜单 3\", ID: 3, PID: 0}, {Name: \"二级菜单 1-1\", ID: 11, PID: 1}, {Name: \"二级菜单 1-2\", ID: 12, PID: 1}, {Name: \"二级菜单 1-3\", ID: 13, PID: 1}, {Name: \"二级菜单 2-1\", ID: 21, PID: 2}, {Name: \"二级菜单 2-2\", ID: 22, PID: 2}, {Name: \"二级菜单 2-3\", ID: 23, PID: 2}, } 需要得到的目标数据：\n{ \"name\":\"根菜单\", \"id\":0, \"pid\":0, \"SubMenus\":[ { \"name\":\"一级菜单 1\", \"id\":1, \"pid\":0, \"SubMenus\":[ { \"name\":\"二级菜单 1-1\", \"id\":11, \"pid\":1 }, { \"name\":\"二级菜单 1-2\", \"id\":12, \"pid\":1 }, { \"name\":\"二级菜单 1-3\", \"id\":13, \"pid\":1 } ] }, { \"name\":\"一级菜单 2\", \"id\":2, \"pid\":0, \"SubMenus\":[ { \"name\":\"二级菜单 2-1\", \"id\":21, \"pid\":2 }, { \"name\":\"二级菜单 2-2\", \"id\":22, \"pid\":2 }, { \"name\":\"二级菜单 2-3\", \"id\":23, \"pid\":2 } ] }, { \"name\":\"一级菜单 3\", \"id\":3, \"pid\":0 } ] } 代码实现 package main import ( \"encoding/json\" \"fmt\" ) func main() { // 数据库里存储的菜单 \trawMenus := []Menu{ {Name: \"一级菜单 1\", ID: 1, PID: 0}, {Name: \"一级菜单 2\", ID: 2, PID: 0}, {Name: \"一级菜单 3\", ID: 3, PID: 0}, {Name: \"二级菜单 1-1\", ID: 11, PID: 1}, {Name: \"二级菜单 1-2\", ID: 12, PID: 1}, {Name: \"二级菜单 1-3\", ID: 13, PID: 1}, {Name: \"二级菜单 2-1\", ID: 21, PID: 2}, {Name: \"二级菜单 2-2\", ID: 22, PID: 2}, {Name: \"二级菜单 2-3\", ID: 23, PID: 2}, } menu := \u0026Menu{ Name: \"根菜单\", PID: 0, } for _, rm := range rawMenus { menu.setSubMenus(rm) } // 打印结果 \tb, _ := json.Marshal(menu) fmt.Println(string(b)) } type Menu struct { Name string `json:\"name\"` ID int `json:\"id\"` PID int `json:\"pid\"` SubMenus []Menu `json:\",omitempty\"` } func (m *Menu) setSubMenus(menu Menu) bool { if menu.PID == m.ID { m.SubMenus = append(m.SubMenus, menu) return true } for i := range m.SubMenus { if m.SubMenus[i].setSubMenus(menu) { return true } } return false } 注意事项 Golang for 遍历使用 for _, item := range slice 时，item 是一份遍历元素的复制，而使用 for i := range slice 时，slice[i] 则是遍历元素本身，使用时需要注意切片扩容带来的地址变化问题。\n可以参考这篇来理解：👉🏻Golang 切片扩容\n","wordCount":"879","inLanguage":"zh","datePublished":"2022-10-18T18:00:26+08:00","dateModified":"2022-11-21T10:09:54.522Z","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://poneding.com/images/blog.png"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://blog.poneding.com/series/"},{"@type":"ListItem","position":2,"name":"Golang 编程","item":"https://blog.poneding.com/series/programming-go/"},{"@type":"ListItem","position":3,"name":"数组递归构造具有父子层级关系的对象","item":"https://blog.poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"数组递归构造具有父子层级关系的对象","name":"数组递归构造具有父子层级关系的对象","description":"场景介绍 从数据库获取到了菜单列表数据，这些菜单数据通过字段 ParentID 表示父子层级关系，现在需要将菜单列表数据转成树状的实例对象。 数据库取出的初始数据","keywords":["数组","递归","父子","树","层级关系"],"articleBody":"场景介绍 从数据库获取到了菜单列表数据，这些菜单数据通过字段 ParentID 表示父子层级关系，现在需要将菜单列表数据转成树状的实例对象。\n数据库取出的初始数据：\nraw := []Menu{ {Name: \"一级菜单 1\", ID: 1, PID: 0}, {Name: \"一级菜单 2\", ID: 2, PID: 0}, {Name: \"一级菜单 3\", ID: 3, PID: 0}, {Name: \"二级菜单 1-1\", ID: 11, PID: 1}, {Name: \"二级菜单 1-2\", ID: 12, PID: 1}, {Name: \"二级菜单 1-3\", ID: 13, PID: 1}, {Name: \"二级菜单 2-1\", ID: 21, PID: 2}, {Name: \"二级菜单 2-2\", ID: 22, PID: 2}, {Name: \"二级菜单 2-3\", ID: 23, PID: 2}, } 需要得到的目标数据：\n{ \"name\":\"根菜单\", \"id\":0, \"pid\":0, \"SubMenus\":[ { \"name\":\"一级菜单 1\", \"id\":1, \"pid\":0, \"SubMenus\":[ { \"name\":\"二级菜单 1-1\", \"id\":11, \"pid\":1 }, { \"name\":\"二级菜单 1-2\", \"id\":12, \"pid\":1 }, { \"name\":\"二级菜单 1-3\", \"id\":13, \"pid\":1 } ] }, { \"name\":\"一级菜单 2\", \"id\":2, \"pid\":0, \"SubMenus\":[ { \"name\":\"二级菜单 2-1\", \"id\":21, \"pid\":2 }, { \"name\":\"二级菜单 2-2\", \"id\":22, \"pid\":2 }, { \"name\":\"二级菜单 2-3\", \"id\":23, \"pid\":2 } ] }, { \"name\":\"一级菜单 3\", \"id\":3, \"pid\":0 } ] } 代码实现 package main import ( \"encoding/json\" \"fmt\" ) func main() { // 数据库里存储的菜单 \trawMenus := []Menu{ {Name: \"一级菜单 1\", ID: 1, PID: 0}, {Name: \"一级菜单 2\", ID: 2, PID: 0}, {Name: \"一级菜单 3\", ID: 3, PID: 0}, {Name: \"二级菜单 1-1\", ID: 11, PID: 1}, {Name: \"二级菜单 1-2\", ID: 12, PID: 1}, {Name: \"二级菜单 1-3\", ID: 13, PID: 1}, {Name: \"二级菜单 2-1\", ID: 21, PID: 2}, {Name: \"二级菜单 2-2\", ID: 22, PID: 2}, {Name: \"二级菜单 2-3\", ID: 23, PID: 2}, } menu := \u0026Menu{ Name: \"根菜单\", PID: 0, } for _, rm := range rawMenus { menu.setSubMenus(rm) } // 打印结果 \tb, _ := json.Marshal(menu) fmt.Println(string(b)) } type Menu struct { Name string `json:\"name\"` ID int `json:\"id\"` PID int `json:\"pid\"` SubMenus []Menu `json:\",omitempty\"` } func (m *Menu) setSubMenus(menu Menu) bool { if menu.PID == m.ID { m.SubMenus = append(m.SubMenus, menu) return true } for i := range m.SubMenus { if m.SubMenus[i].setSubMenus(menu) { return true } } return false } 注意事项 Golang for 遍历使用 for _, item := range slice 时，item 是一份遍历元素的复制，而使用 for i := range slice 时，slice[i] 则是遍历元素本身，使用时需要注意切片扩容带来的地址变化问题。\n可以参考这篇来理解：👉🏻Golang 切片扩容\n","wordCount":"879","inLanguage":"zh","datePublished":"2022-10-18T18:00:26+08:00","dateModified":"2022-11-21T10:09:54.522Z","author":[{"@type":"Person","name":"丁鹏"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://blog.poneding.com/images/blog.png"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
 <header class=header>
 <nav class=nav>
 <div class=logo>
-<a href=https://poneding.com/ accesskey=h title="博客 (Alt + H)">
-<img src=https://poneding.com/images/blog.png alt aria-label=logo height=25>博客</a>
+<a href=https://blog.poneding.com/ accesskey=h title="博客 (Alt + H)">
+<img src=https://blog.poneding.com/images/blog.png alt aria-label=logo height=25>博客</a>
 <div class=logo-switches>
 <button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
 </button>
@@ -51,25 +51,25 @@
 </div>
 <ul id=menu>
 <li>
-<a href=https://poneding.com/posts/ title=文章>
+<a href=https://blog.poneding.com/posts/ title=文章>
 <span>
 <i class="fi fi-book"></i>&nbsp;文章</span>
 </a>
 </li>
 <li>
-<a href=https://poneding.com/series/ title=系列>
+<a href=https://blog.poneding.com/series/ title=系列>
 <span class=active>
 <i class="fi fi-series"></i>&nbsp;系列</span>
 </a>
 </li>
 <li>
-<a href=https://poneding.com/tags/ title=标签>
+<a href=https://blog.poneding.com/tags/ title=标签>
 <span>
 <i class="fi fi-tags"></i>&nbsp;标签</span>
 </a>
 </li>
 <li>
-<a href=https://poneding.com/archives/ title=归档>
+<a href=https://blog.poneding.com/archives/ title=归档>
 <span>
 <i class="fi fi-folder"></i>&nbsp;归档</span>
 </a>
@@ -102,7 +102,7 @@
 <div class=post-left-article>
 <header class=post-header>
 <div class=breadcrumbs><p>
-<span><a href=/><i class="fi fi-home"></i>&nbsp;主页</a></span><span><i class="fi fi-angle-right"></i><a href=https://poneding.com/series/>系列</a></span><span><i class="fi fi-angle-right"></i><a href=https://poneding.com/series/programming-go/>Golang 编程</a></span><i class="fi fi-angle-right"></i><span>数组递归构造具有父子层级关系的对象</span>
+<span><a href=/><i class="fi fi-home"></i>&nbsp;主页</a></span><span><i class="fi fi-angle-right"></i><a href=https://blog.poneding.com/series/>系列</a></span><span><i class="fi fi-angle-right"></i><a href=https://blog.poneding.com/series/programming-go/>Golang 编程</a></span><i class="fi fi-angle-right"></i><span>数组递归构造具有父子层级关系的对象</span>
 </p>
 </div>
 <h1 id=post-title class=post-title>
@@ -260,13 +260,13 @@
 </div>
 <footer class=post-footer>
 <ul class=post-tags>
-<li><a href=https://poneding.com/tags/golang/><i class="fi fi-tag"></i>&nbsp;Golang</a></li>
+<li><a href=https://blog.poneding.com/tags/golang/><i class="fi fi-tag"></i>&nbsp;Golang</a></li>
 </ul>
 <nav class=paginav>
-<a class=prev href=https://poneding.com/series/programming-go/gopkg-errors/>
+<a class=prev href=https://blog.poneding.com/series/programming-go/gopkg-errors/>
 <strong class=title><i class="fi fi-backward"></i>&nbsp;上一页</strong>
 <br>Go 包 - errors</a>
-<a class=next href=https://poneding.com/posts/k8s-node-resource-config/>
+<a class=next href=https://blog.poneding.com/posts/k8s-node-resource-config/>
 <strong class=title>下一页&nbsp;<i class="fi fi-forward"></i></strong>
 <br>K8s 集群规划之节点资源配置</a>
 </nav>
@@ -299,7 +299,7 @@
 <p>
 <span>
 <i class="fi fi-copyright"></i>2023
-<a href=https://poneding.com/>博客 · 丁鹏</a>
+<a href=https://blog.poneding.com/>博客 · 丁鹏</a>
 </span>
 &nbsp;|&nbsp;
 <span>
