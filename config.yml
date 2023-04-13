@@ -24,15 +24,13 @@ params:
     [
       "丁鹏",
       "丁鹏的博客",
-      "dingpeng",
-      "dp",
       "Pone Ding",
       "blog.poneding.com",
       "Kubernetes",
       "Golang",
       "云原生",
     ]
-  author: ["丁鹏"]
+  author: ["Pone"]
   images: ["cover.png"]
   DateFormat: "2006-01-02"
   timeZone: "CN"

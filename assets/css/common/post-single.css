@@ -61,12 +61,12 @@
 }
 
 .post-content h1 {
-    margin: 24px auto 24px;
+    margin-bottom: var(--gap);
     font-size: 32px;
 }
 
 .post-content h2 {
-    margin: 20px auto 20px;
+    margin-bottom: var(--gap);
     font-size: 28px;
 }
 
@@ -172,7 +172,7 @@
 }
 
 .post-content .highlight:not(table) {
-    margin: 10px auto;
+    margin-bottom: var(--content-gap);
     background: var(--hljs-bg) !important;
     border-radius: var(--radius);
     direction: ltr;
@@ -320,16 +320,16 @@
     font-weight: 500;
 }
 
-.toc ul li:has(> a.active) i{
+.toc ul li:has(> a.active) i {
     color: var(--link-color);
 }
 
-.toc li:hover{
+.toc li:hover {
     color: var(--link-color);
 }
 
 .post-footer {
-    margin-top: calc(var(--gap) * 2);
+    margin: calc(var(--gap) * 2) auto calc(var(--gap) * 2);
 }
 
 .post-tags {
