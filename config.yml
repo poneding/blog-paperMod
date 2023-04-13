@@ -1,4 +1,4 @@
-baseURL: "https://poneding.com/"
+baseURL: "https://blog.poneding.com/"
 languageCode: zh
 title: "博客 · 丁鹏"
 paginate: 10
@@ -27,7 +27,7 @@ params:
       "dingpeng",
       "dp",
       "Pone Ding",
-      "poneding.com",
+      "blog.poneding.com",
       "Kubernetes",
       "Golang",
       "云原生",
