@@ -84,11 +84,11 @@ params:
 
   analytics:
     baidu:
-      SiteVerificationTag: "codeva-6hfJBK7dc3"
+      SiteVerificationTag: "codeva-TIM45BA2zX"
     google:
       SiteVerificationTag: "gigju1hgWV5auIGFQ92BEHHWLdQlDKD9Vtr0i0nJTdc"
-    bing:
-      SiteVerificationTag: "google-site-verification"
+    # bing:
+    #   SiteVerificationTag: ""
 
   cover:
     hidden: false # hide everywhere but not in structured data
