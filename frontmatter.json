@@ -1,0 +1,101 @@
+{
+  "$schema": "https://frontmatter.codes/frontmatter.schema.json",
+  "frontMatter.taxonomy.contentTypes": [
+    {
+      "name": "default",
+      "pageBundle": false,
+      "previewPath": null,
+      "fields": [
+        {
+          "title": "Title",
+          "name": "title",
+          "type": "string"
+        },
+        {
+          "title": "Description",
+          "name": "description",
+          "type": "string"
+        },
+        {
+          "title": "Publishing time",
+          "name": "date",
+          "type": "datetime",
+          "default": "{{now}}",
+          "isPublishDate": true
+        },
+        {
+          "title": "Last modified time",
+          "name": "lastmod",
+          "type": "datetime",
+          "default": "{{now}}"
+        },
+        {
+          "title": "Tags",
+          "name": "tags",
+          "type": "tags",
+          "default": []
+        },
+        {
+          "title": "Weight",
+          "name": "weight",
+          "type": "number"
+        },
+        {
+          "title": "Cover",
+          "name": "cover",
+          "type":"fields",
+          "fields":[
+            {
+              "title": "Image",
+              "name": "image",
+              "type": "string"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "frontMatter.framework.id": "hugo",
+  "frontMatter.content.publicFolder": "static",
+  "frontMatter.content.pageFolders": [
+    {
+      "path": "[[workspace]]/content",
+      "title": "content"
+    },
+    {
+      "path": "[[workspace]]/archetypes",
+      "title": "archetypes"
+    },
+    {
+      "path": "[[workspace]]/content/tags",
+      "title": "tags"
+    },
+    {
+      "path": "[[workspace]]/content/series",
+      "title": "series"
+    },
+    {
+      "path": "[[workspace]]/content/posts",
+      "title": "posts"
+    },
+    {
+      "path": "[[workspace]]/content/series/programming-go",
+      "title": "programming-go"
+    },
+    {
+      "title": "programming-kubernetes",
+      "path": "[[workspace]]/content/series/programming-kubernetes"
+    }
+  ],
+  "frontMatter.taxonomy.tags": [
+    "Giscus",
+    "Golang",
+    "Kubernetes",
+    "SOLID",
+    "crd",
+    "docker",
+    "docker-compose",
+    "foobar",
+    "tls"
+  ]
+}

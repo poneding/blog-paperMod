@@ -1,0 +1,149 @@
+.main {
+    position: relative;
+    min-height: calc(100vh - var(--header-height) - var(--footer-height));
+    max-width: calc(var(--nav-width) + var(--gap) * 18);
+    margin: auto;
+    padding: 12px 300px ;
+    /* padding-left: 300px;
+    padding-right: 300px; */
+}
+
+.page-header .post-title {
+    display: none;
+}
+
+.pagination {
+    display: flex;
+}
+
+.pagination a {
+    font-size: 13px;
+    line-height: 32px;
+    background: var(--code-bg);
+    border-radius: var(--radius);
+    padding: 0 8px;
+}
+
+.pagination .next {
+    margin-inline-start: auto;
+}
+
+.social-icons {
+    padding: 12px 0;
+}
+
+.social-icons a:not(:last-of-type) {
+    margin-inline-end: 12px;
+}
+
+.social-icons a svg {
+    height: 32px;
+    width: 32px;
+}
+
+code {
+    direction: ltr;
+}
+
+div.highlight,
+pre {
+    position: relative;
+}
+
+.copy-code {
+    display: none;
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    color: rgba(255, 255, 255, 0.8);
+    background: rgba(78, 78, 78, 0.8);
+    border-radius: var(--radius);
+    padding: 4px;
+    font-size: 14px;
+    user-select: none;
+}
+
+div.highlight:hover .copy-code,
+pre:hover .copy-code {
+    display: block;
+}
+
+.utterances {
+    max-width: 100%;
+}
+
+code {
+    font-family: Monaco, Menlo, Consolas, "Liberation Mono", "Courier New", monospace;
+}
+
+a {
+    color: var(--secondary);
+    text-decoration: none;
+    transition: transform .3s ease-in-out, box-shadow .3s cubic-bezier(.47, 0, .745, .715);
+}
+
+a:hover,
+a:hover * {
+    color: var(--link-color) !important; 
+}
+
+main {
+    padding-left: var(--gap);
+    padding-right: var(--gap);
+}
+
+article.post-entry {
+    border: 1px solid var(--code-bg);
+}
+
+article.post-entry:hover {
+    border: 1px solid var(--link-color);
+    background-color: var(--active-bg);
+}
+
+.terms-tags {
+    text-align: center;
+}
+
+.post-left-article {
+    float: left;
+    width: 100%;
+}
+
+.post-right-toc {
+    position: absolute;
+    float: right;
+    width: 280px;
+    right: 0px;
+    height: 100%;
+}
+
+.post-right-toc .toc-part {
+    position: sticky;
+    top: 20px;
+}
+
+.clear_float {
+    clear: both;
+}
+
+pre {
+    tab-size: 4;
+}
+
+@media (max-width: 1068px) {
+    .nav{
+        width: 100%;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+    .main {
+        width: 100%;
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .post-right-toc {
+        display: none;
+    }
+}

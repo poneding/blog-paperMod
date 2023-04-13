@@ -1,0 +1,17 @@
+{{- if (.Param "ShowBreadCrumbs") -}}
+<div class="breadcrumbs">
+    {{- $url := replace .Parent.Permalink (printf "%s" site.BaseURL) "" }}
+    {{- $lang_url := strings.TrimPrefix (printf "%s/" .Lang) $url -}}
+    <p>
+        <span><a href="/"><i class="fi fi-home"></i>&nbsp;主页</a></span>
+        {{- $scratch := newScratch }}
+        {{- range $index, $element := split $lang_url "/" }}
+        {{- $scratch.Add "path" (printf "%s/" $element )}}
+        {{- $bc_pg := site.GetPage ($scratch.Get "path") -}}
+        {{- if (and ($bc_pg) (gt (len . ) 0))}}<span><i class="fi fi-angle-right"></i><a href="{{ $bc_pg.Permalink }}">{{ $bc_pg.Name }}</a></span>
+        {{- end }}
+        {{- end -}}
+        <i class="fi fi-angle-right"></i><span>{{.Title}}</span>
+    </p>
+</div>
+{{- end -}}

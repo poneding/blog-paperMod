@@ -1,0 +1,10 @@
+<!-- Checks if page is part of section and page is not section itself -->
+{{- if and (ne .Page.Kind "section") (.Page.Section ) }}
+<!-- Generate a unique id for each image -->
+{{- $random := (substr (md5 .Destination) 0 5) }}
+<img loading="lazy" decoding="async" src="{{ .Destination | safeURL }}" alt="{{ .Text }}" {{
+    with.Title}} title="{{ . }}" {{ end }} />
+{{- else }}
+<img loading="lazy" decoding="async" src="{{ .Destination | safeURL }}" alt="{{ .Text }}" {{ with .Title}}
+    title="{{ . }}" {{ end }} />
+{{- end }}

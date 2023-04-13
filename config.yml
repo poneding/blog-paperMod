@@ -1,0 +1,150 @@
+baseURL: "https://poneding.com/"
+languageCode: zh
+title: "博客 · 丁鹏"
+paginate: 10
+defaultContentLanguage: zh
+hasCJKLanguage: true
+
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+
+googleAnalytics: UA-123-45
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+params:
+  env: production # to enable google analytics, opengraph, twitter-cards and schema.
+  title: "博客"
+  description: "博客 · 丁鹏"
+  keywords:
+    [
+      "丁鹏",
+      "丁鹏的博客",
+      "dingpeng",
+      "dp",
+      "Pone Ding",
+      "poneding.com",
+      "Kubernetes",
+      "Golang",
+      "云原生",
+    ]
+  author: ["丁鹏"]
+  images: ["cover.png"]
+  DateFormat: "2006-01-02"
+  timeZone: "CN"
+  defaultTheme: auto # dark, light
+  disableThemeToggle: false
+
+  ShowReadingTime: true
+  ShowShareButtons: false
+  ShowPostNavLinks: true
+  ShowBreadCrumbs: true
+  ShowCodeCopyButtons: true
+  ShowWordCount: true
+  ShowRssButtonInSectionTermList: false
+  ShowAllPagesInArchive: true
+  ShowPageNums: true
+  UseHugoToc: false
+  disableSpecial1stPost: false
+  disableScrollToTop: false
+  comments: true
+  hidemeta: false
+  hideSummary: false
+  showtoc: true
+  tocopen: true
+
+  mainSections:
+    - posts
+    - series
+
+  assets:
+    disableHLJS: false # to disable highlight.js
+    # disableFingerprinting: true
+    favicon: "/images/blog.png"
+    favicon16x16: "/images/blog.png"
+    favicon32x32: "/images/blog.png"
+    apple_touch_icon: "/images/blog.png"
+    safari_pinned_tab: "/images/blog.png"
+
+  label:
+    text: "博客"
+    icon: /images/blog.png
+    iconHeight: 25
+
+  homeInfoParams:
+    Content: 集中起来的意志可以击穿顽石。
+
+  socialIcons:
+    - name: github
+      url: "https://github.com/poneding"
+    - name: email
+      url: "mailto:poneding@gmail.com"
+
+  analytics:
+    baidu:
+      SiteVerificationTag: "code-yW1u8Rg4sz"
+    google:
+      SiteVerificationTag: "qnXhMaPNdhaZ4A36ptMVUn-0o111dAsJqugH_0ZCYvM"
+    # bing:
+    #   SiteVerificationTag: "XYZabc"
+    # yandex:
+    #   SiteVerificationTag: "XYZabc"
+
+  cover:
+    hidden: false # hide everywhere but not in structured data
+    hiddenInList: false # hide on list pages and home
+    hiddenInSingle: false # hide on single page
+    # linkFullImages: true
+
+  editPost:
+    URL: "https://github.com/poneding/blog/edit/master/content"
+    Text: "编辑" # edit text
+    appendFilePath: true # to append file path to Edit link
+
+  # for search
+  # https://fusejs.io/api/options.html
+  fuseOpts:
+    isCaseSensitive: false
+    shouldSort: true
+    location: 0
+    distance: 1000
+    threshold: 0.4
+    minMatchCharLength: 0
+    keys: ["title", "permalink", "summary", "content"]
+menu:
+  main:
+    - identifier: posts
+      name: 文章
+      pre: book
+      url: /posts/
+      weight: 2
+    - identifier: series
+      name: 系列
+      pre: series
+      url: /series/
+      weight: 3
+    - identifier: tags
+      name: 标签
+      pre: tags
+      url: /tags/
+      weight: 20
+    - identifier: archives
+      name: 归档
+      pre: folder
+      url: /archives/
+      weight: 30
+
+pygmentsUseClasses: true
+markup:
+  highlight:
+    noClasses: false
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON # is necessary
