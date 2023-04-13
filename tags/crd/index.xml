@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>crd on 博客 · 丁鹏</title>
+    <link>https://poneding.com/tags/crd/</link>
+    <description>Recent content in crd on 博客 · 丁鹏</description>
+    <image>
+      <url>https://poneding.com/cover.png</url>
+      <link>https://poneding.com/cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Tue, 11 Oct 2022 23:50:34 +0800</lastBuildDate><atom:link href="https://poneding.com/tags/crd/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CRD 简介</title>
+      <link>https://poneding.com/series/programming-kubernetes/crd/</link>
+      <pubDate>Tue, 11 Oct 2022 23:50:34 +0800</pubDate>
+      
+      <guid>https://poneding.com/series/programming-kubernetes/crd/</guid>
+      <description>CRD 字段校验配置 apiVersion:apiextensions.k8s.io/v1beta1kind:CustomResourceDefinitionmetadata:name:scalings.control.poneding.comspec:group:control.poneding.comversions:- name:v1served:truestorage:truescope:Namespacednames:plural:scalingssingular:scalingkind:Scalingvalidation:openAPIV3Schema:properties:spec:required:- targetDeployment- minReplicas- maxReplicas- metricType- step- scaleUp- scaleDownproperties:targetDeployment:type:stringminReplicas:type:integerminimum:0maxReplicas:type:integerminimum:0metricType:type:stringenum:- CPU- MEMORY- REQUESTSstep:type:integerminimum:1scaleUp:type:integerscaleDown:type:integerminimum:0 是否必须 参数类型 枚举范围 数值最大最小</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>SOLID on 博客 · 丁鹏</title>
+    <link>https://poneding.com/tags/solid/</link>
+    <description>Recent content in SOLID on 博客 · 丁鹏</description>
+    <image>
+      <url>https://poneding.com/cover.png</url>
+      <link>https://poneding.com/cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Tue, 25 Oct 2022 18:13:58 +0800</lastBuildDate><atom:link href="https://poneding.com/tags/solid/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Golang 程序 SOLID 设计原则</title>
+      <link>https://poneding.com/series/programming-go/golang-%E7%A8%8B%E5%BA%8F-solid-%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/</link>
+      <pubDate>Tue, 25 Oct 2022 18:13:58 +0800</pubDate>
+      
+      <guid>https://poneding.com/series/programming-go/golang-%E7%A8%8B%E5%BA%8F-solid-%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/</guid>
+      <description>可重用软件设计的五个原则，SOLID 原则： 单一职责原则（Single Responsibility Principle） 开放 / 封闭原则（Open / Closed Principle） 里</description>
+    </item>
+    
+  </channel>
+</rss>

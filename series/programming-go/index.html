@@ -1,0 +1,355 @@
+<!doctype html><html lang=zh dir=auto>
+<head>
+<link rel=stylesheet href=/css/fi.css crossorigin=anonymous><meta charset=utf-8>
+<meta http-equiv=x-ua-compatible content="IE=edge">
+<meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+<meta name=robots content="index, follow">
+<title>Golang 编程 | 博客 · 丁鹏</title>
+<meta name=keywords content>
+<meta name=description content="本系列涉及 Go 语言相关的编程学习、实践等">
+<meta name=author content="丁鹏">
+<link rel=canonical href=https://poneding.com/series/programming-go/>
+<meta name=baidu-site-verification content="code-yW1u8Rg4sz">
+<meta name=google-site-verification content="qnXhMaPNdhaZ4A36ptMVUn-0o111dAsJqugH_0ZCYvM">
+<link crossorigin=anonymous href=/assets/css/stylesheet.e885a03929d345922e032bc3e661c94c00cedb52c10d75afe2642bd4071375a8.css integrity="sha256-6IWgOSnTRZIuAyvD5mHJTADO21LBDXWv4mQr1AcTdag=" rel="preload stylesheet" as=style>
+<link rel=icon href=https://poneding.com/images/blog.png>
+<link rel=icon type=image/png sizes=16x16 href=https://poneding.com/images/blog.png>
+<link rel=icon type=image/png sizes=32x32 href=https://poneding.com/images/blog.png>
+<link rel=apple-touch-icon href=https://poneding.com/images/blog.png>
+<link rel=mask-icon href=https://poneding.com/images/blog.png>
+<meta name=theme-color content="#2e2e33">
+<meta name=msapplication-TileColor content="#2e2e33">
+<link rel=alternate type=application/rss+xml href=https://poneding.com/series/programming-go/index.xml>
+<noscript>
+<style>#theme-toggle,.top-link{display:none}</style>
+<style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
+</noscript>
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="Golang 编程">
+<meta property="og:description" content="博客 · 丁鹏">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://poneding.com/series/programming-go/">
+<meta property="og:image" content="https://pding.oss-cn-hangzhou.aliyuncs.com/images/20221025000343.png"><meta property="og:site_name" content="博客">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://pding.oss-cn-hangzhou.aliyuncs.com/images/20221025000343.png">
+<meta name=twitter:title content="Golang 编程">
+<meta name=twitter:description content="博客 · 丁鹏">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://poneding.com/series/"},{"@type":"ListItem","position":2,"name":"Golang 编程","item":"https://poneding.com/series/programming-go/"}]}</script>
+</head>
+<body class=list id=top>
+<script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
+<header class=header>
+<nav class=nav>
+<div class=logo>
+<a href=https://poneding.com/ accesskey=h title="博客 (Alt + H)">
+<img src=https://poneding.com/images/blog.png alt aria-label=logo height=25>博客</a>
+<div class=logo-switches>
+<button id=theme-toggle accesskey=t title="(Alt + T)"><svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg><svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+</button>
+</div>
+</div>
+<ul id=menu>
+<li>
+<a href=https://poneding.com/posts/ title=文章>
+<span>
+<i class="fi fi-book"></i>&nbsp;文章</span>
+</a>
+</li>
+<li>
+<a href=https://poneding.com/series/ title=系列>
+<span class=active>
+<i class="fi fi-series"></i>&nbsp;系列</span>
+</a>
+</li>
+<li>
+<a href=https://poneding.com/tags/ title=标签>
+<span>
+<i class="fi fi-tags"></i>&nbsp;标签</span>
+</a>
+</li>
+<li>
+<a href=https://poneding.com/archives/ title=归档>
+<span>
+<i class="fi fi-folder"></i>&nbsp;归档</span>
+</a>
+</li>
+<li>
+<a href=/search title="Alt + /" accesskey=/>
+<span>
+<i class="fi fi-search"></i>
+</span>
+</a>
+</li>
+<li>
+<span>|</span>
+</li>
+<li>
+<span>
+<a href=https://github.com/poneding target=_blank rel="noopener noreferrer me">
+<i class="fi fi-github"></i>
+</a>
+<span>·</span>
+<a href=mailto:poneding@gmail.com target=_blank rel="noopener noreferrer me">
+<i class="fi fi-mail"></i>
+</a>
+</span>
+</li>
+</ul>
+</nav>
+</header><main class=main>
+<header class=page-header><div class=breadcrumbs><p>
+<span><a href=/><i class="fi fi-home"></i>&nbsp;主页</a></span><span><i class="fi fi-angle-right"></i><a href=https://poneding.com/series/>系列</a></span><i class="fi fi-angle-right"></i><span>Golang 编程</span>
+</p>
+</div>
+</header>
+<article class=post-entry>
+<div class=post-info>
+<header class=entry-header>
+<h2>Golang 程序 SOLID 设计原则
+</h2>
+</header>
+<div class=entry-content>
+<p>可重用软件设计的五个原则，SOLID 原则： 单一职责原则（Single Responsibility Principle） 开放 / 封闭原则（Open / Closed Principle） 里...</p>
+</div>
+<footer class=entry-footer><span class=meta-item>
+<span>
+<i class="fi fi-calendar"></i>2022-10-25
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-clock"></i>9 分钟</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-word"></i>4418 字</span>
+</span>
+<span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-user"></i>丁鹏
+</span>
+</span></footer>
+</div>
+<figure class=entry-cover><img loading=lazy src=https://pding.oss-cn-hangzhou.aliyuncs.com/images/20221031154811.png alt>
+</figure>
+<a class=entry-link aria-label="post link to Golang 程序 SOLID 设计原则" href=https://poneding.com/series/programming-go/golang-%E7%A8%8B%E5%BA%8F-solid-%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/></a>
+</article>
+<article class=post-entry>
+<div class=post-info>
+<header class=entry-header>
+<h2>Go 包 - errors
+</h2>
+</header>
+<div class=entry-content>
+<p>errors 包为你的 Go 程序提供一种对程序员调试、查看日志更友好的错误处理方式。 Go 程序中传统的错误处理方法： if err != nil { return err } 递归的向上传递错误，这种方式...</p>
+</div>
+<footer class=entry-footer><span class=meta-item>
+<span>
+<i class="fi fi-calendar"></i>2022-10-19
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-clock"></i>1 分钟</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-word"></i>362 字</span>
+</span>
+<span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-user"></i>丁鹏
+</span>
+</span></footer>
+</div>
+<a class=entry-link aria-label="post link to Go 包 - errors" href=https://poneding.com/series/programming-go/gopkg-errors/></a>
+</article>
+<article class=post-entry>
+<div class=post-info>
+<header class=entry-header>
+<h2>数组递归构造具有父子层级关系的对象
+</h2>
+</header>
+<div class=entry-content>
+<p>场景介绍 从数据库获取到了菜单列表数据，这些菜单数据通过字段 ParentID 表示父子层级关系，现在需要将菜单列表数据转成树状的实例对象。 数据库取出的初始数据...</p>
+</div>
+<footer class=entry-footer><span class=meta-item>
+<span>
+<i class="fi fi-calendar"></i>2022-10-18
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-clock"></i>2 分钟</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-word"></i>879 字</span>
+</span>
+<span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-user"></i>丁鹏
+</span>
+</span></footer>
+</div>
+<a class=entry-link aria-label="post link to 数组递归构造具有父子层级关系的对象" href=https://poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/></a>
+</article>
+<article class=post-entry>
+<div class=post-info>
+<header class=entry-header>
+<h2>Golang 切片扩容
+</h2>
+</header>
+<div class=entry-content>
+<p>怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？ 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底...</p>
+</div>
+<footer class=entry-footer><span class=meta-item>
+<span>
+<i class="fi fi-calendar"></i>2022-10-11
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-clock"></i>1 分钟</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-word"></i>91 字</span>
+</span>
+<span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-user"></i>丁鹏
+</span>
+</span></footer>
+</div>
+<a class=entry-link aria-label="post link to Golang 切片扩容" href=https://poneding.com/series/programming-go/golang-%E5%88%87%E7%89%87%E6%89%A9%E5%AE%B9/></a>
+</article>
+<article class=post-entry>
+<div class=post-info>
+<header class=entry-header>
+<h2>Golang 生成证书
+</h2>
+</header>
+<div class=entry-content>
+<p>代码实现 package certutil import ( "bytes" "crypto/rand" "crypto/rsa" "crypto/x509" "crypto/x509/pkix" "encoding/pem" "math/big" "net" "time" ) // CA ca type CA struct { caInfo *x509.Certificate caPrivKey *rsa.PrivateKey caPem, caKeyPem []byte } // GetCAPem get ca pem bytes func (c *CA) GetCAPem() ([]byte, error) { if c.caPem == nil { // create the CA caBytes, err := x509.CreateCertificate(rand.Reader, c.caInfo, c.caInfo, &c.caPrivKey.PublicKey, c.caPrivKey) if err != nil { return nil,...</p>
+</div>
+<footer class=entry-footer><span class=meta-item>
+<span>
+<i class="fi fi-calendar"></i>2022-10-08
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-clock"></i>2 分钟</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-word"></i>503 字</span>
+</span>
+<span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-user"></i>丁鹏
+</span>
+</span></footer>
+</div>
+<a class=entry-link aria-label="post link to Golang 生成证书" href=https://poneding.com/series/programming-go/golang-%E7%94%9F%E6%88%90%E8%AF%81%E4%B9%A6/></a>
+</article>
+<article class=post-entry>
+<div class=post-info>
+<header class=entry-header>
+<h2>Golang 实现双向认证
+</h2>
+</header>
+<div class=entry-content>
+<p>TLS 传输层安全协议（TLS），在互联网上，通常是由服务器单向的向客户端提供证书，以证明其身份。 mTLS 双向 TLS 认证，是指在客户端和服务器之间使用双行加...</p>
+</div>
+<footer class=entry-footer><span class=meta-item>
+<span>
+<i class="fi fi-calendar"></i>2022-10-02
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-clock"></i>3 分钟</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-word"></i>1004 字</span>
+</span>
+<span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-user"></i>丁鹏
+</span>
+</span></footer>
+</div>
+<a class=entry-link aria-label="post link to Golang 实现双向认证" href=https://poneding.com/series/programming-go/golang-%E5%AE%9E%E7%8E%B0%E5%8F%8C%E5%90%91%E8%AE%A4%E8%AF%81/></a>
+</article>
+<article class=post-entry>
+<div class=post-info>
+<header class=entry-header>
+<h2>Go1.18 - 工作区模式
+</h2>
+</header>
+<div class=entry-content>
+<p>安装的 Go1.18 或更新版本，它为你提供了工作区模式（Workspace mode），帮助你更好做 go 模块之间依赖的管理。 例如，你开发一个新项目，分了两个...</p>
+</div>
+<footer class=entry-footer><span class=meta-item>
+<span>
+<i class="fi fi-calendar"></i>2022-09-28
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-clock"></i>2 分钟</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-word"></i>612 字</span>
+</span>
+<span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-user"></i>丁鹏
+</span>
+</span></footer>
+</div>
+<a class=entry-link aria-label="post link to Go1.18 - 工作区模式" href=https://poneding.com/series/programming-go/go1.18-%E5%B7%A5%E4%BD%9C%E5%8C%BA%E6%A8%A1%E5%BC%8F/></a>
+</article>
+<article class=post-entry>
+<div class=post-info>
+<header class=entry-header>
+<h2>Golang 资源
+</h2>
+</header>
+<div class=entry-content>
+<p>本页收集了一些 Golang 相关的资源，用作学习和参考，以及工作实践等。 Go 路线图 👉🏻 GOLANG ROADMAP 站点 👉🏻 Go 开发者路线图 Awesome Go 你可以在里面找到各种 Go 框架，库以及软件...</p>
+</div>
+<footer class=entry-footer><span class=meta-item>
+<span>
+<i class="fi fi-calendar"></i>2022-11-16
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-clock"></i>1 分钟</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-word"></i>78 字</span>
+</span>
+<span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-user"></i>丁鹏
+</span>
+</span></footer>
+</div>
+<a class=entry-link aria-label="post link to Golang 资源" href=https://poneding.com/series/programming-go/golang-%E8%B5%84%E6%BA%90/></a>
+</article>
+</main>
+<script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
+<footer class=footer>
+<p>
+<span>
+<i class="fi fi-copyright"></i>2023
+<a href=https://poneding.com/>博客 · 丁鹏</a>
+</span>
+&nbsp;|&nbsp;
+<span>
+<a href=https://beian.miit.gov.cn/><i class="fi fi-shield"></i>湘ICP备2022019990号</a>
+</span>
+</p>
+<p>
+<span>
+<i class="fi fi-fire"></i>本站共计
+<a id=busuanzi_value_site_pv>0</a> 次访问 & <a id=busuanzi_value_site_uv>0</a> 位访客
+</span>
+</p>
+</footer>
+<a href=#top aria-label="go to top" title="Go to Top (Alt + G)" class=top-link id=top-link accesskey=g><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentcolor"><path d="M12 6H0l6-6z"/></svg>
+</a>
+<script>let menu=document.getElementById('menu');menu&&(menu.scrollLeft=localStorage.getItem("menu-scroll-position"),menu.onscroll=function(){localStorage.setItem("menu-scroll-position",menu.scrollLeft)}),document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener("click",function(b){b.preventDefault();var a=this.getAttribute("href").substr(1);window.matchMedia('(prefers-reduced-motion: reduce)').matches?document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView():document.querySelector(`[id='${decodeURIComponent(a)}']`).scrollIntoView({behavior:"smooth"}),a==="top"?history.replaceState(null,null," "):history.pushState(null,null,`#${a}`)})})</script>
+<script>var mybutton=document.getElementById("top-link");window.onscroll=function(){document.body.scrollTop>800||document.documentElement.scrollTop>800?(mybutton.style.visibility="visible",mybutton.style.opacity="1"):(mybutton.style.visibility="hidden",mybutton.style.opacity="0")}</script>
+<script>document.getElementById("theme-toggle").addEventListener("click",()=>{document.body.className.includes("dark")?(document.body.classList.remove('dark'),localStorage.setItem("pref-theme",'light')):(document.body.classList.add('dark'),localStorage.setItem("pref-theme",'dark'))})</script></body>
+</html>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>docker on 博客 · 丁鹏</title>
+    <link>https://poneding.com/tags/docker/</link>
+    <description>Recent content in docker on 博客 · 丁鹏</description>
+    <image>
+      <url>https://poneding.com/cover.png</url>
+      <link>https://poneding.com/cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Mon, 10 Oct 2022 19:21:58 +0800</lastBuildDate><atom:link href="https://poneding.com/tags/docker/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Docker Compose 实践</title>
+      <link>https://poneding.com/posts/docker-compose/</link>
+      <pubDate>Mon, 10 Oct 2022 19:21:58 +0800</pubDate>
+      
+      <guid>https://poneding.com/posts/docker-compose/</guid>
+      <description>安装 如果你安装了 Docker Desktop，那么它已经帮你自动安装了 Docker Compose 插件。否则，需要额外安装插件。 使用一下命令安装或升级 Docker Compose（linu</description>
+    </item>
+    
+  </channel>
+</rss>
