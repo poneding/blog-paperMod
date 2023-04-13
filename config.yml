@@ -84,13 +84,11 @@ params:
 
   analytics:
     baidu:
-      SiteVerificationTag: "code-yW1u8Rg4sz"
+      SiteVerificationTag: "codeva-hnUHGtB3nt"
     google:
-      SiteVerificationTag: "qnXhMaPNdhaZ4A36ptMVUn-0o111dAsJqugH_0ZCYvM"
-    # bing:
-    #   SiteVerificationTag: "XYZabc"
-    # yandex:
-    #   SiteVerificationTag: "XYZabc"
+      SiteVerificationTag: "gigju1hgWV5auIGFQ92BEHHWLdQlDKD9Vtr0i0nJTdc"
+    bing:
+      SiteVerificationTag: "google-site-verification"
 
   cover:
     hidden: false # hide everywhere but not in structured data
