@@ -9,7 +9,7 @@
 <meta name=description content="CRD 字段校验配置 apiVersion:apiextensions.k8s.io/v1beta1kind:CustomResourceDefinitionmetadata:name:scalings.control.poneding.comspec:group:control.poneding.comversions:- name:v1served:truestorage:truescope:Namespacednames:plural:scalingssingular:scalingkind:Scalingvalidation:openAPIV3Schema:properties:spec:required:- targetDeployment- minReplicas- maxReplicas- metricType- step- scaleUp- scaleDownproperties:targetDeployment:type:stringminReplicas:type:integerminimum:0maxReplicas:type:integerminimum:0metricType:type:stringenum:- CPU- MEMORY- REQUESTSstep:type:integerminimum:1scaleUp:type:integerscaleDown:type:integerminimum:0 是否必须 参数类型 枚举范围 数值最大最小">
 <meta name=author content="Pone">
 <link rel=canonical href=https://blog.poneding.com/series/programming-kubernetes/crd/>
-<meta name=baidu-site-verification content="codeva-hnUHGtB3nt">
+<meta name=baidu-site-verification content="codeva-6hfJBK7dc3">
 <meta name=google-site-verification content="gigju1hgWV5auIGFQ92BEHHWLdQlDKD9Vtr0i0nJTdc">
 <meta name=msvalidate.01 content="google-site-verification">
 <link crossorigin=anonymous href=/assets/css/stylesheet.19a820af657f7ce6efbcb74b12a16c2844ef43f57b62ffb1f9cbcc53ec5f52cb.css integrity="sha256-Gaggr2V/fObvvLdLEqFsKETvQ/V7Yv+x+cvMU+xfUss=" rel="preload stylesheet" as=style>
