@@ -87,8 +87,8 @@ params:
       SiteVerificationTag: "codeva-TIM45BA2zX"
     google:
       SiteVerificationTag: "gigju1hgWV5auIGFQ92BEHHWLdQlDKD9Vtr0i0nJTdc"
-    # bing:
-    #   SiteVerificationTag: ""
+    bing:
+      SiteVerificationTag: "A6DA701A68DFFC170A595897CB4DF119"
 
   cover:
     hidden: false # hide everywhere but not in structured data
