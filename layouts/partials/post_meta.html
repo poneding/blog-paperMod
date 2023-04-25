@@ -1,16 +1,7 @@
 {{- if not .Date.IsZero -}}
 <span class="meta-item">
     <span>
-        <i class="fi fi-calendar"></i>{{ .Date | time.Format (default "January 2, 2006" site.Params.DateFormat) }}
-    </span>
-</span>
-{{- end }}
-
-{{- if (.Param "ShowReadingTime") -}}
-<span class="meta-item">
-    <span>
-        &nbsp;·&nbsp;<i class="fi fi-clock"></i>
-        {{- i18n "read_time" .ReadingTime | default (printf "%d min" .ReadingTime) -}}
+        <i class="fi fi-clock"></i>{{ .Date | time.Format (default "January 2, 2006" site.Params.DateFormat) }}
     </span>
 </span>
 {{- end }}
@@ -23,24 +14,3 @@
     </span>
 </span>
 {{- end }}
-
-{{- if or .Params.author site.Params.author }}
-{{- $author := (.Params.author | default site.Params.author) }}
-{{- $author_type := (printf "%T" $author) }}
-{{- if (or (eq $author_type "[]string") (eq $author_type "[]interface {}")) }}
-<span class="meta-item">
-    <span>
-        &nbsp;·&nbsp;<i class="fi fi-user"></i>
-        {{- (delimit $author ", " ) }}
-    </span>
-</span>
-{{- else }}
-
-<span class="meta-item">
-    <span>
-        &nbsp;·&nbsp;<i class="fi fi-user"></i>
-        {{- $author }}
-    </span>
-</span>
-{{- end }}
-{{- end -}}

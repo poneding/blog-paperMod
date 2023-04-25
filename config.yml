@@ -30,14 +30,14 @@ params:
       "Golang",
       "云原生",
     ]
-  author: ["Pone"]
+  author: ["Pone Ding"]
   images: ["cover.png"]
   DateFormat: "2006-01-02"
   timeZone: "CN"
   defaultTheme: auto # dark, light
   disableThemeToggle: false
 
-  ShowReadingTime: true
+  ShowReadingTime: false
   ShowShareButtons: false
   ShowPostNavLinks: true
   ShowBreadCrumbs: true

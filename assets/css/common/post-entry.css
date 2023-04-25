@@ -21,16 +21,16 @@
 .first-entry .home-info-content {
     margin: 14px 0;
     font-size: 16px;
-    color:(--primary);
+    color: (--primary);
     -webkit-line-clamp: 3;
 }
 
-.home-info-content a{
+.home-info-content a {
     color: var(--secondary);
 }
 
-.first-entry .social-info{
-    font-size: 14px; 
+.first-entry .social-info {
+    font-size: 14px;
     margin-top: 12px;
 }
 
@@ -130,5 +130,5 @@
     padding: 6px 8px;
     display: inline-block;
     overflow: hidden;
-    width: 90%;
+    width: 100%;
 }
