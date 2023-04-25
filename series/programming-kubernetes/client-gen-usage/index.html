@@ -7,12 +7,12 @@
 <title>使用 client-gen 生成 clientset 代码 | 博客 · 丁鹏</title>
 <meta name=keywords content="Kubernetes,client-gen">
 <meta name=description content="本页是这篇Kubernetes 文档中一些内容摘要。 大致分为 3 个步骤： 为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签： // +">
-<meta name=author content="Pone">
+<meta name=author content="Pone Ding">
 <link rel=canonical href=https://blog.poneding.com/series/programming-kubernetes/client-gen-usage/>
 <meta name=baidu-site-verification content="codeva-TIM45BA2zX">
 <meta name=google-site-verification content="gigju1hgWV5auIGFQ92BEHHWLdQlDKD9Vtr0i0nJTdc">
 <meta name=msvalidate.01 content="A6DA701A68DFFC170A595897CB4DF119">
-<link crossorigin=anonymous href=/assets/css/stylesheet.19a820af657f7ce6efbcb74b12a16c2844ef43f57b62ffb1f9cbcc53ec5f52cb.css integrity="sha256-Gaggr2V/fObvvLdLEqFsKETvQ/V7Yv+x+cvMU+xfUss=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.f1d67f4a104672579ee21462a88771bcfbb5b3589ca76a554371ac8f7e7bc072.css integrity="sha256-8dZ/ShBGclee4hRiqIdxvPu1s1icp2pVQ3Gsj357wHI=" rel="preload stylesheet" as=style>
 <script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script>
 <link rel=icon href=https://blog.poneding.com/images/blog.png>
 <link rel=icon type=image/png sizes=16x16 href=https://blog.poneding.com/images/blog.png>
@@ -36,7 +36,7 @@
 <meta name=twitter:title content="使用 client-gen 生成 clientset 代码">
 <meta name=twitter:description content="本页是这篇Kubernetes 文档中一些内容摘要。 大致分为 3 个步骤： 为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签： // +">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://blog.poneding.com/series/"},{"@type":"ListItem","position":2,"name":"Kubernetes 编程","item":"https://blog.poneding.com/series/programming-kubernetes/"},{"@type":"ListItem","position":3,"name":"使用 client-gen 生成 clientset 代码","item":"https://blog.poneding.com/series/programming-kubernetes/client-gen-usage/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"使用 client-gen 生成 clientset 代码","name":"使用 client-gen 生成 clientset 代码","description":"本页是这篇Kubernetes 文档中一些内容摘要。 大致分为 3 个步骤： 为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签： // +","keywords":["Kubernetes","client-gen"],"articleBody":"本页是这篇Kubernetes 文档中一些内容摘要。\n大致分为 3 个步骤：\n 为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签：   // +genclient：生成客户端函数（包括 Create, Update, Delete, DeleteCollection, Get, List, Update, Patch, Watch，如果 API 类型结构中包括 .Status 字段，还会额外生成 UpdateStatus 函数）； // +genclient:nonNamespaced：指定 API 类型是集群级别而不是命名空间级别的，生成的客户端函数都没有命名空间； // +genclient:onlyVerbs=create,get：只生成 Create, Get 客户端函数； // +genclient:skipVerbs=watch：生成除了 Watch 之外的所有其他客户端函数； // +genclient:noStatus：即使 API 类型结构包含 .Status 字段，也不生成 UpdateStatus 客户端函数； 有些情况下，可能你想要额外生成非标准的客户端函数，例如子资源函数，那么你需要使用下列这些 tag 标签： // +genclient:method=Scale,verb=update,subresource=scale,input=k8s.io/api/extensions/v1beta1.Scale,result=k8s.io/api/extensions/v1beta1.Scale：该例中使用标签，将会自动生成 Scale(string, *v1beta.Scale) *v1beta.Scale 客户端函数，里面配置了子资源函数的输入和输出参数。 另外，以下的 tag 标签也影响着客户端代码的生成： // +groupName=policy.authorization.k8s.io：使用该 group 名称生成到客户端代码中（默认使用 package 名）； // +groupGoName=AuthorizationPolicy：驼峰 Golang 标识符避免带有非唯一前缀例如 policy.authorization.k8s.io 和 policy.k8s.io 的组名冲突。这将可能导致两个 Policy() 函数生成到 clientset 代码中。  如果你是参与开发 k8s.io/kubernetes 项目，你只需要执行 ./hack/update-group.sh 脚本即可生成或更新代码； 如果你开发自己的项目，你需要使用 client-gen 命令以及其命令参数：  client-gen --input=\"pkg/apis/${group1}/${version1},pkg/apis/${group2}/${version2}\" --clientset-name=\"my_clientset\"  使用 client-gen -h 查看更多命令使用姿势。\n 除了 client-gen 自动生成的客户端代码外，你可以手动添加额外的代码，参考这里。  ","wordCount":"831","inLanguage":"zh","datePublished":"2022-10-08T17:37:07+08:00","dateModified":"2022-10-08T17:37:07+08:00","author":[{"@type":"Person","name":"Pone"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.poneding.com/series/programming-kubernetes/client-gen-usage/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://blog.poneding.com/images/blog.png"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"使用 client-gen 生成 clientset 代码","name":"使用 client-gen 生成 clientset 代码","description":"本页是这篇Kubernetes 文档中一些内容摘要。 大致分为 3 个步骤： 为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签： // +","keywords":["Kubernetes","client-gen"],"articleBody":"本页是这篇Kubernetes 文档中一些内容摘要。\n大致分为 3 个步骤：\n 为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签：   // +genclient：生成客户端函数（包括 Create, Update, Delete, DeleteCollection, Get, List, Update, Patch, Watch，如果 API 类型结构中包括 .Status 字段，还会额外生成 UpdateStatus 函数）； // +genclient:nonNamespaced：指定 API 类型是集群级别而不是命名空间级别的，生成的客户端函数都没有命名空间； // +genclient:onlyVerbs=create,get：只生成 Create, Get 客户端函数； // +genclient:skipVerbs=watch：生成除了 Watch 之外的所有其他客户端函数； // +genclient:noStatus：即使 API 类型结构包含 .Status 字段，也不生成 UpdateStatus 客户端函数； 有些情况下，可能你想要额外生成非标准的客户端函数，例如子资源函数，那么你需要使用下列这些 tag 标签： // +genclient:method=Scale,verb=update,subresource=scale,input=k8s.io/api/extensions/v1beta1.Scale,result=k8s.io/api/extensions/v1beta1.Scale：该例中使用标签，将会自动生成 Scale(string, *v1beta.Scale) *v1beta.Scale 客户端函数，里面配置了子资源函数的输入和输出参数。 另外，以下的 tag 标签也影响着客户端代码的生成： // +groupName=policy.authorization.k8s.io：使用该 group 名称生成到客户端代码中（默认使用 package 名）； // +groupGoName=AuthorizationPolicy：驼峰 Golang 标识符避免带有非唯一前缀例如 policy.authorization.k8s.io 和 policy.k8s.io 的组名冲突。这将可能导致两个 Policy() 函数生成到 clientset 代码中。  如果你是参与开发 k8s.io/kubernetes 项目，你只需要执行 ./hack/update-group.sh 脚本即可生成或更新代码； 如果你开发自己的项目，你需要使用 client-gen 命令以及其命令参数：  client-gen --input=\"pkg/apis/${group1}/${version1},pkg/apis/${group2}/${version2}\" --clientset-name=\"my_clientset\"  使用 client-gen -h 查看更多命令使用姿势。\n 除了 client-gen 自动生成的客户端代码外，你可以手动添加额外的代码，参考这里。  ","wordCount":"831","inLanguage":"zh","datePublished":"2022-10-08T17:37:07+08:00","dateModified":"2022-10-08T17:37:07+08:00","author":[{"@type":"Person","name":"Pone Ding"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.poneding.com/series/programming-kubernetes/client-gen-usage/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://blog.poneding.com/images/blog.png"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -111,19 +111,11 @@
 </h1>
 <div class=post-meta><span class=meta-item>
 <span>
-<i class="fi fi-calendar"></i>2022-10-08
+<i class="fi fi-clock"></i>2022-10-08
 </span>
-</span><span class=meta-item>
-<span>
-&nbsp;·&nbsp;<i class="fi fi-clock"></i>2 分钟</span>
 </span><span class=meta-item>
 <span>
 &nbsp;·&nbsp;<i class="fi fi-word"></i>831 字</span>
-</span>
-<span class=meta-item>
-<span>
-&nbsp;·&nbsp;<i class="fi fi-user"></i>Pone
-</span>
 </span><span class=meta-item>
 &nbsp;·&nbsp;<i class="fi fi-eye"></i>&nbsp;<span id=busuanzi_value_page_pv></span>
 </span>&nbsp;|&nbsp;<a href=https://github.com/poneding/blog/edit/master/content/series/programming-kubernetes/client-gen-usage.md rel="noopener noreferrer" target=_blank>

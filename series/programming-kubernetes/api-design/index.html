@@ -7,12 +7,12 @@
 <title>Kubernetes API 设计 | 博客 · 丁鹏</title>
 <meta name=keywords content="Kubernetes,GVK,GVR">
 <meta name=description content="术语 Group API 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。 Version API 资源的版本，API 资源版本是会不断迭代的。 Kind API 资源的的类型，">
-<meta name=author content="Pone">
+<meta name=author content="Pone Ding">
 <link rel=canonical href=https://blog.poneding.com/series/programming-kubernetes/api-design/>
 <meta name=baidu-site-verification content="codeva-TIM45BA2zX">
 <meta name=google-site-verification content="gigju1hgWV5auIGFQ92BEHHWLdQlDKD9Vtr0i0nJTdc">
 <meta name=msvalidate.01 content="A6DA701A68DFFC170A595897CB4DF119">
-<link crossorigin=anonymous href=/assets/css/stylesheet.19a820af657f7ce6efbcb74b12a16c2844ef43f57b62ffb1f9cbcc53ec5f52cb.css integrity="sha256-Gaggr2V/fObvvLdLEqFsKETvQ/V7Yv+x+cvMU+xfUss=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.f1d67f4a104672579ee21462a88771bcfbb5b3589ca76a554371ac8f7e7bc072.css integrity="sha256-8dZ/ShBGclee4hRiqIdxvPu1s1icp2pVQ3Gsj357wHI=" rel="preload stylesheet" as=style>
 <script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script>
 <link rel=icon href=https://blog.poneding.com/images/blog.png>
 <link rel=icon type=image/png sizes=16x16 href=https://blog.poneding.com/images/blog.png>
@@ -36,7 +36,7 @@
 <meta name=twitter:title content="Kubernetes API 设计">
 <meta name=twitter:description content="术语 Group API 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。 Version API 资源的版本，API 资源版本是会不断迭代的。 Kind API 资源的的类型，">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://blog.poneding.com/series/"},{"@type":"ListItem","position":2,"name":"Kubernetes 编程","item":"https://blog.poneding.com/series/programming-kubernetes/"},{"@type":"ListItem","position":3,"name":"Kubernetes API 设计","item":"https://blog.poneding.com/series/programming-kubernetes/api-design/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Kubernetes API 设计","name":"Kubernetes API 设计","description":"术语 Group API 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。 Version API 资源的版本，API 资源版本是会不断迭代的。 Kind API 资源的的类型，","keywords":["Kubernetes","GVK","GVR"],"articleBody":"术语 Group\nAPI 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。\nVersion\nAPI 资源的版本，API 资源版本是会不断迭代的。\nKind\nAPI 资源的的类型，用于存储 API 资源的描述信息或状态等。同一个 Kind 的 API 资源可以有多个版本，随着版本的不断迭代，Kind 代表的资源的会有字段内容的更改。\nGVK\nGroup/Version/Kind，例如 Deployment：\napiVersion:apps/v1kind:Deploymentmetadata:- name:deploy-1... 上面的代码示例描述了一个 API 资源对象，这个资源对象：\n Group 是 apps Version 是 v1 Kind 是 Deployment。   Resource\n代表 API 资源，与 GVK 一对一的关系。\nGVR\n可以将 GVK 比作是一个类，GVR 就是这个 GVK 类的实例。\n当我们以 REST 的方式向发起 API 资源的请求是，请求 URL 格式一般类似这样：/api/apps/v1/deployments，里面就包含了三个上面提到的术语概念：\n /apps：请求资源所在的组（Group） /v1：请求资源的版本（Version） /deployments：请求的资源的名称（Resource）  ","wordCount":"399","inLanguage":"zh","datePublished":"2022-10-02T01:28:03+08:00","dateModified":"2022-10-02T01:28:03+08:00","author":[{"@type":"Person","name":"Pone"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.poneding.com/series/programming-kubernetes/api-design/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://blog.poneding.com/images/blog.png"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Kubernetes API 设计","name":"Kubernetes API 设计","description":"术语 Group API 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。 Version API 资源的版本，API 资源版本是会不断迭代的。 Kind API 资源的的类型，","keywords":["Kubernetes","GVK","GVR"],"articleBody":"术语 Group\nAPI 资源置于某个分组下，组作为相关功能的集合。一个组包含一个或多个版本。\nVersion\nAPI 资源的版本，API 资源版本是会不断迭代的。\nKind\nAPI 资源的的类型，用于存储 API 资源的描述信息或状态等。同一个 Kind 的 API 资源可以有多个版本，随着版本的不断迭代，Kind 代表的资源的会有字段内容的更改。\nGVK\nGroup/Version/Kind，例如 Deployment：\napiVersion:apps/v1kind:Deploymentmetadata:- name:deploy-1... 上面的代码示例描述了一个 API 资源对象，这个资源对象：\n Group 是 apps Version 是 v1 Kind 是 Deployment。   Resource\n代表 API 资源，与 GVK 一对一的关系。\nGVR\n可以将 GVK 比作是一个类，GVR 就是这个 GVK 类的实例。\n当我们以 REST 的方式向发起 API 资源的请求是，请求 URL 格式一般类似这样：/api/apps/v1/deployments，里面就包含了三个上面提到的术语概念：\n /apps：请求资源所在的组（Group） /v1：请求资源的版本（Version） /deployments：请求的资源的名称（Resource）  ","wordCount":"399","inLanguage":"zh","datePublished":"2022-10-02T01:28:03+08:00","dateModified":"2022-10-02T01:28:03+08:00","author":[{"@type":"Person","name":"Pone Ding"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.poneding.com/series/programming-kubernetes/api-design/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://blog.poneding.com/images/blog.png"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -111,19 +111,11 @@ Kubernetes API 设计
 </h1>
 <div class=post-meta><span class=meta-item>
 <span>
-<i class="fi fi-calendar"></i>2022-10-02
+<i class="fi fi-clock"></i>2022-10-02
 </span>
-</span><span class=meta-item>
-<span>
-&nbsp;·&nbsp;<i class="fi fi-clock"></i>1 分钟</span>
 </span><span class=meta-item>
 <span>
 &nbsp;·&nbsp;<i class="fi fi-word"></i>399 字</span>
-</span>
-<span class=meta-item>
-<span>
-&nbsp;·&nbsp;<i class="fi fi-user"></i>Pone
-</span>
 </span><span class=meta-item>
 &nbsp;·&nbsp;<i class="fi fi-eye"></i>&nbsp;<span id=busuanzi_value_page_pv></span>
 </span>&nbsp;|&nbsp;<a href=https://github.com/poneding/blog/edit/master/content/series/programming-kubernetes/api-design.md rel="noopener noreferrer" target=_blank>

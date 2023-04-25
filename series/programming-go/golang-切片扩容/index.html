@@ -7,12 +7,12 @@
 <title>Golang 切片扩容 | 博客 · 丁鹏</title>
 <meta name=keywords content="Golang,slice,切片">
 <meta name=description content="怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？ 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底">
-<meta name=author content="Pone">
+<meta name=author content="Pone Ding">
 <link rel=canonical href=https://blog.poneding.com/series/programming-go/golang-%E5%88%87%E7%89%87%E6%89%A9%E5%AE%B9/>
 <meta name=baidu-site-verification content="codeva-TIM45BA2zX">
 <meta name=google-site-verification content="gigju1hgWV5auIGFQ92BEHHWLdQlDKD9Vtr0i0nJTdc">
 <meta name=msvalidate.01 content="A6DA701A68DFFC170A595897CB4DF119">
-<link crossorigin=anonymous href=/assets/css/stylesheet.19a820af657f7ce6efbcb74b12a16c2844ef43f57b62ffb1f9cbcc53ec5f52cb.css integrity="sha256-Gaggr2V/fObvvLdLEqFsKETvQ/V7Yv+x+cvMU+xfUss=" rel="preload stylesheet" as=style>
+<link crossorigin=anonymous href=/assets/css/stylesheet.f1d67f4a104672579ee21462a88771bcfbb5b3589ca76a554371ac8f7e7bc072.css integrity="sha256-8dZ/ShBGclee4hRiqIdxvPu1s1icp2pVQ3Gsj357wHI=" rel="preload stylesheet" as=style>
 <script defer crossorigin=anonymous src=/assets/js/highlight.f413e19d0714851f6474e7ee9632408e58ac146fbdbe62747134bea2fa3415e0.js integrity="sha256-9BPhnQcUhR9kdOfuljJAjlisFG+9vmJ0cTS+ovo0FeA=" onload=hljs.initHighlightingOnLoad()></script>
 <link rel=icon href=https://blog.poneding.com/images/blog.png>
 <link rel=icon type=image/png sizes=16x16 href=https://blog.poneding.com/images/blog.png>
@@ -36,7 +36,7 @@
 <meta name=twitter:title content="Golang 切片扩容">
 <meta name=twitter:description content="怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？ 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底">
 <script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://blog.poneding.com/series/"},{"@type":"ListItem","position":2,"name":"Golang 编程","item":"https://blog.poneding.com/series/programming-go/"},{"@type":"ListItem","position":3,"name":"Golang 切片扩容","item":"https://blog.poneding.com/series/programming-go/golang-%E5%88%87%E7%89%87%E6%89%A9%E5%AE%B9/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Golang 切片扩容","name":"Golang 切片扩容","description":"怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？ 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底","keywords":["Golang","slice","切片"],"articleBody":"怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？\n 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底层的数组发生了变化，不再是原来的数组结构。   ","wordCount":"91","inLanguage":"zh","datePublished":"2022-10-11T14:19:02+08:00","dateModified":"2022-11-17T06:51:11.194Z","author":[{"@type":"Person","name":"Pone"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.poneding.com/series/programming-go/golang-%E5%88%87%E7%89%87%E6%89%A9%E5%AE%B9/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://blog.poneding.com/images/blog.png"}}}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Golang 切片扩容","name":"Golang 切片扩容","description":"怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？ 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底","keywords":["Golang","slice","切片"],"articleBody":"怎么理解切片 s = append(s, item) 需要使用 s 重新接收呢？\n 在 golang 语言中所有的参数传递的方式都是值传递的，即便是指针，也是复制了一份指针传递； 切片发生扩容后，底层的数组发生了变化，不再是原来的数组结构。   ","wordCount":"91","inLanguage":"zh","datePublished":"2022-10-11T14:19:02+08:00","dateModified":"2022-11-17T06:51:11.194Z","author":[{"@type":"Person","name":"Pone Ding"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.poneding.com/series/programming-go/golang-%E5%88%87%E7%89%87%E6%89%A9%E5%AE%B9/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://blog.poneding.com/images/blog.png"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -111,19 +111,11 @@ Golang 切片扩容
 </h1>
 <div class=post-meta><span class=meta-item>
 <span>
-<i class="fi fi-calendar"></i>2022-10-11
+<i class="fi fi-clock"></i>2022-10-11
 </span>
-</span><span class=meta-item>
-<span>
-&nbsp;·&nbsp;<i class="fi fi-clock"></i>1 分钟</span>
 </span><span class=meta-item>
 <span>
 &nbsp;·&nbsp;<i class="fi fi-word"></i>91 字</span>
-</span>
-<span class=meta-item>
-<span>
-&nbsp;·&nbsp;<i class="fi fi-user"></i>Pone
-</span>
 </span><span class=meta-item>
 &nbsp;·&nbsp;<i class="fi fi-eye"></i>&nbsp;<span id=busuanzi_value_page_pv></span>
 </span>&nbsp;|&nbsp;<a href=https://github.com/poneding/blog/edit/master/content/series/programming-go/golang-%e5%88%87%e7%89%87%e6%89%a9%e5%ae%b9.md rel="noopener noreferrer" target=_blank>
