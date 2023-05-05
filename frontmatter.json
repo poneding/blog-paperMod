@@ -43,8 +43,8 @@
         {
           "title": "Cover",
           "name": "cover",
-          "type":"fields",
-          "fields":[
+          "type": "fields",
+          "fields": [
             {
               "title": "Image",
               "name": "image",
@@ -58,18 +58,6 @@
   "frontMatter.framework.id": "hugo",
   "frontMatter.content.publicFolder": "static",
   "frontMatter.content.pageFolders": [
-    {
-      "path": "[[workspace]]/content",
-      "title": "content"
-    },
-    {
-      "path": "[[workspace]]/archetypes",
-      "title": "archetypes"
-    },
-    {
-      "path": "[[workspace]]/content/tags",
-      "title": "tags"
-    },
     {
       "path": "[[workspace]]/content/series",
       "title": "series"

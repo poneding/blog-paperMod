@@ -110,9 +110,9 @@ img {
     max-width: 100%;
 }
 
-img:active{
+/* img:active{
     position: relative;
     transform: scale(1.2);
     z-index: 999;
     background-color: var(--theme);
-}
+} */
