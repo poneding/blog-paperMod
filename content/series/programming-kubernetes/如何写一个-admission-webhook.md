@@ -9,7 +9,7 @@ tags:
   - Admission Webhook
 weight: 0
 cover:
-  image: "https://pding.oss-cn-hangzhou.aliyuncs.com/images/202305041519080.png"
+  image: "https://fs.poneding.com/images/202305041519080.png"
 ---
 
 ## 准入控制器（Admission Controllers）
@@ -20,11 +20,11 @@ Admission Controllers 是 Kubernets API Server 中的一种插件机制，它可
 
 ## 准入 Webhook（Admission Webhook）
 
-![202305041453105.png](https://pding.oss-cn-hangzhou.aliyuncs.com/images/202305041453105.png)
+![202305041453105.png](https://fs.poneding.com/images/202305041453105.png)
 
 Admission Webhook 是准入控制器的一种实现方式，它是一个 HTTP Server，它监听一个端口，等待 API Server 的准入请求，请求体是一个 `AdmissionReview` 对象，它包含了 `AdmissionRequest` 和 `AdmissionResponse`，`AdmissionRequest` 里面包含了请求的资源对象信息，`AdmissionResponse` 里面包含了准入控制器对请求的处理结果。
 
-![202305041439868.png](https://pding.oss-cn-hangzhou.aliyuncs.com/images/202305041439868.png)
+![202305041439868.png](https://fs.poneding.com/images/202305041439868.png)
 
 上图展示了 APIServer 在接收到请求之后，所有的处理流程。我们集中关注 Admission 部分，在这部分里面，首先会调用 Admission Mutating Webhook，然后调用 Admission Validating Webhook。
 
