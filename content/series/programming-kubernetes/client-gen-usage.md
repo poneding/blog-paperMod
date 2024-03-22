@@ -2,6 +2,7 @@
 title: "使用 client-gen 生成 clientset 代码"
 date: 2022-10-08T17:37:07+08:00
 draft: false
+slug: "client-gen-usage"
 tags: 
   - Kubernetes
 keywords:

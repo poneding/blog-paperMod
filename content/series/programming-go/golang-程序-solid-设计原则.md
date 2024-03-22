@@ -11,23 +11,23 @@ keywords:
   - 设计原则
 weight: 1
 cover:
-  image: https://pding.oss-cn-hangzhou.aliyuncs.com/images/20221031154811.png
+  image: https://fs.poneding.com/images/20221031154811.png
 lastmod: 2022-11-17T06:48:56.609Z
 ---
 
 可重用软件设计的五个原则，**SOLID** 原则：
 
--   单一职责原则（Single Responsibility Principle）
--   开放 / 封闭原则（Open / Closed Principle）
--   里氏替换原则（Liskov Substitution Principle）
--   接口隔离原则（Interface Segregation Principle）
--   依赖倒置原则（Dependency Inversion Principle）
+- 单一职责原则（Single Responsibility Principle）
+- 开放 / 封闭原则（Open / Closed Principle）
+- 里氏替换原则（Liskov Substitution Principle）
+- 接口隔离原则（Interface Segregation Principle）
+- 依赖倒置原则（Dependency Inversion Principle）
 
 ## 单一职责原则
 
 SOLID 的第一个原则，S，是单一责任原则。
 
->   A class should have one, and only one, reason to change. `– Robert C Martin`
+> A class should have one, and only one, reason to change. `– Robert C Martin`
 
 现在 Go 显然没有 classses - 相反，我们有更强大的组合概念 - 但是如果你能回顾一下 class 这个词的用法，我认为此时会有一定价值。
 
@@ -39,8 +39,8 @@ SOLID 的第一个原则，S，是单一责任原则。
 
 描述改变一个软件是多么容易或困难的两个词是：耦合和内聚。
 
--   耦合只是一个词，描述了两个一起变化的东西 —— 一个运动诱导另一个运动。
--   一个相关但独立的概念是内聚，一种相互吸引的力量。
+- 耦合只是一个词，描述了两个一起变化的东西 —— 一个运动诱导另一个运动。
+- 一个相关但独立的概念是内聚，一种相互吸引的力量。
 
 在软件上下文中，内聚是描述代码片段之间自然相互吸引的特性。
 
@@ -50,18 +50,18 @@ SOLID 的第一个原则，S，是单一责任原则。
 
 在 Go 中，所有的代码都在某个 package 中，一个设计良好的 package 从其名称开始。包的名称既是其用途的描述，也是名称空间前缀。Go 标准库中的一些优秀 package 示例：
 
--   `net/http` - 提供 http 客户端和服务端
--   `os/exec` - 执行外部命令
--   `encoding/json` - 实现 JSON 文档的编码和解码
+- `net/http` - 提供 http 客户端和服务端
+- `os/exec` - 执行外部命令
+- `encoding/json` - 实现 JSON 文档的编码和解码
     当你在自己的内部使用另一个 pakcage 的 symbols 时，要使用 `import` 声明，它在两个 package 之间建立一个源代码级的耦合。 他们现在彼此知道对方的存在。
 
 ### 糟糕的库名称
 
 这种对名字的关注可不是迂腐。命名不佳的 package 如果真的有用途，会失去罗列其用途的机会。
 
--   `server package` 提供什么？ …, 嗯，希望是服务端，但是它使用哪种协议？
--   `private package` 提供什么？我不应该看到的东西？它应该有公共符号吗？
--   `common package`，和它的伴儿 `utils` package 一样，经常被发现和其他’伙伴’一起发现
+- `server package` 提供什么？ …, 嗯，希望是服务端，但是它使用哪种协议？
+- `private package` 提供什么？我不应该看到的东西？它应该有公共符号吗？
+- `common package`，和它的伴儿 `utils` package 一样，经常被发现和其他’伙伴’一起发现
     我们看到所有像这样的包裹，就成了各种各样的垃圾场，因为它们有许多责任，所以经常毫无理由地改变。
 
 ### Unix 设计理念
@@ -74,7 +74,7 @@ SOLID 的第一个原则，S，是单一责任原则。
 
 第二个原则，即 O，是 Bertrand Meyer 的开放 / 封闭原则，他在 1988 年写道：
 
->   Software entities should be open for extension, but closed for modification. `– Bertrand Meyer, Object-Oriented Software Construction`
+> Software entities should be open for extension, but closed for modification. `– Bertrand Meyer, Object-Oriented Software Construction`
 
 该建议如何适用于 21 年后写的语言？
 
@@ -188,13 +188,13 @@ type Reader interface {
 
 因此，适用于 Go 的里氏替换原则，可以通过已故 Jim Weirich 的格言来概括。
 
->   Require no more, promise no less. `– Jim Weirich`
+> Require no more, promise no less. `– Jim Weirich`
 
 ## 接口隔离原则
 
 第四个原则是接口隔离原则，其内容如下：
 
->   Clients should not be forced to depend on methods they do not use. `–Robert C. Martin`
+> Clients should not be forced to depend on methods they do not use. `–Robert C. Martin`
 
 在 Go 中，接口隔离原则的应用可以指的是，隔离功能完成其工作所需的行为的过程。举一个具体的例子，假设我已经完成了‘编写一个将 Document 结构保存到磁盘的函数’的任务。
 
@@ -257,7 +257,7 @@ func Save(w io.Writer, doc *Document) error
 
 通过应用接口隔离原则，我们的 `Save` 功能，同时得到了一个在需求方面最具体的函数 - 它只需要一个可写的参数 - 并且具有最通用的功能，现在我们可以使用 `Save` 保存我们的数据到任何一个实现 `io.Writer` 的地方。
 
->   A great rule of thumb for Go is accept interfaces, return structs. `– Jack Lindamood`
+> A great rule of thumb for Go is accept interfaces, return structs. `– Jack Lindamood`
 
 退一步说，这句话是一个有趣的模因，在过去的几年里，它渗透入 Go 思潮。
 
@@ -267,7 +267,7 @@ func Save(w io.Writer, doc *Document) error
 
 最后一个 SOLID 原则是依赖倒置原则，该原则指出：
 
->   High-level modules should not depend on low-level modules. Both should depend on abstractions. Abstractions should not depend on details. Details should depend on abstractions. `– Robert C. Martin`
+> High-level modules should not depend on low-level modules. Both should depend on abstractions. Abstractions should not depend on details. Details should depend on abstractions. `– Robert C. Martin`
 
 但是，对于 Go 程序员来说，依赖倒置在实践中意味着什么呢？
 
@@ -285,11 +285,11 @@ func Save(w io.Writer, doc *Document) error
 
 回顾一下，当应用于 Go 时，每个 SOLID 原则都是关于设计的强有力陈述，但综合起来它们具有中心主题。
 
--   单一职责原则，鼓励您将功能，类型、方法结构化为具有自然内聚的包；类型属于彼此，函数服务于单一目的。
--   开放 / 封闭原则，鼓励您使用嵌入将简单类型组合成更复杂的类型。
--   里氏替换原则，鼓励您根据接口而不是具体类型来表达包之间的依赖关系。通过定义小型接口，我们可以更加确信，实现将忠实地满足他们的契约。
--   接口隔离原则，进一步采用了这个想法，并鼓励您定义仅依赖于他们所需行为的函数和方法。如果您的函数仅需要具有单个接口类型的参数的方法，则该函数更可能只有一个责任。
--   依赖倒置原则，鼓励您按照从编译时间到运行时间的时序，转移 package 所依赖的知识。在 Go 中，我们可以通过特定 package 使用的 import 语句的数量减少看到了这一点。
+- 单一职责原则，鼓励您将功能，类型、方法结构化为具有自然内聚的包；类型属于彼此，函数服务于单一目的。
+- 开放 / 封闭原则，鼓励您使用嵌入将简单类型组合成更复杂的类型。
+- 里氏替换原则，鼓励您根据接口而不是具体类型来表达包之间的依赖关系。通过定义小型接口，我们可以更加确信，实现将忠实地满足他们的契约。
+- 接口隔离原则，进一步采用了这个想法，并鼓励您定义仅依赖于他们所需行为的函数和方法。如果您的函数仅需要具有单个接口类型的参数的方法，则该函数更可能只有一个责任。
+- 依赖倒置原则，鼓励您按照从编译时间到运行时间的时序，转移 package 所依赖的知识。在 Go 中，我们可以通过特定 package 使用的 import 语句的数量减少看到了这一点。
 
 如果要总结一下本次演讲，那可能就是这样：`interfaces let you apply the SOLID principles to Go programs`。
 
@@ -297,6 +297,6 @@ func Save(w io.Writer, doc *Document) error
 
 正如 Sandi Metz 所说：
 
->   Design is the art of arranging code that needs to work today, and to be easy to change forever. `– Sandi Metz`
+> Design is the art of arranging code that needs to work today, and to be easy to change forever. `– Sandi Metz`
 
 因为如果 Go 想要成为公司长期投资的语言，Go 程序的可维护性，更容易变更，将是他们决策的关键因素。

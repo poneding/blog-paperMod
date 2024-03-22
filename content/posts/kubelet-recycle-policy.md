@@ -13,7 +13,7 @@ weight: 1
 
 
 
->   文章转载自：https://sataqiu.github.io/2019/07/15/k8s-kubelet-gc/index.html
+> 文章转载自：<https://sataqiu.github.io/2019/07/15/k8s-kubelet-gc/index.html>
 
 Kubelet 垃圾回收（Garbage Collection）是一个非常有用的功能，它负责自动清理节点上的无用镜像和容器。Kubelet 每隔 1 分钟进行一次容器清理，每隔 5 分钟进行一次镜像清理（截止到 v1.15 版本，垃圾回收间隔时间还都是在源码中固化的，不可自定义配置）。如果节点上已经运行了 Kubelet，不建议再额外运行其它的垃圾回收工具，因为这些工具可能错误地清理掉 Kubelet 认为本应保留的镜像或容器，从而可能造成不可预知的问题。
 
@@ -23,7 +23,7 @@ Kubernetes 对节点上的所有镜像提供生命周期管理服务，这里的
 
 ### 主体流程
 
-![img](https://pding.oss-cn-hangzhou.aliyuncs.com/images/image-gc-workflow.svg)
+![img](https://fs.poneding.com/images/image-gc-workflow.svg)
 
 如上图所示，Kubelet 对于节点上镜像的回收流程还是比较简单的，在磁盘使用率超出设定上限后：首先，通过 CRI 容器运行时接口读取节点上的所有镜像以及 Pod 容器；然后，根据现有容器列表过滤出那些已经不被任何容器所使用的镜像；接着，按照镜像最近被使用时间排序，越久被用到的镜像越会被排在前面，优先清理；最后，就按照排好的顺序逐个清理镜像，直到磁盘使用率降到设定下限（或者已经没有空闲镜像可以清理）。
 
@@ -223,17 +223,17 @@ k8s.gcr.io/pause                     3.1                 da86e6ba6ca1        19 
 
 与容器垃圾回收相关的控制参数主要有 3 个：
 
-1.   `MinAge`：容器可以被执行垃圾回收的最小年龄
+1. `MinAge`：容器可以被执行垃圾回收的最小年龄
 
-2.   `MaxPerPodContainer`：每个 pod 内允许存在的死亡容器的最大数量
+2. `MaxPerPodContainer`：每个 pod 内允许存在的死亡容器的最大数量
 
-3.   `MaxContainers`：节点上全部死亡容器的最大数量
+3. `MaxContainers`：节点上全部死亡容器的最大数量
 
->   注意：当 `MaxPerPodContainer` 与 `MaxContainers` 发生冲突时，Kubelet 会自动调整 `MaxPerPodContainer` 的取值以满足 `MaxContainers` 要求。
+> 注意：当 `MaxPerPodContainer` 与 `MaxContainers` 发生冲突时，Kubelet 会自动调整 `MaxPerPodContainer` 的取值以满足 `MaxContainers` 要求。
 
 ### 主体流程
 
-![img](https://pding.oss-cn-hangzhou.aliyuncs.com/images/container-gc-workflow.svg)
+![img](https://fs.poneding.com/images/container-gc-workflow.svg)
 
 容器回收主要针对三个目标资源：普通容器、sandbox 容器以及容器日志目录。
 

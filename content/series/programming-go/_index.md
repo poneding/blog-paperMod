@@ -7,5 +7,5 @@ weight: 1
 showReadingTime: false
 ShowWordCount: false
 cover:
-  image: https://pding.oss-cn-hangzhou.aliyuncs.com/images/20221025000343.png
+  image: https://fs.poneding.com/images/20221025000343.png
 ---

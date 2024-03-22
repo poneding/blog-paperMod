@@ -13,11 +13,9 @@ weight: 1
 
 
 
->   文章转载自：https://sataqiu.github.io/2019/09/09/architecting-kubernetes-clusters-choosing-a-worker-node-size
+> 文章转载自：<https://sataqiu.github.io/2019/09/09/architecting-kubernetes-clusters-choosing-a-worker-node-size>
 
 在部署 Kubernetes 集群时，您首先会想到的问题之一恐怕就是：“我应该选择何种资源配额的计算节点以及应该配置多少个这样的节点才能满足计算需求？”。到底是使用少量的高级服务器还是使用大量的低端服务器更划算，更能满足需求呢？本文将从多个维度阐述不同的资源配置方式各自的优缺点，并从实践角度出发给出进行集群规划的一般方法。
-
-
 
 ## 集群容量
 
@@ -25,11 +23,11 @@ weight: 1
 
 例如，假如您需要一个总容量为 8 个 CPU 和 32GB 内存的集群。
 
->   例如，因为要在集群上运行的应用程序需要此数量的资源。
+> 例如，因为要在集群上运行的应用程序需要此数量的资源。
 
 以下是实现集群的两种可能方法：
 
-![img](https://pding.oss-cn-hangzhou.aliyuncs.com/images/cluster-design.svg)
+![img](https://fs.poneding.com/images/cluster-design.svg)
 
 通过这两种方式构建的集群拥有相同的资源容量，但是一种是使用 4 个较小的节点，而另一种是使用 2 个较大的节点。
 
@@ -37,7 +35,7 @@ weight: 1
 
 为了解决这个问题，让我们对比下这两个相反的方向（即更少的高配节点与更多的低配节点）各自的优缺点。
 
->   请注意，本文中的“节点”始终代指工作节点。集群主节点数量和大小的选择是完全不同的主题。
+> 请注意，本文中的“节点”始终代指工作节点。集群主节点数量和大小的选择是完全不同的主题。
 
 ## 更少的高配节点
 
@@ -87,7 +85,7 @@ weight: 1
 
 随着 Pod 数量的增长，这些问题的聚积可能会开始减慢系统速度，甚至使集群系统变得不可靠。
 
-![img](https://pding.oss-cn-hangzhou.aliyuncs.com/images/node-overload.svg)
+![img](https://fs.poneding.com/images/node-overload.svg)
 
 有报告称，[节点被报告为未就绪](https://github.com/kubernetes/kubernetes/issues/45419)，是因为周期性的的 kubelet 运行状况检查花费了太长时间来迭代节点上的所有容器。
 
@@ -97,9 +95,9 @@ weight: 1
 
 *大多数托管 Kubernetes 服务甚至对每个节点的 Pod 数量施加了严格的限制：*
 
--   在 [Amazon Elastic Kubernetes Service（EKS）](https://github.com/awslabs/amazon-eks-ami/blob/master/files/eni-max-pods.txt)上，每个节点的最大 Pod 数取决于节点类型，范围从 4 到 737。
--   在 [Google Kubernetes Engine（GKE）](https://cloud.google.com/kubernetes-engine/quotas)上，无论节点类型如何，每个节点的限制为 100 个 Pod。
--   在 [Azure Kubernetes Service（AKS）](https://docs.microsoft.com/bs-latn-ba/azure/aks/configure-azure-cni#maximum-pods-per-node)上，默认限制是每个节点 30 个 Pod，但最多可以增加到 250 个。
+- 在 [Amazon Elastic Kubernetes Service（EKS）](https://github.com/awslabs/amazon-eks-ami/blob/master/files/eni-max-pods.txt)上，每个节点的最大 Pod 数取决于节点类型，范围从 4 到 737。
+- 在 [Google Kubernetes Engine（GKE）](https://cloud.google.com/kubernetes-engine/quotas)上，无论节点类型如何，每个节点的限制为 100 个 Pod。
+- 在 [Azure Kubernetes Service（AKS）](https://docs.microsoft.com/bs-latn-ba/azure/aks/configure-azure-cni#maximum-pods-per-node)上，默认限制是每个节点 30 个 Pod，但最多可以增加到 250 个。
 
 因此，如果您计划为每个节点运行大量 Pod，则应该事先进行测试，看能否按预期那样工作。
 
@@ -151,7 +149,7 @@ Kubernetes 为云基础架构提供了 Cluster Autoscaler，允许根据当前�
 
 如果您有一个多副本高可用应用程序以及足够的可用节点，Kubernetes 调度程序可以将每个副本分配给不同的节点。
 
->   您可以通过[节点亲和](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity)、[Pod 亲和/反亲和](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity)以及[污点和容忍](https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/)来影响调度程序对 Pod 的调度。
+> 您可以通过[节点亲和](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#node-affinity)、[Pod 亲和/反亲和](https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#inter-pod-affinity-and-anti-affinity)以及[污点和容忍](https://kubernetes.io/docs/concepts/configuration/taint-and-toleration/)来影响调度程序对 Pod 的调度。
 
 这意味着如果某个节点出现故障，则最多只有一个副本受影响，且您的应用程序仍然可用。
 
@@ -173,18 +171,18 @@ Kubernetes controller manager 中的节点控制器定期遍历集群中的所�
 
 通常，每个工作节点都会对主节点上的系统组件施加一些开销。
 
-![img](https://pding.oss-cn-hangzhou.aliyuncs.com/images/cluster-overload.svg)
+![img](https://fs.poneding.com/images/cluster-overload.svg)
 
 据官方统计，Kubernetes 声称[支持最多 5000 个节点的集群](https://kubernetes.io/docs/setup/best-practices/cluster-large/)。然而，在实践中，500 个节点可能已经形成了[巨大的挑战](https://www.lfasiallc.com/wp-content/uploads/2017/11/BoF_-Not-One-Size-Fits-All-How-to-Size-Kubernetes-Clusters_Guang-Ya-Liu-_-Sahdev-Zala.pdf)。
 
 通过使用性能更高的主节点，往往可以减轻大量工作节点带来的影响。这也正是目前在实践中所应用的——这里是 `kube-up` 在云基础架构上使用的[主节点大小](https://kubernetes.io/docs/setup/best-practices/cluster-large/#size-of-master-and-master-components)：
 
--   Google Cloud Platform
-    -   5 个工作节点 → `n1-standard-1` 主节点
-    -   500 个工作节点 → `n1-standard-32` 主节点
--   Amazon Web Services
-    -   5 个工作节点 → `m3.medium` 主节点
-    -   500 个工作节点 → `c4.8xlarge` 主节点
+- Google Cloud Platform
+  - 5 个工作节点 → `n1-standard-1` 主节点
+  - 500 个工作节点 → `n1-standard-32` 主节点
+- Amazon Web Services
+  - 5 个工作节点 → `m3.medium` 主节点
+  - 500 个工作节点 → `c4.8xlarge` 主节点
 
 如您所见，对于 500 个工作节点，使用的主节点分别具有 32 和 36 个 CPU 以及 120GB 和 60GB 内存。
 
@@ -192,16 +190,16 @@ Kubernetes controller manager 中的节点控制器定期遍历集群中的所�
 
 因此，如果您打算使用大量低配节点，则需要记住两件事：
 
--   您拥有的工作节点越多，主节点需要的性能就越高
--   如果您计划使用超过 500 个节点，则可能会遇到一些需要付出一些努力才能解决的性能瓶颈
+- 您拥有的工作节点越多，主节点需要的性能就越高
+- 如果您计划使用超过 500 个节点，则可能会遇到一些需要付出一些努力才能解决的性能瓶颈
 
->   像 [Virtual Kubelet](https://www.youtube.com/watch?v=v9cwYvuzROs) 这样的新开发产品允许您绕过这些限制，以构建具有大量工作节点的集群。
+> 像 [Virtual Kubelet](https://www.youtube.com/watch?v=v9cwYvuzROs) 这样的新开发产品允许您绕过这些限制，以构建具有大量工作节点的集群。
 
 #### 更多的系统开销
 
 Kubernetes 在每个工作节点上运行一组系统守护进程——包括容器运行时（如 Docker）、kube-proxy 和包含 cAdvisor 的 kubelet。
 
->   cAdvisor 包含在 kubelet 二进制文件中。
+> cAdvisor 包含在 kubelet 二进制文件中。
 
 所有这些守护进程一起消耗固定数量的资源。
 
