@@ -43,7 +43,7 @@ Kubernetes 对节点上的所有镜像提供生命周期管理服务，这里的
 
 实验前，需要配置 Kubelet 启动参数，降低磁盘使用率上限，以便能够直接触发镜像回收。
 
-```
+```txt
 # vim /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 ...
 ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELET_KUBEADM_ARGS $KUBELET_EXTRA_ARGS --image-gc-high-threshold=2 --image-gc-low-threshold=1
@@ -54,14 +54,14 @@ ExecStart=/usr/bin/kubelet $KUBELET_KUBECONFIG_ARGS $KUBELET_CONFIG_ARGS $KUBELE
 
 执行以下命令使得配置生效：
 
-```
+```bash
 # systemctl daemon-reload
 # systemctl restart kubelet
 ```
 
 首先，看下本地都有哪些镜像：
 
-```
+```txt
 root@shida-machine:~# docker images
 REPOSITORY                           TAG                 IMAGE ID            CREATED             SIZE
 k8s.gcr.io/kube-proxy                v1.14.4             5f2081c22306        6 days ago          82.1MB
@@ -78,7 +78,7 @@ k8s.gcr.io/pause                     3.1                 da86e6ba6ca1        19 
 
 接下来，我们运行一个 `nginx` 程序，让 Kubelet 自动拉取镜像。
 
-```
+```txt
 root@shida-machine:~# kubectl run nginx --image=nginx
 deployment.apps/nginx created
 root@shida-machine:~# kubectl get deployment
@@ -103,14 +103,14 @@ k8s.gcr.io/pause                     3.1                 da86e6ba6ca1        19 
 
 然后，删除 `nginx` Deployment：
 
-```
+```txt
 root@shida-machine:~# kubectl delete deployment nginx
 deployment.extensions "nginx" deleted
 ```
 
 过大概 5 分钟后，再次检查本地镜像列表，发现 `nginx` 镜像已被清理！
 
-```
+```txt
 root@shida-machine:~# docker images
 REPOSITORY                           TAG                 IMAGE ID            CREATED             SIZE
 k8s.gcr.io/kube-proxy                v1.14.4             5f2081c22306        6 days ago          82.1MB
@@ -127,7 +127,7 @@ k8s.gcr.io/pause                     3.1                 da86e6ba6ca1        19 
 
 通过以下命令查看镜像垃圾回收日志：
 
-```
+```txt
 root@shida-machine:~# journalctl -u kubelet -o cat | grep imageGCManager
 ...
 I0714 18:03:20.883489   51179 image_gc_manager.go:300] [imageGCManager]: Disk usage on image filesystem is at 24% which is over the high threshold (2%). Trying to free 72470076620 bytes down to the low threshold (1%).
@@ -138,7 +138,7 @@ I0714 18:03:20.899370   51179 image_gc_manager.go:371] [imageGCManager]: Removin
 
 继续验证用户手动拉取的镜像是否会被清理，手动运行 `nginx` 程序：
 
-```
+```txt
 root@shida-machine:~# docker run --name nginx -d nginx 
 Unable to find image 'nginx:latest' locally
 latest: Pulling from library/nginx
@@ -152,7 +152,7 @@ Status: Downloaded newer image for nginx:latest
 
 通过查看镜像 GC 日志，会发现 GC 会尝试清理用户自己手动拉取的 `nginx` 镜像，但因为该镜像被使用中，所以这次删除操作不会成功：
 
-```
+```txt
 root@shida-machine:~# journalctl -u kubelet -o cat | grep imageGCManager
 ...
 I0714 18:28:23.015586   51179 image_gc_manager.go:300] [imageGCManager]: Disk usage on image filesystem is at 24% which is over the high threshold (2%). Trying to free 72501525708 bytes down to the low threshold (1%).
@@ -174,7 +174,7 @@ k8s.gcr.io/pause                     3.1                 da86e6ba6ca1        19 
 
 将该容器停止，继续观察回收动作：
 
-```
+```txt
 root@shida-machine:~# docker stop nginx
 nginx
 root@shida-machine:~# journalctl -u kubelet -o cat | grep imageGCManager
@@ -200,7 +200,7 @@ k8s.gcr.io/pause                     3.1                 da86e6ba6ca1        19 
 
 彻底删除 `nginx` 容器，此时就没有任何容器继续使用该镜像，经过 1 次 GC 后，`nginx` 镜像就会被清理。
 
-```
+```txt
 root@shida-machine:~# docker rm nginx
 nginx
 root@shida-machine:~# docker images
@@ -247,7 +247,7 @@ Kubelet 的容器垃圾回收只针对 Pod 容器，非 Kubelet Pod 容器（比
 
 `minimum-container-ttl-duration`：容器可被回收的最小生存年龄，默认是 `0` 分钟，这意味着每个死亡容器都会被立即执行垃圾回收
 
-```
+```txt
 maximum-dead-containers-per-container`：每个 Pod 要保留的死亡容器的最大数量，默认值为 `1
 ```
 
@@ -257,7 +257,7 @@ maximum-dead-containers-per-container`：每个 Pod 要保留的死亡容器的�
 
 还是以 `nginx` 为例，创建一个 `nginx` 服务：
 
-```
+```txt
 root@shida-machine:~# kubectl run nginx --image nginx
 deployment.apps/nginx created
 root@shida-machine:~# docker ps -a | grep nginx
@@ -269,7 +269,7 @@ root@shida-machine:~# docker ps -a | grep nginx
 
 手动杀死 `nginx` 实例，模拟容器异常退出：
 
-```
+```txt
 root@shida-machine:~# docker kill 7bef0308d9ea
 7bef0308d9ea
 root@shida-machine:~# docker ps -a | grep nginx
@@ -282,7 +282,7 @@ root@shida-machine:~# docker ps -a | grep nginx
 
 等待几分钟，发现 Kubelet 并未清理异常退出的 `nginx` 容器（因为此时仅有一个 dead container）。
 
-```
+```txt
 root@shida-machine:~# docker ps -a | grep nginx
 408b23b2b72a        nginx                     "nginx -g 'daemon of…"   3 minutes ago       Up 3 minutes                                     k8s_nginx_nginx-7db9fccd9b-p2p2t_default_69c38c2b-a64e-11e9-94bd-000c29ce064a_1
 7bef0308d9ea        nginx                     "nginx -g 'daemon of…"   5 minutes ago       Exited (137) 3 minutes ago                       k8s_nginx_nginx-7db9fccd9b-p2p2t_default_69c38c2b-a64e-11e9-94bd-000c29ce064a_0
@@ -291,7 +291,7 @@ root@shida-machine:~# docker ps -a | grep nginx
 
 继续杀死当前 `nginx` 实例：
 
-```
+```txt
 root@shida-machine:~# docker kill 408b23b2b72a
 408b23b2b72a
 root@shida-machine:~# docker ps -a | grep nginx
@@ -304,7 +304,7 @@ e064e376819f        nginx                     "nginx -g 'daemon of…"   9 secon
 
 删除这个 `nginx` Deployment，会发现所有的 `nginx` 容器都会被清理：
 
-```
+```txt
 root@shida-machine:~# kubectl delete deployment nginx
 deployment.extensions "nginx" deleted
 root@shida-machine:~# docker ps -a | grep nginx
@@ -315,7 +315,7 @@ root@shida-machine:~#
 
 重复前边的实验步骤：
 
-```
+```txt
 root@shida-machine:~# kubectl run nginx --image nginx
 deployment.apps/nginx created
 root@shida-machine:~# docker ps -a | grep nginx
@@ -332,7 +332,7 @@ d2cdfafdbe50        k8s.gcr.io/pause:3.1      "/pause"                 2 minutes
 
 那对于手动运行的容器呢？我们通过 `docker run` 运行 `nginx`：
 
-```
+```txt
 root@shida-machine:~# docker run --name nginx -d nginx
 46ebb365f6be060a6950f44728e4f11e4666bf2fb007cad557ffc65ecf8aded8
 root@shida-machine:~# docker ps | grep nginx
@@ -341,7 +341,7 @@ root@shida-machine:~# docker ps | grep nginx
 
 杀死该容器：
 
-```
+```txt
 root@shida-machine:~# docker kill 46ebb365f6be
 46ebb365f6be
 root@shida-machine:~# docker ps -a | grep nginx

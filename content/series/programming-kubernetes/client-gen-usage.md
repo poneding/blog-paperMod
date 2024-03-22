@@ -39,4 +39,3 @@ client-gen --input="pkg/apis/${group1}/${version1},pkg/apis/${group2}/${version2
 > 使用 `client-gen -h` 查看更多命令使用姿势。
 
 3. 除了 client-gen 自动生成的客户端代码外，你可以手动添加额外的代码，[参考这里](https://github.com/kubernetes/kubernetes/blob/master/staging/src/k8s.io/client-go/kubernetes/typed/core/v1/pod_expansion.go)。
-
