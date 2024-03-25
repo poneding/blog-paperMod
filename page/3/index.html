@@ -1,14 +1,15 @@
 <!doctype html><html lang=zh dir=auto>
 <head>
+<meta name=generator content="Hugo 0.91.2">
 <link rel=stylesheet href=/css/fi.css crossorigin=anonymous><meta charset=utf-8>
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>系列 | 博客 · 丁鹏</title>
-<meta name=keywords content>
-<meta name=description content="系列 - 博客 · 丁鹏">
+<title>博客 · 丁鹏</title>
+<meta name=keywords content="丁鹏,丁鹏的博客,Pone Ding,blog.poneding.com,Kubernetes,Golang,云原生">
+<meta name=description content="博客 · 丁鹏">
 <meta name=author content="Pone Ding">
-<link rel=canonical href=https://blog.poneding.com/series/>
+<link rel=canonical href=https://blog.poneding.com/>
 <meta name=baidu-site-verification content="codeva-TIM45BA2zX">
 <meta name=google-site-verification content="gigju1hgWV5auIGFQ92BEHHWLdQlDKD9Vtr0i0nJTdc">
 <meta name=msvalidate.01 content="A6DA701A68DFFC170A595897CB4DF119">
@@ -20,20 +21,21 @@
 <link rel=mask-icon href=https://blog.poneding.com/images/blog.png>
 <meta name=theme-color content="#2e2e33">
 <meta name=msapplication-TileColor content="#2e2e33">
-<link rel=alternate type=application/rss+xml href=https://blog.poneding.com/series/index.xml>
+<link rel=alternate type=application/rss+xml href=https://blog.poneding.com/index.xml>
+<link rel=alternate type=application/json href=https://blog.poneding.com/index.json>
 <noscript>
 <style>#theme-toggle,.top-link{display:none}</style>
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="系列">
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="博客 · 丁鹏">
 <meta property="og:description" content="博客 · 丁鹏">
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://blog.poneding.com/series/"><meta property="og:image" content="https://blog.poneding.com/cover.png"><meta property="og:site_name" content="博客">
+<meta property="og:url" content="https://blog.poneding.com/"><meta property="og:image" content="https://blog.poneding.com/cover.png"><meta property="og:site_name" content="博客">
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://blog.poneding.com/cover.png">
-<meta name=twitter:title content="系列">
+<meta name=twitter:title content="博客 · 丁鹏">
 <meta name=twitter:description content="博客 · 丁鹏">
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://blog.poneding.com/series/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"Organization","name":"博客 · 丁鹏","url":"https://blog.poneding.com/","description":"博客 · 丁鹏","thumbnailUrl":"https://blog.poneding.com/images/blog.png","sameAs":["https://github.com/poneding","mailto:poneding@gmail.com"]}</script>
 </head>
 <body class=list id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -56,7 +58,7 @@
 </li>
 <li>
 <a href=https://blog.poneding.com/series/ title=系列>
-<span class=active>
+<span>
 <i class="fi fi-series"></i>&nbsp;系列</span>
 </a>
 </li>
@@ -96,49 +98,53 @@
 </ul>
 </nav>
 </header><main class=main>
-<header class=page-header><div class=breadcrumbs><p>
-<span><a href=/><i class="fi fi-home"></i>&nbsp;主页</a></span><i class="fi fi-angle-right"></i><span>系列</span>
-</p>
-</div>
-</header>
 <article class=post-entry>
 <div class=post-info>
 <header class=entry-header>
-<h2>Kubernetes 编程
+<h2>ACME 工作原理
 </h2>
 </header>
 <div class=entry-content>
-<p>本系列涉及 Kubernetes 开发相关的编程学习、实践等</p>
+<p>转载自：https://baijiahao.baidu.com/s?id=1718543569967913534 不知道小伙伴们注意到没有，现...</p>
 </div>
 <footer class=entry-footer><span class=meta-item>
 <span>
-<i class="fi fi-clock"></i>2022-09-28
+<i class="fi fi-clock"></i>2022-11-21
 </span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-word"></i>2629 字</span>
 </span></footer>
 </div>
-<figure class=entry-cover><img loading=lazy src=https://fs.poneding.com/images/20221025000510.png alt>
-</figure>
-<a class=entry-link aria-label="post link to Kubernetes 编程" href=https://blog.poneding.com/series/programming-kubernetes/></a>
+<a class=entry-link aria-label="post link to ACME 工作原理" href=https://blog.poneding.com/posts/acme-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/></a>
 </article>
 <article class=post-entry>
 <div class=post-info>
 <header class=entry-header>
-<h2>Golang 编程
+<h2>Golang 资源
 </h2>
 </header>
 <div class=entry-content>
-<p>本系列涉及 Go 语言相关的编程学习、实践等</p>
+<p>本页收集了一些 Golang 相关的资源，用作学习和参考，以及工作实践等。 Go 路线图 👉🏻 GOLANG ROADMAP 站点 👉🏻 Go 开发者路线图 Awesome Go 你可以在里面找到各种 Go 框架，库以及软件...</p>
 </div>
 <footer class=entry-footer><span class=meta-item>
 <span>
-<i class="fi fi-clock"></i>2022-09-28
+<i class="fi fi-clock"></i>2022-11-16
 </span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-word"></i>78 字</span>
 </span></footer>
 </div>
-<figure class=entry-cover><img loading=lazy src=https://fs.poneding.com/images/20221025000343.png alt>
-</figure>
-<a class=entry-link aria-label="post link to Golang 编程" href=https://blog.poneding.com/series/programming-go/></a>
+<a class=entry-link aria-label="post link to Golang 资源" href=https://blog.poneding.com/series/programming-go/golang-%E8%B5%84%E6%BA%90/></a>
 </article>
+<footer class=page-footer>
+<nav class=pagination>
+<a class=prev href=https://blog.poneding.com/page/2/>
+<i class="fi fi-backward"></i>&nbsp;2/3&nbsp;上一页
+</a>
+</nav>
+</footer>
 </main>
 <script async src=//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js></script>
 <footer class=footer>

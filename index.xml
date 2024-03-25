@@ -10,7 +10,7 @@
     </image>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 21 Nov 2022 10:03:43 +0000</lastBuildDate><atom:link href="https://blog.poneding.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 04 May 2023 07:09:50 +0000</lastBuildDate><atom:link href="https://blog.poneding.com/index.xml" rel="self" type="application/rss+xml" />
     <item>
       <title>Golang 程序 SOLID 设计原则</title>
       <link>https://blog.poneding.com/series/programming-go/golang-%E7%A8%8B%E5%BA%8F-solid-%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/</link>
@@ -30,12 +30,12 @@
     </item>
     
     <item>
-      <title>数组递归构造具有父子层级关系的对象</title>
+      <title>Golang 父子节点数组转树结构</title>
       <link>https://blog.poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/</link>
       <pubDate>Tue, 18 Oct 2022 18:00:26 +0800</pubDate>
       
       <guid>https://blog.poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/</guid>
-      <description>场景介绍 从数据库获取到了菜单列表数据，这些菜单数据通过字段 ParentID 表示父子层级关系，现在需要将菜单列表数据转成树状的实例对象。 数据库取出的初始数据</description>
+      <description>场景介绍 输入：一组父子关系节点的数组，元素具有 ID，PID 字段，ID 为元素的唯一标识，PID 为父节点的 ID。 输出：树形结构的数据，根节点为 PID</description>
     </item>
     
     <item>
@@ -162,6 +162,33 @@
       
       <guid>https://blog.poneding.com/series/programming-kubernetes/client-gen-usage/</guid>
       <description>本页是这篇Kubernetes 文档中一些内容摘要。 大致分为 3 个步骤： 为 API 类型结构做 tag 标签 在 API 类型例如 pkg/apis/${Group}/${Version}/types.go 中的 Pod 结构体上打标签，支持的标签： // +</description>
+    </item>
+    
+    <item>
+      <title>HTTP 客户端调用 Kubernetes APIServer</title>
+      <link>https://blog.poneding.com/series/programming-kubernetes/http-client-call-kubernetes-apiserver/</link>
+      <pubDate>Thu, 04 May 2023 07:09:50 +0000</pubDate>
+      
+      <guid>https://blog.poneding.com/series/programming-kubernetes/http-client-call-kubernetes-apiserver/</guid>
+      <description>本篇介绍 HTTP 客户端调用 Kubernetes APIServer 的方法。 如何获取 Kubernetes api-server 地址 查看 api-server 的几种方式： # 1. 直接查看 kubeconfig 文件 $ cat ~/.kube/config apiVersion: v1 clusters: - cluster: server: https://192.168.58.2:8443 ... # 2. kubectl 查看集群信息 $ kubectl cluster-info Kubernetes control plane is running</description>
+    </item>
+    
+    <item>
+      <title>使用 Patch 策略更新 Kubernetes 资源对象</title>
+      <link>https://blog.poneding.com/series/programming-kubernetes/how-to-update-kubernetes-resource-object-with-patch-strategy/</link>
+      <pubDate>Wed, 26 Apr 2023 08:10:14 +0000</pubDate>
+      
+      <guid>https://blog.poneding.com/series/programming-kubernetes/how-to-update-kubernetes-resource-object-with-patch-strategy/</guid>
+      <description>什么是 Patch 策略 Kubernetes API Server 提供了三种 Patch 策略，分别是： strategic-merge：使用 strategic-merge patch 策略，这是默认的 Patch 策略。 参考 使用 kubectl patch 更新 API 对象 | Kubernetes JSON Patch mattbaird/jsonpatch</description>
+    </item>
+    
+    <item>
+      <title>如何写一个 Admission Webhook</title>
+      <link>https://blog.poneding.com/series/programming-kubernetes/how-to-write-an-admission-webhook/</link>
+      <pubDate>Wed, 26 Apr 2023 07:40:56 +0000</pubDate>
+      
+      <guid>https://blog.poneding.com/series/programming-kubernetes/how-to-write-an-admission-webhook/</guid>
+      <description>准入控制器（Admission Controllers） Admission Controllers 是 Kubernets API Server 中的一种插件机制，它可以在 API 资源对象创建、更新、删除的请求通过认证和鉴权之</description>
     </item>
     
     <item>

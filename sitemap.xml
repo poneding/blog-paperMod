@@ -59,6 +59,30 @@
     <loc>https://blog.poneding.com/series/programming-kubernetes/client-gen-usage/</loc>
     <lastmod>2022-10-08T17:37:07+08:00</lastmod>
   </url><url>
+    <loc>https://blog.poneding.com/series/programming-kubernetes/http-client-call-kubernetes-apiserver/</loc>
+    <lastmod>2023-05-04T07:09:50+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.poneding.com/</loc>
+    <lastmod>2023-05-04T07:09:50+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.poneding.com/series/</loc>
+    <lastmod>2023-05-04T07:09:50+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.poneding.com/tags/kubernetes/</loc>
+    <lastmod>2023-04-26T08:10:14+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.poneding.com/series/programming-kubernetes/how-to-update-kubernetes-resource-object-with-patch-strategy/</loc>
+    <lastmod>2023-04-26T08:10:14+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.poneding.com/tags/</loc>
+    <lastmod>2023-04-26T08:10:14+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.poneding.com/tags/admission-webhook/</loc>
+    <lastmod>2023-04-26T07:40:56+00:00</lastmod>
+  </url><url>
+    <loc>https://blog.poneding.com/series/programming-kubernetes/how-to-write-an-admission-webhook/</loc>
+    <lastmod>2023-04-26T07:40:56+00:00</lastmod>
+  </url><url>
     <loc>https://blog.poneding.com/tags/acme/</loc>
     <lastmod>2022-11-21T10:07:19+00:00</lastmod>
   </url><url>
@@ -68,14 +92,8 @@
     <loc>https://blog.poneding.com/tags/ssl/</loc>
     <lastmod>2022-11-21T10:07:19+00:00</lastmod>
   </url><url>
-    <loc>https://blog.poneding.com/</loc>
-    <lastmod>2022-11-21T10:09:54+00:00</lastmod>
-  </url><url>
     <loc>https://blog.poneding.com/posts/</loc>
     <lastmod>2022-11-21T10:07:19+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.poneding.com/tags/</loc>
-    <lastmod>2022-11-21T10:09:54+00:00</lastmod>
   </url><url>
     <loc>https://blog.poneding.com/tags/golang/</loc>
     <lastmod>2022-11-21T10:09:54+00:00</lastmod>
@@ -83,17 +101,11 @@
     <loc>https://blog.poneding.com/series/programming-go/golang-%E8%B5%84%E6%BA%90/</loc>
     <lastmod>2022-11-17T05:57:45+00:00</lastmod>
   </url><url>
-    <loc>https://blog.poneding.com/series/</loc>
-    <lastmod>2022-11-21T10:09:54+00:00</lastmod>
-  </url><url>
     <loc>https://blog.poneding.com/tags/solid/</loc>
     <lastmod>2022-11-17T06:48:56+00:00</lastmod>
   </url><url>
     <loc>https://blog.poneding.com/tags/gopkg/</loc>
     <lastmod>2022-11-03T03:32:31+00:00</lastmod>
-  </url><url>
-    <loc>https://blog.poneding.com/tags/kubernetes/</loc>
-    <lastmod>2022-10-17T20:21:58+08:00</lastmod>
   </url><url>
     <loc>https://blog.poneding.com/tags/crd/</loc>
     <lastmod>2022-10-11T23:50:34+08:00</lastmod>

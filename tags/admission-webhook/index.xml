@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Admission Webhook on 博客 · 丁鹏</title>
+    <link>https://blog.poneding.com/tags/admission-webhook/</link>
+    <description>Recent content in Admission Webhook on 博客 · 丁鹏</description>
+    <image>
+      <url>https://blog.poneding.com/cover.png</url>
+      <link>https://blog.poneding.com/cover.png</link>
+    </image>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>zh</language>
+    <lastBuildDate>Wed, 26 Apr 2023 07:40:56 +0000</lastBuildDate><atom:link href="https://blog.poneding.com/tags/admission-webhook/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何写一个 Admission Webhook</title>
+      <link>https://blog.poneding.com/series/programming-kubernetes/how-to-write-an-admission-webhook/</link>
+      <pubDate>Wed, 26 Apr 2023 07:40:56 +0000</pubDate>
+      
+      <guid>https://blog.poneding.com/series/programming-kubernetes/how-to-write-an-admission-webhook/</guid>
+      <description>准入控制器（Admission Controllers） Admission Controllers 是 Kubernets API Server 中的一种插件机制，它可以在 API 资源对象创建、更新、删除的请求通过认证和鉴权之</description>
+    </item>
+    
+  </channel>
+</rss>

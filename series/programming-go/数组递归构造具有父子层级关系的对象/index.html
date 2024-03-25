@@ -4,9 +4,9 @@
 <meta http-equiv=x-ua-compatible content="IE=edge">
 <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
 <meta name=robots content="index, follow">
-<title>数组递归构造具有父子层级关系的对象 | 博客 · 丁鹏</title>
-<meta name=keywords content="数组,递归,父子,树,层级关系">
-<meta name=description content="场景介绍 从数据库获取到了菜单列表数据，这些菜单数据通过字段 ParentID 表示父子层级关系，现在需要将菜单列表数据转成树状的实例对象。 数据库取出的初始数据">
+<title>Golang 父子节点数组转树结构 | 博客 · 丁鹏</title>
+<meta name=keywords content="数组,父子,树">
+<meta name=description content="场景介绍 输入：一组父子关系节点的数组，元素具有 ID，PID 字段，ID 为元素的唯一标识，PID 为父节点的 ID。 输出：树形结构的数据，根节点为 PID">
 <meta name=author content="Pone Ding">
 <link rel=canonical href=https://blog.poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/>
 <meta name=baidu-site-verification content="codeva-TIM45BA2zX">
@@ -25,18 +25,18 @@
 <style>#theme-toggle,.top-link{display:none}</style>
 <style>@media(prefers-color-scheme:dark){:root{--theme:rgb(29, 30, 32);--entry:rgb(46, 46, 51);--primary:rgb(218, 218, 219);--secondary:rgb(155, 156, 157);--tertiary:rgb(65, 66, 68);--content:rgb(196, 196, 197);--hljs-bg:rgb(46, 46, 51);--code-bg:rgb(55, 56, 62);--border:rgb(51, 51, 51)}.list{background:var(--theme)}.list:not(.dark)::-webkit-scrollbar-track{background:0 0}.list:not(.dark)::-webkit-scrollbar-thumb{border-color:var(--theme)}}</style>
 </noscript>
-<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="数组递归构造具有父子层级关系的对象">
-<meta property="og:description" content="场景介绍 从数据库获取到了菜单列表数据，这些菜单数据通过字段 ParentID 表示父子层级关系，现在需要将菜单列表数据转成树状的实例对象。 数据库取出的初始数据">
+<script type=application/javascript>var doNotTrack=!1;doNotTrack||(function(a,e,f,g,b,c,d){a.GoogleAnalyticsObject=b,a[b]=a[b]||function(){(a[b].q=a[b].q||[]).push(arguments)},a[b].l=1*new Date,c=e.createElement(f),d=e.getElementsByTagName(f)[0],c.async=1,c.src=g,d.parentNode.insertBefore(c,d)}(window,document,'script','https://www.google-analytics.com/analytics.js','ga'),ga('create','UA-123-45','auto'),ga('send','pageview'))</script><meta property="og:title" content="Golang 父子节点数组转树结构">
+<meta property="og:description" content="场景介绍 输入：一组父子关系节点的数组，元素具有 ID，PID 字段，ID 为元素的唯一标识，PID 为父节点的 ID。 输出：树形结构的数据，根节点为 PID">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://blog.poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/"><meta property="og:image" content="https://blog.poneding.com/cover.png"><meta property="article:section" content="series">
 <meta property="article:published_time" content="2022-10-18T18:00:26+08:00">
 <meta property="article:modified_time" content="2022-11-21T10:09:54+00:00"><meta property="og:site_name" content="博客">
 <meta name=twitter:card content="summary_large_image">
 <meta name=twitter:image content="https://blog.poneding.com/cover.png">
-<meta name=twitter:title content="数组递归构造具有父子层级关系的对象">
-<meta name=twitter:description content="场景介绍 从数据库获取到了菜单列表数据，这些菜单数据通过字段 ParentID 表示父子层级关系，现在需要将菜单列表数据转成树状的实例对象。 数据库取出的初始数据">
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://blog.poneding.com/series/"},{"@type":"ListItem","position":2,"name":"Golang 编程","item":"https://blog.poneding.com/series/programming-go/"},{"@type":"ListItem","position":3,"name":"数组递归构造具有父子层级关系的对象","item":"https://blog.poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/"}]}</script>
-<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"数组递归构造具有父子层级关系的对象","name":"数组递归构造具有父子层级关系的对象","description":"场景介绍 从数据库获取到了菜单列表数据，这些菜单数据通过字段 ParentID 表示父子层级关系，现在需要将菜单列表数据转成树状的实例对象。 数据库取出的初始数据","keywords":["数组","递归","父子","树","层级关系"],"articleBody":"场景介绍 从数据库获取到了菜单列表数据，这些菜单数据通过字段 ParentID 表示父子层级关系，现在需要将菜单列表数据转成树状的实例对象。\n数据库取出的初始数据：\nraw := []Menu{ {Name: \"一级菜单 1\", ID: 1, PID: 0}, {Name: \"一级菜单 2\", ID: 2, PID: 0}, {Name: \"一级菜单 3\", ID: 3, PID: 0}, {Name: \"二级菜单 1-1\", ID: 11, PID: 1}, {Name: \"二级菜单 1-2\", ID: 12, PID: 1}, {Name: \"二级菜单 1-3\", ID: 13, PID: 1}, {Name: \"二级菜单 2-1\", ID: 21, PID: 2}, {Name: \"二级菜单 2-2\", ID: 22, PID: 2}, {Name: \"二级菜单 2-3\", ID: 23, PID: 2}, } 需要得到的目标数据：\n{ \"name\":\"根菜单\", \"id\":0, \"pid\":0, \"SubMenus\":[ { \"name\":\"一级菜单 1\", \"id\":1, \"pid\":0, \"SubMenus\":[ { \"name\":\"二级菜单 1-1\", \"id\":11, \"pid\":1 }, { \"name\":\"二级菜单 1-2\", \"id\":12, \"pid\":1 }, { \"name\":\"二级菜单 1-3\", \"id\":13, \"pid\":1 } ] }, { \"name\":\"一级菜单 2\", \"id\":2, \"pid\":0, \"SubMenus\":[ { \"name\":\"二级菜单 2-1\", \"id\":21, \"pid\":2 }, { \"name\":\"二级菜单 2-2\", \"id\":22, \"pid\":2 }, { \"name\":\"二级菜单 2-3\", \"id\":23, \"pid\":2 } ] }, { \"name\":\"一级菜单 3\", \"id\":3, \"pid\":0 } ] } 代码实现 package main import ( \"encoding/json\" \"fmt\" ) func main() { // 数据库里存储的菜单 \trawMenus := []Menu{ {Name: \"一级菜单 1\", ID: 1, PID: 0}, {Name: \"一级菜单 2\", ID: 2, PID: 0}, {Name: \"一级菜单 3\", ID: 3, PID: 0}, {Name: \"二级菜单 1-1\", ID: 11, PID: 1}, {Name: \"二级菜单 1-2\", ID: 12, PID: 1}, {Name: \"二级菜单 1-3\", ID: 13, PID: 1}, {Name: \"二级菜单 2-1\", ID: 21, PID: 2}, {Name: \"二级菜单 2-2\", ID: 22, PID: 2}, {Name: \"二级菜单 2-3\", ID: 23, PID: 2}, } menu := \u0026Menu{ Name: \"根菜单\", PID: 0, } for _, rm := range rawMenus { menu.setSubMenus(rm) } // 打印结果 \tb, _ := json.Marshal(menu) fmt.Println(string(b)) } type Menu struct { Name string `json:\"name\"` ID int `json:\"id\"` PID int `json:\"pid\"` SubMenus []Menu `json:\",omitempty\"` } func (m *Menu) setSubMenus(menu Menu) bool { if menu.PID == m.ID { m.SubMenus = append(m.SubMenus, menu) return true } for i := range m.SubMenus { if m.SubMenus[i].setSubMenus(menu) { return true } } return false } 注意事项 Golang for 遍历使用 for _, item := range slice 时，item 是一份遍历元素的复制，而使用 for i := range slice 时，slice[i] 则是遍历元素本身，使用时需要注意切片扩容带来的地址变化问题。\n可以参考这篇来理解：👉🏻Golang 切片扩容\n","wordCount":"879","inLanguage":"zh","datePublished":"2022-10-18T18:00:26+08:00","dateModified":"2022-11-21T10:09:54.522Z","author":[{"@type":"Person","name":"Pone Ding"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://blog.poneding.com/images/blog.png"}}}</script>
+<meta name=twitter:title content="Golang 父子节点数组转树结构">
+<meta name=twitter:description content="场景介绍 输入：一组父子关系节点的数组，元素具有 ID，PID 字段，ID 为元素的唯一标识，PID 为父节点的 ID。 输出：树形结构的数据，根节点为 PID">
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"系列","item":"https://blog.poneding.com/series/"},{"@type":"ListItem","position":2,"name":"Golang 编程","item":"https://blog.poneding.com/series/programming-go/"},{"@type":"ListItem","position":3,"name":"Golang 父子节点数组转树结构","item":"https://blog.poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/"}]}</script>
+<script type=application/ld+json>{"@context":"https://schema.org","@type":"BlogPosting","headline":"Golang 父子节点数组转树结构","name":"Golang 父子节点数组转树结构","description":"场景介绍 输入：一组父子关系节点的数组，元素具有 ID，PID 字段，ID 为元素的唯一标识，PID 为父节点的 ID。 输出：树形结构的数据，根节点为 PID","keywords":["数组","父子","树"],"articleBody":"场景介绍 输入：一组父子关系节点的数组，元素具有 ID，PID 字段，ID 为元素的唯一标识，PID 为父节点的 ID。\n输出：树形结构的数据，根节点为 PID 为 0 的节点，子节点为 PID 为父节点 ID 的节点。\n代码实现 package main import ( \"encoding/json\" \"fmt\" ) type Node struct { ID int PID int Children []*Node } func main() { var nodes = []*Node{ {ID: 1, PID: 0}, {ID: 2, PID: 1}, {ID: 3, PID: 1}, {ID: 4, PID: 2}, {ID: 5, PID: 2}, {ID: 6, PID: 3}, } tree := buildTree(nodes) b, err := json.Marshal(tree) if err != nil { panic(err) } fmt.Println(string(b)) } func buildTree(nodes []*Node) *Node { if len(nodes) == 0 { return nil } nodeMap := make(map[int]*Node) for _, node := range nodes { nodeMap[node.ID] = node } var root *Node for _, node := range nodes { if node.PID == 0 { root = node } else { parent, ok := nodeMap[node.PID] if !ok { continue } parent.Children = append(parent.Children, node) } } return root } ","wordCount":"226","inLanguage":"zh","datePublished":"2022-10-18T18:00:26+08:00","dateModified":"2022-11-21T10:09:54.522Z","author":[{"@type":"Person","name":"Pone Ding"}],"mainEntityOfPage":{"@type":"WebPage","@id":"https://blog.poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/"},"publisher":{"@type":"Organization","name":"博客 · 丁鹏","logo":{"@type":"ImageObject","url":"https://blog.poneding.com/images/blog.png"}}}</script>
 </head>
 <body id=top>
 <script>localStorage.getItem("pref-theme")==="dark"?document.body.classList.add('dark'):localStorage.getItem("pref-theme")==="light"?document.body.classList.remove('dark'):window.matchMedia('(prefers-color-scheme: dark)').matches&&document.body.classList.add('dark')</script>
@@ -103,11 +103,11 @@
 <div class=post-left-article>
 <header class=post-header>
 <div class=breadcrumbs><p>
-<span><a href=/><i class="fi fi-home"></i>&nbsp;主页</a></span><span><i class="fi fi-angle-right"></i><a href=https://blog.poneding.com/series/>系列</a></span><span><i class="fi fi-angle-right"></i><a href=https://blog.poneding.com/series/programming-go/>Golang 编程</a></span><i class="fi fi-angle-right"></i><span>数组递归构造具有父子层级关系的对象</span>
+<span><a href=/><i class="fi fi-home"></i>&nbsp;主页</a></span><span><i class="fi fi-angle-right"></i><a href=https://blog.poneding.com/series/>系列</a></span><span><i class="fi fi-angle-right"></i><a href=https://blog.poneding.com/series/programming-go/>Golang 编程</a></span><i class="fi fi-angle-right"></i><span>Golang 父子节点数组转树结构</span>
 </p>
 </div>
 <h1 id=post-title class=post-title>
-数组递归构造具有父子层级关系的对象
+Golang 父子节点数组转树结构
 </h1>
 <div class=post-meta><span class=meta-item>
 <span>
@@ -115,7 +115,7 @@
 </span>
 </span><span class=meta-item>
 <span>
-&nbsp;·&nbsp;<i class="fi fi-word"></i>879 字</span>
+&nbsp;·&nbsp;<i class="fi fi-word"></i>226 字</span>
 </span><span class=meta-item>
 &nbsp;·&nbsp;<i class="fi fi-eye"></i>&nbsp;<span id=busuanzi_value_page_pv></span>
 </span>&nbsp;|&nbsp;<a href=https://github.com/poneding/blog/edit/master/content/series/programming-go/%e6%95%b0%e7%bb%84%e9%80%92%e5%bd%92%e6%9e%84%e9%80%a0%e5%85%b7%e6%9c%89%e7%88%b6%e5%ad%90%e5%b1%82%e7%ba%a7%e5%85%b3%e7%b3%bb%e7%9a%84%e5%af%b9%e8%b1%a1.md rel="noopener noreferrer" target=_blank>
@@ -123,77 +123,9 @@
 </div>
 </header>
 <div class=post-content><h2 id=场景介绍>场景介绍<a hidden class=anchor aria-hidden=true href=#场景介绍>#</a></h2>
-<p>从数据库获取到了菜单列表数据，这些菜单数据通过字段 ParentID 表示父子层级关系，现在需要将菜单列表数据转成树状的实例对象。</p>
-<p>数据库取出的初始数据：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=nx>raw</span> <span class=o>:=</span> <span class=p>[]</span><span class=nx>Menu</span><span class=p>{</span>
-	<span class=p>{</span><span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;一级菜单 1&#34;</span><span class=p>,</span> <span class=nx>ID</span><span class=p>:</span> <span class=mi>1</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>0</span><span class=p>},</span>
-	<span class=p>{</span><span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;一级菜单 2&#34;</span><span class=p>,</span> <span class=nx>ID</span><span class=p>:</span> <span class=mi>2</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>0</span><span class=p>},</span>
-	<span class=p>{</span><span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;一级菜单 3&#34;</span><span class=p>,</span> <span class=nx>ID</span><span class=p>:</span> <span class=mi>3</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>0</span><span class=p>},</span>
-	<span class=p>{</span><span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;二级菜单 1-1&#34;</span><span class=p>,</span> <span class=nx>ID</span><span class=p>:</span> <span class=mi>11</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>1</span><span class=p>},</span>
-	<span class=p>{</span><span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;二级菜单 1-2&#34;</span><span class=p>,</span> <span class=nx>ID</span><span class=p>:</span> <span class=mi>12</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>1</span><span class=p>},</span>
-	<span class=p>{</span><span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;二级菜单 1-3&#34;</span><span class=p>,</span> <span class=nx>ID</span><span class=p>:</span> <span class=mi>13</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>1</span><span class=p>},</span>
-	<span class=p>{</span><span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;二级菜单 2-1&#34;</span><span class=p>,</span> <span class=nx>ID</span><span class=p>:</span> <span class=mi>21</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>2</span><span class=p>},</span>
-	<span class=p>{</span><span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;二级菜单 2-2&#34;</span><span class=p>,</span> <span class=nx>ID</span><span class=p>:</span> <span class=mi>22</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>2</span><span class=p>},</span>
-	<span class=p>{</span><span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;二级菜单 2-3&#34;</span><span class=p>,</span> <span class=nx>ID</span><span class=p>:</span> <span class=mi>23</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>2</span><span class=p>},</span>
-<span class=p>}</span>
-</code></pre></div><p>需要得到的目标数据：</p>
-<div class=highlight><pre tabindex=0 class=chroma><code class=language-json data-lang=json><span class=p>{</span>
-    <span class=nt>&#34;name&#34;</span><span class=p>:</span><span class=s2>&#34;根菜单&#34;</span><span class=p>,</span>
-    <span class=nt>&#34;id&#34;</span><span class=p>:</span><span class=mi>0</span><span class=p>,</span>
-    <span class=nt>&#34;pid&#34;</span><span class=p>:</span><span class=mi>0</span><span class=p>,</span>
-    <span class=nt>&#34;SubMenus&#34;</span><span class=p>:[</span>
-        <span class=p>{</span>
-            <span class=nt>&#34;name&#34;</span><span class=p>:</span><span class=s2>&#34;一级菜单 1&#34;</span><span class=p>,</span>
-            <span class=nt>&#34;id&#34;</span><span class=p>:</span><span class=mi>1</span><span class=p>,</span>
-            <span class=nt>&#34;pid&#34;</span><span class=p>:</span><span class=mi>0</span><span class=p>,</span>
-            <span class=nt>&#34;SubMenus&#34;</span><span class=p>:[</span>
-                <span class=p>{</span>
-                    <span class=nt>&#34;name&#34;</span><span class=p>:</span><span class=s2>&#34;二级菜单 1-1&#34;</span><span class=p>,</span>
-                    <span class=nt>&#34;id&#34;</span><span class=p>:</span><span class=mi>11</span><span class=p>,</span>
-                    <span class=nt>&#34;pid&#34;</span><span class=p>:</span><span class=mi>1</span>
-                <span class=p>},</span>
-                <span class=p>{</span>
-                    <span class=nt>&#34;name&#34;</span><span class=p>:</span><span class=s2>&#34;二级菜单 1-2&#34;</span><span class=p>,</span>
-                    <span class=nt>&#34;id&#34;</span><span class=p>:</span><span class=mi>12</span><span class=p>,</span>
-                    <span class=nt>&#34;pid&#34;</span><span class=p>:</span><span class=mi>1</span>
-                <span class=p>},</span>
-                <span class=p>{</span>
-                    <span class=nt>&#34;name&#34;</span><span class=p>:</span><span class=s2>&#34;二级菜单 1-3&#34;</span><span class=p>,</span>
-                    <span class=nt>&#34;id&#34;</span><span class=p>:</span><span class=mi>13</span><span class=p>,</span>
-                    <span class=nt>&#34;pid&#34;</span><span class=p>:</span><span class=mi>1</span>
-                <span class=p>}</span>
-            <span class=p>]</span>
-        <span class=p>},</span>
-        <span class=p>{</span>
-            <span class=nt>&#34;name&#34;</span><span class=p>:</span><span class=s2>&#34;一级菜单 2&#34;</span><span class=p>,</span>
-            <span class=nt>&#34;id&#34;</span><span class=p>:</span><span class=mi>2</span><span class=p>,</span>
-            <span class=nt>&#34;pid&#34;</span><span class=p>:</span><span class=mi>0</span><span class=p>,</span>
-            <span class=nt>&#34;SubMenus&#34;</span><span class=p>:[</span>
-                <span class=p>{</span>
-                    <span class=nt>&#34;name&#34;</span><span class=p>:</span><span class=s2>&#34;二级菜单 2-1&#34;</span><span class=p>,</span>
-                    <span class=nt>&#34;id&#34;</span><span class=p>:</span><span class=mi>21</span><span class=p>,</span>
-                    <span class=nt>&#34;pid&#34;</span><span class=p>:</span><span class=mi>2</span>
-                <span class=p>},</span>
-                <span class=p>{</span>
-                    <span class=nt>&#34;name&#34;</span><span class=p>:</span><span class=s2>&#34;二级菜单 2-2&#34;</span><span class=p>,</span>
-                    <span class=nt>&#34;id&#34;</span><span class=p>:</span><span class=mi>22</span><span class=p>,</span>
-                    <span class=nt>&#34;pid&#34;</span><span class=p>:</span><span class=mi>2</span>
-                <span class=p>},</span>
-                <span class=p>{</span>
-                    <span class=nt>&#34;name&#34;</span><span class=p>:</span><span class=s2>&#34;二级菜单 2-3&#34;</span><span class=p>,</span>
-                    <span class=nt>&#34;id&#34;</span><span class=p>:</span><span class=mi>23</span><span class=p>,</span>
-                    <span class=nt>&#34;pid&#34;</span><span class=p>:</span><span class=mi>2</span>
-                <span class=p>}</span>
-            <span class=p>]</span>
-        <span class=p>},</span>
-        <span class=p>{</span>
-            <span class=nt>&#34;name&#34;</span><span class=p>:</span><span class=s2>&#34;一级菜单 3&#34;</span><span class=p>,</span>
-            <span class=nt>&#34;id&#34;</span><span class=p>:</span><span class=mi>3</span><span class=p>,</span>
-            <span class=nt>&#34;pid&#34;</span><span class=p>:</span><span class=mi>0</span>
-        <span class=p>}</span>
-    <span class=p>]</span>
-<span class=p>}</span>
-</code></pre></div><h2 id=代码实现>代码实现<a hidden class=anchor aria-hidden=true href=#代码实现>#</a></h2>
+<p>输入：一组父子关系节点的数组，元素具有 ID，PID 字段，ID 为元素的唯一标识，PID 为父节点的 ID。</p>
+<p>输出：树形结构的数据，根节点为 PID 为 0 的节点，子节点为 PID 为父节点 ID 的节点。</p>
+<h2 id=代码实现>代码实现<a hidden class=anchor aria-hidden=true href=#代码实现>#</a></h2>
 <div class=highlight><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=kn>package</span> <span class=nx>main</span>
 
 <span class=kn>import</span> <span class=p>(</span>
@@ -201,55 +133,57 @@
 	<span class=s>&#34;fmt&#34;</span>
 <span class=p>)</span>
 
+<span class=kd>type</span> <span class=nx>Node</span> <span class=kd>struct</span> <span class=p>{</span>
+	<span class=nx>ID</span>       <span class=kt>int</span>
+	<span class=nx>PID</span>      <span class=kt>int</span>
+	<span class=nx>Children</span> <span class=p>[]</span><span class=o>*</span><span class=nx>Node</span>
+<span class=p>}</span>
+
 <span class=kd>func</span> <span class=nf>main</span><span class=p>()</span> <span class=p>{</span>
-	<span class=c1>// 数据库里存储的菜单
-</span><span class=c1></span>	<span class=nx>rawMenus</span> <span class=o>:=</span> <span class=p>[]</span><span class=nx>Menu</span><span class=p>{</span>
-		<span class=p>{</span><span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;一级菜单 1&#34;</span><span class=p>,</span> <span class=nx>ID</span><span class=p>:</span> <span class=mi>1</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>0</span><span class=p>},</span>
-		<span class=p>{</span><span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;一级菜单 2&#34;</span><span class=p>,</span> <span class=nx>ID</span><span class=p>:</span> <span class=mi>2</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>0</span><span class=p>},</span>
-		<span class=p>{</span><span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;一级菜单 3&#34;</span><span class=p>,</span> <span class=nx>ID</span><span class=p>:</span> <span class=mi>3</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>0</span><span class=p>},</span>
-		<span class=p>{</span><span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;二级菜单 1-1&#34;</span><span class=p>,</span> <span class=nx>ID</span><span class=p>:</span> <span class=mi>11</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>1</span><span class=p>},</span>
-		<span class=p>{</span><span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;二级菜单 1-2&#34;</span><span class=p>,</span> <span class=nx>ID</span><span class=p>:</span> <span class=mi>12</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>1</span><span class=p>},</span>
-		<span class=p>{</span><span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;二级菜单 1-3&#34;</span><span class=p>,</span> <span class=nx>ID</span><span class=p>:</span> <span class=mi>13</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>1</span><span class=p>},</span>
-		<span class=p>{</span><span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;二级菜单 2-1&#34;</span><span class=p>,</span> <span class=nx>ID</span><span class=p>:</span> <span class=mi>21</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>2</span><span class=p>},</span>
-		<span class=p>{</span><span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;二级菜单 2-2&#34;</span><span class=p>,</span> <span class=nx>ID</span><span class=p>:</span> <span class=mi>22</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>2</span><span class=p>},</span>
-		<span class=p>{</span><span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;二级菜单 2-3&#34;</span><span class=p>,</span> <span class=nx>ID</span><span class=p>:</span> <span class=mi>23</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>2</span><span class=p>},</span>
-	<span class=p>}</span>
-	<span class=nx>menu</span> <span class=o>:=</span> <span class=o>&amp;</span><span class=nx>Menu</span><span class=p>{</span>
-		<span class=nx>Name</span><span class=p>:</span> <span class=s>&#34;根菜单&#34;</span><span class=p>,</span>
-		<span class=nx>PID</span><span class=p>:</span>  <span class=mi>0</span><span class=p>,</span>
+	<span class=kd>var</span> <span class=nx>nodes</span> <span class=p>=</span> <span class=p>[]</span><span class=o>*</span><span class=nx>Node</span><span class=p>{</span>
+		<span class=p>{</span><span class=nx>ID</span><span class=p>:</span> <span class=mi>1</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>0</span><span class=p>},</span>
+		<span class=p>{</span><span class=nx>ID</span><span class=p>:</span> <span class=mi>2</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>1</span><span class=p>},</span>
+		<span class=p>{</span><span class=nx>ID</span><span class=p>:</span> <span class=mi>3</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>1</span><span class=p>},</span>
+		<span class=p>{</span><span class=nx>ID</span><span class=p>:</span> <span class=mi>4</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>2</span><span class=p>},</span>
+		<span class=p>{</span><span class=nx>ID</span><span class=p>:</span> <span class=mi>5</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>2</span><span class=p>},</span>
+		<span class=p>{</span><span class=nx>ID</span><span class=p>:</span> <span class=mi>6</span><span class=p>,</span> <span class=nx>PID</span><span class=p>:</span> <span class=mi>3</span><span class=p>},</span>
 	<span class=p>}</span>
 
-	<span class=k>for</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>rm</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>rawMenus</span> <span class=p>{</span>
-		<span class=nx>menu</span><span class=p>.</span><span class=nf>setSubMenus</span><span class=p>(</span><span class=nx>rm</span><span class=p>)</span>
-	<span class=p>}</span>
+	<span class=nx>tree</span> <span class=o>:=</span> <span class=nf>buildTree</span><span class=p>(</span><span class=nx>nodes</span><span class=p>)</span>
 
-	<span class=c1>// 打印结果
-</span><span class=c1></span>	<span class=nx>b</span><span class=p>,</span> <span class=nx>_</span> <span class=o>:=</span> <span class=nx>json</span><span class=p>.</span><span class=nf>Marshal</span><span class=p>(</span><span class=nx>menu</span><span class=p>)</span>
+	<span class=nx>b</span><span class=p>,</span> <span class=nx>err</span> <span class=o>:=</span> <span class=nx>json</span><span class=p>.</span><span class=nf>Marshal</span><span class=p>(</span><span class=nx>tree</span><span class=p>)</span>
+	<span class=k>if</span> <span class=nx>err</span> <span class=o>!=</span> <span class=kc>nil</span> <span class=p>{</span>
+		<span class=nb>panic</span><span class=p>(</span><span class=nx>err</span><span class=p>)</span>
+	<span class=p>}</span>
 	<span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=nb>string</span><span class=p>(</span><span class=nx>b</span><span class=p>))</span>
 <span class=p>}</span>
 
-<span class=kd>type</span> <span class=nx>Menu</span> <span class=kd>struct</span> <span class=p>{</span>
-	<span class=nx>Name</span>     <span class=kt>string</span> <span class=s>`json:&#34;name&#34;`</span>
-	<span class=nx>ID</span>       <span class=kt>int</span>    <span class=s>`json:&#34;id&#34;`</span>
-	<span class=nx>PID</span>      <span class=kt>int</span>    <span class=s>`json:&#34;pid&#34;`</span>
-	<span class=nx>SubMenus</span> <span class=p>[]</span><span class=nx>Menu</span> <span class=s>`json:&#34;,omitempty&#34;`</span>
-<span class=p>}</span>
-
-<span class=kd>func</span> <span class=p>(</span><span class=nx>m</span> <span class=o>*</span><span class=nx>Menu</span><span class=p>)</span> <span class=nf>setSubMenus</span><span class=p>(</span><span class=nx>menu</span> <span class=nx>Menu</span><span class=p>)</span> <span class=kt>bool</span> <span class=p>{</span>
-	<span class=k>if</span> <span class=nx>menu</span><span class=p>.</span><span class=nx>PID</span> <span class=o>==</span> <span class=nx>m</span><span class=p>.</span><span class=nx>ID</span> <span class=p>{</span>
-		<span class=nx>m</span><span class=p>.</span><span class=nx>SubMenus</span> <span class=p>=</span> <span class=nb>append</span><span class=p>(</span><span class=nx>m</span><span class=p>.</span><span class=nx>SubMenus</span><span class=p>,</span> <span class=nx>menu</span><span class=p>)</span>
-		<span class=k>return</span> <span class=kc>true</span>
+<span class=kd>func</span> <span class=nf>buildTree</span><span class=p>(</span><span class=nx>nodes</span> <span class=p>[]</span><span class=o>*</span><span class=nx>Node</span><span class=p>)</span> <span class=o>*</span><span class=nx>Node</span> <span class=p>{</span>
+	<span class=k>if</span> <span class=nb>len</span><span class=p>(</span><span class=nx>nodes</span><span class=p>)</span> <span class=o>==</span> <span class=mi>0</span> <span class=p>{</span>
+		<span class=k>return</span> <span class=kc>nil</span>
 	<span class=p>}</span>
-	<span class=k>for</span> <span class=nx>i</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>m</span><span class=p>.</span><span class=nx>SubMenus</span> <span class=p>{</span>
-		<span class=k>if</span> <span class=nx>m</span><span class=p>.</span><span class=nx>SubMenus</span><span class=p>[</span><span class=nx>i</span><span class=p>].</span><span class=nf>setSubMenus</span><span class=p>(</span><span class=nx>menu</span><span class=p>)</span> <span class=p>{</span>
-			<span class=k>return</span> <span class=kc>true</span>
+
+	<span class=nx>nodeMap</span> <span class=o>:=</span> <span class=nb>make</span><span class=p>(</span><span class=kd>map</span><span class=p>[</span><span class=kt>int</span><span class=p>]</span><span class=o>*</span><span class=nx>Node</span><span class=p>)</span>
+	<span class=k>for</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>node</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>nodes</span> <span class=p>{</span>
+		<span class=nx>nodeMap</span><span class=p>[</span><span class=nx>node</span><span class=p>.</span><span class=nx>ID</span><span class=p>]</span> <span class=p>=</span> <span class=nx>node</span>
+	<span class=p>}</span>
+
+	<span class=kd>var</span> <span class=nx>root</span> <span class=o>*</span><span class=nx>Node</span>
+	<span class=k>for</span> <span class=nx>_</span><span class=p>,</span> <span class=nx>node</span> <span class=o>:=</span> <span class=k>range</span> <span class=nx>nodes</span> <span class=p>{</span>
+		<span class=k>if</span> <span class=nx>node</span><span class=p>.</span><span class=nx>PID</span> <span class=o>==</span> <span class=mi>0</span> <span class=p>{</span>
+			<span class=nx>root</span> <span class=p>=</span> <span class=nx>node</span>
+		<span class=p>}</span> <span class=k>else</span> <span class=p>{</span>
+			<span class=nx>parent</span><span class=p>,</span> <span class=nx>ok</span> <span class=o>:=</span> <span class=nx>nodeMap</span><span class=p>[</span><span class=nx>node</span><span class=p>.</span><span class=nx>PID</span><span class=p>]</span>
+			<span class=k>if</span> <span class=p>!</span><span class=nx>ok</span> <span class=p>{</span>
+				<span class=k>continue</span>
+			<span class=p>}</span>
+			<span class=nx>parent</span><span class=p>.</span><span class=nx>Children</span> <span class=p>=</span> <span class=nb>append</span><span class=p>(</span><span class=nx>parent</span><span class=p>.</span><span class=nx>Children</span><span class=p>,</span> <span class=nx>node</span><span class=p>)</span>
 		<span class=p>}</span>
 	<span class=p>}</span>
-	<span class=k>return</span> <span class=kc>false</span>
+
+	<span class=k>return</span> <span class=nx>root</span>
 <span class=p>}</span>
-</code></pre></div><h2 id=注意事项>注意事项<a hidden class=anchor aria-hidden=true href=#注意事项>#</a></h2>
-<p>Golang for 遍历使用 <code>for _, item := range slice</code> 时，<code>item</code> 是一份遍历元素的复制，而使用 <code>for i := range slice</code> 时，<code>slice[i]</code> 则是遍历元素本身，使用时需要注意切片扩容带来的地址变化问题。</p>
-<p>可以参考这篇来理解：👉🏻<a href=../slice-append>Golang 切片扩容</a></p>
+</code></pre></div>
 </div>
 <footer class=post-footer>
 <ul class=post-tags>
@@ -274,9 +208,7 @@
 <li>
 <a href=#%e5%9c%ba%e6%99%af%e4%bb%8b%e7%bb%8d aria-label=场景介绍>场景介绍</a></li>
 <li>
-<a href=#%e4%bb%a3%e7%a0%81%e5%ae%9e%e7%8e%b0 aria-label=代码实现>代码实现</a></li>
-<li>
-<a href=#%e6%b3%a8%e6%84%8f%e4%ba%8b%e9%a1%b9 aria-label=注意事项>注意事项</a>
+<a href=#%e4%bb%a3%e7%a0%81%e5%ae%9e%e7%8e%b0 aria-label=代码实现>代码实现</a>
 </li>
 </ul>
 </div>
@@ -291,7 +223,7 @@
 <footer class=footer>
 <p>
 <span>
-<i class="fi fi-copyright"></i>2023
+<i class="fi fi-copyright"></i>2024
 <a href=https://blog.poneding.com/>博客 · 丁鹏</a>
 </span>
 &nbsp;|&nbsp;

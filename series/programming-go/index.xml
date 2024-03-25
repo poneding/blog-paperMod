@@ -30,12 +30,12 @@
     </item>
     
     <item>
-      <title>数组递归构造具有父子层级关系的对象</title>
+      <title>Golang 父子节点数组转树结构</title>
       <link>https://blog.poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/</link>
       <pubDate>Tue, 18 Oct 2022 18:00:26 +0800</pubDate>
       
       <guid>https://blog.poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/</guid>
-      <description>场景介绍 从数据库获取到了菜单列表数据，这些菜单数据通过字段 ParentID 表示父子层级关系，现在需要将菜单列表数据转成树状的实例对象。 数据库取出的初始数据</description>
+      <description>场景介绍 输入：一组父子关系节点的数组，元素具有 ID，PID 字段，ID 为元素的唯一标识，PID 为父节点的 ID。 输出：树形结构的数据，根节点为 PID</description>
     </item>
     
     <item>

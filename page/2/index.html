@@ -241,47 +241,73 @@
 <article class=post-entry>
 <div class=post-info>
 <header class=entry-header>
-<h2>ACME 工作原理
+<h2>HTTP 客户端调用 Kubernetes APIServer
 </h2>
 </header>
 <div class=entry-content>
-<p>转载自：https://baijiahao.baidu.com/s?id=1718543569967913534 不知道小伙伴们注意到没有，现...</p>
+<p>本篇介绍 HTTP 客户端调用 Kubernetes APIServer 的方法。 如何获取 Kubernetes api-server 地址 查看 api-server 的几种方式： # 1. 直接查看 kubeconfig 文件 $ cat ~/.kube/config apiVersion: v1 clusters: - cluster: server: https://192.168.58.2:8443 ... # 2. kubectl 查看集群信息 $ kubectl cluster-info Kubernetes control plane is running...</p>
 </div>
 <footer class=entry-footer><span class=meta-item>
 <span>
-<i class="fi fi-clock"></i>2022-11-21
+<i class="fi fi-clock"></i>2023-05-04
 </span>
 </span><span class=meta-item>
 <span>
-&nbsp;·&nbsp;<i class="fi fi-word"></i>2629 字</span>
+&nbsp;·&nbsp;<i class="fi fi-word"></i>1493 字</span>
 </span></footer>
 </div>
-<a class=entry-link aria-label="post link to ACME 工作原理" href=https://blog.poneding.com/posts/acme-%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86/></a>
+<figure class=entry-cover><img loading=lazy src=https://fs.poneding.com/images/202305041515191.png alt>
+</figure>
+<a class=entry-link aria-label="post link to HTTP 客户端调用 Kubernetes APIServer" href=https://blog.poneding.com/series/programming-kubernetes/http-client-call-kubernetes-apiserver/></a>
 </article>
 <article class=post-entry>
 <div class=post-info>
 <header class=entry-header>
-<h2>Golang 资源
+<h2>使用 Patch 策略更新 Kubernetes 资源对象
 </h2>
 </header>
 <div class=entry-content>
-<p>本页收集了一些 Golang 相关的资源，用作学习和参考，以及工作实践等。 Go 路线图 👉🏻 GOLANG ROADMAP 站点 👉🏻 Go 开发者路线图 Awesome Go 你可以在里面找到各种 Go 框架，库以及软件...</p>
+<p>什么是 Patch 策略 Kubernetes API Server 提供了三种 Patch 策略，分别是： strategic-merge：使用 strategic-merge patch 策略，这是默认的 Patch 策略。 参考 使用 kubectl patch 更新 API 对象 | Kubernetes JSON Patch mattbaird/jsonpatch</p>
 </div>
 <footer class=entry-footer><span class=meta-item>
 <span>
-<i class="fi fi-clock"></i>2022-11-16
+<i class="fi fi-clock"></i>2023-04-26
 </span>
 </span><span class=meta-item>
 <span>
-&nbsp;·&nbsp;<i class="fi fi-word"></i>78 字</span>
+&nbsp;·&nbsp;<i class="fi fi-word"></i>70 字</span>
 </span></footer>
 </div>
-<a class=entry-link aria-label="post link to Golang 资源" href=https://blog.poneding.com/series/programming-go/golang-%E8%B5%84%E6%BA%90/></a>
+<a class=entry-link aria-label="post link to 使用 Patch 策略更新 Kubernetes 资源对象" href=https://blog.poneding.com/series/programming-kubernetes/how-to-update-kubernetes-resource-object-with-patch-strategy/></a>
+</article>
+<article class=post-entry>
+<div class=post-info>
+<header class=entry-header>
+<h2>如何写一个 Admission Webhook
+</h2>
+</header>
+<div class=entry-content>
+<p>准入控制器（Admission Controllers） Admission Controllers 是 Kubernets API Server 中的一种插件机制，它可以在 API 资源对象创建、更新、删除的请求通过认证和鉴权之...</p>
+</div>
+<footer class=entry-footer><span class=meta-item>
+<span>
+<i class="fi fi-clock"></i>2023-04-26
+</span>
+</span><span class=meta-item>
+<span>
+&nbsp;·&nbsp;<i class="fi fi-word"></i>1583 字</span>
+</span></footer>
+</div>
+<figure class=entry-cover><img loading=lazy src=https://fs.poneding.com/images/202305041519080.png alt>
+</figure>
+<a class=entry-link aria-label="post link to 如何写一个 Admission Webhook" href=https://blog.poneding.com/series/programming-kubernetes/how-to-write-an-admission-webhook/></a>
 </article>
 <footer class=page-footer>
 <nav class=pagination>
 <a class=prev href=https://blog.poneding.com/>
-<i class="fi fi-backward"></i>&nbsp;1/2&nbsp;上一页
+<i class="fi fi-backward"></i>&nbsp;1/3&nbsp;上一页
+</a>
+<a class=next href=https://blog.poneding.com/page/3/>下一页&nbsp;3/3&nbsp;<i class="fi fi-forward"></i>
 </a>
 </nav>
 </footer>
@@ -290,7 +316,7 @@
 <footer class=footer>
 <p>
 <span>
-<i class="fi fi-copyright"></i>2023
+<i class="fi fi-copyright"></i>2024
 <a href=https://blog.poneding.com/>博客 · 丁鹏</a>
 </span>
 &nbsp;|&nbsp;

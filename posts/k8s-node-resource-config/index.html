@@ -123,7 +123,7 @@ K8s 集群规划之节点资源配置
 </div>
 </header>
 <div class=post-content><blockquote>
-<p>文章转载自：https://sataqiu.github.io/2019/09/09/architecting-kubernetes-clusters-choosing-a-worker-node-size</p>
+<p>文章转载自：<a href=https://sataqiu.github.io/2019/09/09/architecting-kubernetes-clusters-choosing-a-worker-node-size>https://sataqiu.github.io/2019/09/09/architecting-kubernetes-clusters-choosing-a-worker-node-size</a></p>
 </blockquote>
 <p>在部署 Kubernetes 集群时，您首先会想到的问题之一恐怕就是：“我应该选择何种资源配额的计算节点以及应该配置多少个这样的节点才能满足计算需求？”。到底是使用少量的高级服务器还是使用大量的低端服务器更划算，更能满足需求呢？本文将从多个维度阐述不同的资源配置方式各自的优缺点，并从实践角度出发给出进行集群规划的一般方法。</p>
 <h2 id=集群容量>集群容量<a hidden class=anchor aria-hidden=true href=#集群容量>#</a></h2>
@@ -134,9 +134,9 @@ K8s 集群规划之节点资源配置
 </blockquote>
 <p>以下是实现集群的两种可能方法：</p>
 <p>
-<input type=checkbox id=zoomCheck-33e14 hidden>
-<label for=zoomCheck-33e14>
-<img class=zoomCheck loading=lazy decoding=async src=https://pding.oss-cn-hangzhou.aliyuncs.com/images/cluster-design.svg alt=img>
+<input type=checkbox id=zoomCheck-18bdd hidden>
+<label for=zoomCheck-18bdd>
+<img class=zoomCheck loading=lazy decoding=async src=https://fs.poneding.com/images/cluster-design.svg alt=img>
 </label></p>
 <p>通过这两种方式构建的集群拥有相同的资源容量，但是一种是使用 4 个较小的节点，而另一种是使用 2 个较大的节点。</p>
 <p><strong>究竟哪种配置方式更好呢？</strong></p>
@@ -169,9 +169,9 @@ K8s 集群规划之节点资源配置
 <p>例如，kubelet 对节点上的每个容器执行周期性的 liveness 和 readiness 探测——更多容器意味着在每轮迭代中 kubelet 将执行更多工作。cAdvisor 收集节点上所有容器的资源使用统计信息，并且 kubelet 定期查询此信息并在其 API 上公开它——再次，这意味着每轮迭代中 cAdvisor 和 kubelet 的工作量都会增加。</p>
 <p>随着 Pod 数量的增长，这些问题的聚积可能会开始减慢系统速度，甚至使集群系统变得不可靠。</p>
 <p>
-<input type=checkbox id=zoomCheck-c4b96 hidden>
-<label for=zoomCheck-c4b96>
-<img class=zoomCheck loading=lazy decoding=async src=https://pding.oss-cn-hangzhou.aliyuncs.com/images/node-overload.svg alt=img>
+<input type=checkbox id=zoomCheck-ab19b hidden>
+<label for=zoomCheck-ab19b>
+<img class=zoomCheck loading=lazy decoding=async src=https://fs.poneding.com/images/node-overload.svg alt=img>
 </label></p>
 <p>有报告称，<a href=https://github.com/kubernetes/kubernetes/issues/45419>节点被报告为未就绪</a>，是因为周期性的的 kubelet 运行状况检查花费了太长时间来迭代节点上的所有容器。</p>
 <p>出于这些原因，Kubernetes 官方<a href=https://kubernetes.io/docs/setup/best-practices/cluster-large/>建议每个节点最多 110 个 Pod</a>。对于这个数字，Kubernetes 已经进行过相关测试，可以在一般类型的节点上可靠地工作。</p>
@@ -221,9 +221,9 @@ K8s 集群规划之节点资源配置
 <p>更多节点同时也意味着 etcd 数据库上的负载也更多——每个 kubelet 和 kube-proxy 都会成为一个 etcd 的 <a href=https://etcd.io/docs/v3.3.12/dev-guide/interacting_v3/#watch-key-changes>watcher</a> 客户端（通过 APIServer），etcd 必须广播对象变化到这些客户端。</p>
 <p>通常，每个工作节点都会对主节点上的系统组件施加一些开销。</p>
 <p>
-<input type=checkbox id=zoomCheck-8dafb hidden>
-<label for=zoomCheck-8dafb>
-<img class=zoomCheck loading=lazy decoding=async src=https://pding.oss-cn-hangzhou.aliyuncs.com/images/cluster-overload.svg alt=img>
+<input type=checkbox id=zoomCheck-0bccc hidden>
+<label for=zoomCheck-0bccc>
+<img class=zoomCheck loading=lazy decoding=async src=https://fs.poneding.com/images/cluster-overload.svg alt=img>
 </label></p>
 <p>据官方统计，Kubernetes 声称<a href=https://kubernetes.io/docs/setup/best-practices/cluster-large/>支持最多 5000 个节点的集群</a>。然而，在实践中，500 个节点可能已经形成了<a href=https://www.lfasiallc.com/wp-content/uploads/2017/11/BoF_-Not-One-Size-Fits-All-How-to-Size-Kubernetes-Clusters_Guang-Ya-Liu-_-Sahdev-Zala.pdf>巨大的挑战</a>。</p>
 <p>通过使用性能更高的主节点，往往可以减轻大量工作节点带来的影响。这也正是目前在实践中所应用的——这里是 <code>kube-up</code> 在云基础架构上使用的<a href=https://kubernetes.io/docs/setup/best-practices/cluster-large/#size-of-master-and-master-components>主节点大小</a>：</p>
@@ -289,7 +289,7 @@ K8s 集群规划之节点资源配置
 <nav class=paginav>
 <a class=prev href=https://blog.poneding.com/series/programming-go/%E6%95%B0%E7%BB%84%E9%80%92%E5%BD%92%E6%9E%84%E9%80%A0%E5%85%B7%E6%9C%89%E7%88%B6%E5%AD%90%E5%B1%82%E7%BA%A7%E5%85%B3%E7%B3%BB%E7%9A%84%E5%AF%B9%E8%B1%A1/>
 <strong class=title><i class="fi fi-backward"></i>&nbsp;上一页</strong>
-<br>数组递归构造具有父子层级关系的对象</a>
+<br>Golang 父子节点数组转树结构</a>
 <a class=next href=https://blog.poneding.com/posts/kubelet-recycle-policy/>
 <strong class=title>下一页&nbsp;<i class="fi fi-forward"></i></strong>
 <br>Kubelet 垃圾回收原理剖析</a>
@@ -364,7 +364,7 @@ K8s 集群规划之节点资源配置
 <footer class=footer>
 <p>
 <span>
-<i class="fi fi-copyright"></i>2023
+<i class="fi fi-copyright"></i>2024
 <a href=https://blog.poneding.com/>博客 · 丁鹏</a>
 </span>
 &nbsp;|&nbsp;
